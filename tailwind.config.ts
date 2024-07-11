@@ -13,8 +13,24 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+      
+        primary: "#f2be5c",
+      },
+    },
+    screens: {
+      lt: { max: "500px" },
+      sm: { max: "600px" },
+      sm1: { max: "840px" },
+      md: { max: "1100px" },
+      md1: { max: "850px" },
+      lg: { min: "2300px" },
+      xl: { max: "1280px" },
+      "2xl": { max: "1536px" },
     },
   },
   plugins: [],
 };
 export default config;
+
+

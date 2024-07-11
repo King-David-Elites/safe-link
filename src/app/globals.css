@@ -8,26 +8,56 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+/* .background-image {
+  background-image: url('/path/to/your/image.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  color: white;
+} */
+
+
+.modal-enter {
+  transform: translateX(100%);
+}
+.modal-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms;
+}
+.modal-exit {
+  transform: translateX(0);
+}
+.modal-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms;
 }

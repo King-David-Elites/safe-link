@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import Image from "next/image";
+import { Nav, NavLink } from "@/components/Nav";
+import Footer from "@/components/Footer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +20,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Nav>
+          <NavLink href={"/list"}>List With Us</NavLink>
+          <NavLink href={"/pricing"}>Pricing</NavLink>
+          {/* <NavLink href={"/null"}>Log In</NavLink> */}
+
+          {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
+        </Nav>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
