@@ -48,19 +48,22 @@ export function Nav({ children }: { children: ReactNode }) {
   }, [pathName]);
   return (
     <>
-      {pathName !== "/login" && pathName !== "/signup" && (
-        <div className="sm:flex hidden fixed top-0 left-0 z-50">
-          <button className="p-4  " onClick={openDrawer}>
-            <FaBars size={24} color="white" />
-          </button>
-          <Link
-            href={"/"}
-            className="w-full flex justify-center bg-transparent"
-          >
-            <Image width={280} height={64} alt="logo" src={"/logo.png"} />
-          </Link>
-        </div>
-      )}
+      {pathName !== "/login" &&
+        pathName !== "/signup" &&
+        pathName !== "/terms-and-conditions" &&
+        pathName !== "/profile" && (
+          <div className="sm:flex hidden fixed top-0 left-0 z-50">
+            <button className="p-4  " onClick={openDrawer}>
+              <FaBars size={24} color="white" />
+            </button>
+            <Link
+              href={"/"}
+              className="w-full flex justify-center bg-transparent"
+            >
+              <Image width={280} height={64} alt="logo" src={"/logo.png"} />
+            </Link>
+          </div>
+        )}
       <Drawer
         isOpen={isDrawerOpen}
         onClose={closeDrawer}
@@ -91,6 +94,12 @@ export function Nav({ children }: { children: ReactNode }) {
         </Link>
         <div className="flex flex-row items-center">
           {children}
+          <Link
+            href={"/profile"}
+            className="border hover:text-primary rounded-full bg-white hover:border-primary w-8 h-8 mr-4"
+          >
+            <image />
+          </Link>
           <button
             onClick={openLogInModal}
             className="border hover:text-primary border-primary rounded-[4px] py-3 px-6 mr-4"
