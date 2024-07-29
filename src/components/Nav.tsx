@@ -9,6 +9,7 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { FaBars } from "react-icons/fa";
 import Drawer from "./Drawer";
+import useModalStore from "@/store/useModalStore";
 
 const ServerLoginForm = dynamic(() => import("./LoginForm"), {
   ssr: false,
@@ -29,17 +30,18 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 
 export function Nav({ children }: { children: ReactNode }) {
   const pathName = usePathname();
-  const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const {
+    isLogInModalOpen,
+    isSignUpModalOpen,
+    isDrawerOpen,
+    openLogInModal,
+    closeLogInModal,
+    openSignUpModal,
+    closeSignUpModal,
+    openDrawer,
+    closeDrawer,
+  } = useModalStore();
 
-  const openLogInModal = () => setIsLogInModalOpen(true);
-  const closeLogInModal = () => setIsLogInModalOpen(false);
-  const openSignUpModal = () => setIsSignUpModalOpen(true);
-  const closeSignUpModal = () => setIsSignUpModalOpen(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const openDrawer = () => setIsDrawerOpen(true);
-  const closeDrawer = () => setIsDrawerOpen(false);
   // if (pathName === "/login") return <div></div>;
 
   useEffect(() => {
@@ -48,41 +50,21 @@ export function Nav({ children }: { children: ReactNode }) {
   }, [pathName]);
   return (
     <>
-      {pathName !== "/login" &&
-        pathName !== "/signup" &&
-        pathName !== "/terms-and-conditions" &&
-        pathName !== "/profile" && (
-          <div className="sm:flex hidden fixed top-0 left-0 z-50">
-            <button className="p-4  " onClick={openDrawer}>
-              <FaBars size={24} color="white" />
-            </button>
-            <Link
-              href={"/"}
-              className="w-full flex justify-center bg-transparent"
-            >
-              <Image width={280} height={64} alt="logo" src={"/logo.png"} />
-            </Link>
-          </div>
-        )}
-      <Drawer
-        isOpen={isDrawerOpen}
-        onClose={closeDrawer}
-        openLogInModal={openLogInModal}
-        openSignUpModal={openSignUpModal}
-      />
-      <Modal isOpen={isLogInModalOpen} onClose={closeLogInModal}>
-        <LoginForm
-          closeModal={closeLogInModal}
-          openSignUpModal={openSignUpModal}
-        />
-      </Modal>
-      <Modal isOpen={isSignUpModalOpen} onClose={closeSignUpModal}>
-        <SignupForm
-          closeModal={closeSignUpModal}
-          openLogInModal={openLogInModal}
-        />
-      </Modal>
-      <nav className="bg-black flex justify-between text-white sm:hidden h-16 items-center pl-6 pr-4">
+      {pathName === "/" && (
+        <div className="sm:flex hidden fixed top-0 left-0 z-50">
+          <button className="p-4  " onClick={openDrawer}>
+            <FaBars size={24} color="white" />
+          </button>
+          <Link
+            href={"/"}
+            className="w-full flex justify-center bg-transparent"
+          >
+            <Image width={280} height={64} alt="logo" src={"/logo.png"} />
+          </Link>
+        </div>
+      )}
+
+      <nav className="bg-black flex  justify-between text-white sm:hidden h-16 items-center pl-6 pr-4">
         <Link href={"/"}>
           <Image
             alt="logo"

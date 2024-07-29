@@ -6,7 +6,7 @@ import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white text-[12px]">
+    <footer className="bg-black text-white text-[12px] pt-4">
       <div className="container mx-auto sm:px-6 px-16 grid sm:grid-cols-1 grid-cols-4 gap-8">
         <div>
           <h2 className="font-bold text-lg mb-4">CREAMCARD</h2>
@@ -16,13 +16,13 @@ export default function Footer() {
           </p>
           <div className="flex space-x-4">
             <Link href="#">
-              <FaTwitter className="text-xl hover:text-gray-400" />
+              <FaTwitter className="text-xl hover:text-primary" />
             </Link>
             <Link href="#">
-              <FaLinkedin className="text-xl hover:text-gray-400" />
+              <FaLinkedin className="text-xl hover:text-primary" />
             </Link>
             <Link href="#">
-              <FaFacebook className="text-xl hover:text-gray-400" />
+              <FaFacebook className="text-xl hover:text-primary" />
             </Link>
           </div>
         </div>
@@ -30,12 +30,12 @@ export default function Footer() {
           <h2 className="font-bold text-lg mb-4">CATEGORIES</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 REAL ESTATE
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 CARS
               </Link>
             </li>
@@ -45,12 +45,12 @@ export default function Footer() {
           <h2 className="font-bold text-lg mb-4">BUSINESS</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 AFFILIATE MARKETING
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 LIST WITH US
               </Link>
             </li>
@@ -60,22 +60,22 @@ export default function Footer() {
           <h2 className="font-bold text-lg mb-4">ABOUT</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 TEAM
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 CONTACT US
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 PRIVACY POLICY
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-primary">
                 FAQs
               </Link>
             </li>

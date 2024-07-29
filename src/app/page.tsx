@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { IoSearch } from "react-icons/io5";
 
 export default function Home() {
@@ -23,9 +24,12 @@ export default function Home() {
                 className="bg-[#f2f4f8]  rounded-md  py-2 outline-none w-full"
               />
             </div>
-            <button className="bg-primary flex-1 w-full text-white mx-2 px-4 py-2 rounded-md">
+            <Link
+              href={"/listings"}
+              className="bg-primary flex-1 w-full text-white mx-2 px-4 py-2 rounded-md"
+            >
               Search
-            </button>
+            </Link>
           </div>
         </div>
       </div>

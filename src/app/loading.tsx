@@ -1,4 +1,14 @@
+import LoadingModal from "@/components/LoadingModal";
+import Modal from "@/components/Modal";
+//import { BeatLoader, BounceLoader, DotLoader } from "react-spinners";
+
 export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
-  return <div className="flex-1 justify-center items-center">loading</div>;
+  // Or a custom loading skeleton component
+  return (
+    <LoadingModal isOpen={true}>
+      <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    </LoadingModal>
+  );
 }

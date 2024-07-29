@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { MdCancel } from "react-icons/md";
+import ModalButton from "./ModalButton";
 
 async function createInvoice(formData: FormData) {
   const rawFormData = {
@@ -18,19 +19,14 @@ async function createInvoice(formData: FormData) {
   redirect("/");
 }
 
-export default function SignupForm({
-  closeModal,
-  openLogInModal,
-}: {
-  closeModal: () => void;
-  openLogInModal: () => void;
-}) {
+export default function SignupForm() {
+  console.log("asccx");
   return (
     <div className="text-black text-[12px]">
       <div className="flex-row w-full flex items-center">
-        <button onClick={closeModal}>
+        <ModalButton actionKey="close">
           <MdCancel size={28} />
-        </button>
+        </ModalButton>
         <div className="w-full flex justify-center text-[24px] font-[500]">
           CREAM CARD
         </div>
@@ -102,15 +98,7 @@ export default function SignupForm({
       </button>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
         <div className="text-[10px] font-medium">Already have an account?</div>
-        <button
-          onClick={() => {
-            closeModal();
-            openLogInModal();
-          }}
-          className="text-blue-500 text-[10px] font-medium"
-        >
-          Log in
-        </button>
+        <ModalButton actionKey="openSignUp">Sign up</ModalButton>
       </div>
     </div>
   );

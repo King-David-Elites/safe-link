@@ -5,6 +5,10 @@ import "./globals.css";
 import Image from "next/image";
 import { Nav, NavLink } from "@/components/Nav";
 import Footer from "@/components/Footer";
+import Drawer from "@/components/Drawer";
+import LoginForm from "@/components/LoginForm";
+import SignupForm from "@/components/SignupForm";
+import Modal from "@/components/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +26,19 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Nav>
-          <NavLink href={"/list"}>List With Us</NavLink>
+          <NavLink href={"/create-listing"}>List With Us</NavLink>
           <NavLink href={"/pricing"}>Pricing</NavLink>
+
           {/* <NavLink href={"/null"}>Log In</NavLink> */}
 
           {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
         </Nav>
         {children}
+        <Drawer />
+        <Modal>
+          <LoginForm />
+        </Modal>
+        {/* <SignupForm/> */}
         <Footer />
       </body>
     </html>

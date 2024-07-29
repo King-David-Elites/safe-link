@@ -1,36 +1,20 @@
-// components/ServerLoginForm.js
+"use server";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { MdCancel } from "react-icons/md";
+import ModalButton from "./ModalButton";
+import { logIn } from "@/actions/authActions";
 
-async function createInvoice(formData: FormData) {
-  const rawFormData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-  console.log("form data", rawFormData);
-
-  // Handle form submission logic here
-
-  // After successful login, redirect
-  redirect("/");
-}
-
-export default function LoginForm({
-  closeModal,
-  openSignUpModal,
-}: {
-  closeModal: () => void;
-  openSignUpModal: () => void;
-}) {
+export default async function LoginForm() {
+  //console.log("asddff");
   return (
     <div className="text-black text-[12px]">
       <div className="flex-row w-full flex items-center">
-        <button onClick={closeModal}>
+        <ModalButton actionKey="close">
           <MdCancel size={28} />
-        </button>
+        </ModalButton>
         <div className="w-full flex justify-center text-[24px] font-[500]">
           CREAM CARD
         </div>
@@ -39,7 +23,7 @@ export default function LoginForm({
         <div>Welcome</div>
       </div>
       <form
-        action={createInvoice}
+        action={logIn}
         method="post"
         className="flex flex-col w-full text-black  space-y-4"
       >
@@ -83,15 +67,8 @@ export default function LoginForm({
       </button>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
         <div className="text-[10px] font-medium">Don't have an account?</div>
-        <button
-          onClick={() => {
-            closeModal();
-            openSignUpModal();
-          }}
-          className="text-blue-500 text-[10px] font-medium"
-        >
-          Sign up
-        </button>
+
+        <ModalButton actionKey="openSignUp">Sign up</ModalButton>
       </div>
     </div>
   );

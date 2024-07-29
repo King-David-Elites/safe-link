@@ -1,13 +1,24 @@
+"use client";
 // components/Modal.js
+import useModalStore from "@/store/useModalStore";
 import { ReactNode } from "react";
 
 type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
   children: ReactNode;
 };
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
+export default function Modal({ children }: ModalProps) {
+  const {
+    closeLogInModal,
+    closeSignUpModal,
+    isLogInModalOpen,
+    isSignUpModalOpen,
+  } = useModalStore();
+  const isOpen = isLogInModalOpen || isSignUpModalOpen;
+  const onClose = () => {
+    closeLogInModal();
+    closeSignUpModal();
+  };
   return (
     <div
       className={`fixed inset-0 z-50 transition-transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}

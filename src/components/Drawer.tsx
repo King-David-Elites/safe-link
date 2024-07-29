@@ -1,3 +1,4 @@
+"use client";
 // components/Drawer.js
 
 import { useState } from "react";
@@ -12,17 +13,37 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { NavLink } from "./Nav";
+import useModalStore from "@/store/useModalStore";
 
-const Drawer = ({ isOpen, onClose, openLogInModal, openSignUpModal }) => {
+{
+  /* <Drawer
+        isOpen={isDrawerOpen}
+        onClose={closeDrawer}
+        openLogInModal={openLogInModal}
+        openSignUpModal={openSignUpModal}
+      />
+      <Modal isOpen={isLogInModalOpen} onClose={closeLogInModal}>
+        <LoginForm />
+      </Modal>
+      <Modal isOpen={isSignUpModalOpen} onClose={closeSignUpModal}>
+        <SignupForm
+          closeModal={closeSignUpModal}
+          openLogInModal={openLogInModal}
+        />
+      </Modal> */
+}
+
+const Drawer = () => {
+  const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
   return (
     <div
       className={`fixed inset-0 z-50 transition-transform transform  ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        isDrawerOpen ? "translate-x-0" : "-translate-x-full"
       } bg-white w-80 shadow-lg`}
     >
       <div className="p-4 flex justify-between items-center border-b">
         <span>Welcome!</span>
-        <button onClick={onClose}>
+        <button onClick={closeDrawer}>
           <MdClose size={28} />
         </button>
       </div>
@@ -33,7 +54,7 @@ const Drawer = ({ isOpen, onClose, openLogInModal, openSignUpModal }) => {
             <span>Home</span>
           </div>
         </NavLink>
-        <NavLink href="/list">
+        <NavLink href="/create-listing">
           <div className="flex-row flex items-center space-x-4">
             <FaList />
             <span>List With Us</span>
