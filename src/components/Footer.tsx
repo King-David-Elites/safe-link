@@ -82,9 +82,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="container mx-auto sm:px-6 px-16 mt-10 text-center border-t border-gray-700 pt-6">
+      <div className="container mx-auto sm:px-6 px-16 mt-10 text-center border-t border-gray-700 p-5">
         <p className="text-sm">
-          &copy; 2022 King David Elites. All rights reserved.
+          &copy; {new Date().getFullYear()} King David Elites. All rights reserved.
         </p>
       </div>
     </footer>

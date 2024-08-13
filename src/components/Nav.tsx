@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ComponentProps, ReactNode, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { usePathname } from "next/navigation";
@@ -29,6 +30,10 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 }
 
 export function Nav({ children }: { children: ReactNode }) {
+  const router = useRouter()
+  // Replca this with the actual user
+  const [user, setUser] = useState(false);
+
   const pathName = usePathname();
   const {
     isLogInModalOpen,
@@ -42,12 +47,14 @@ export function Nav({ children }: { children: ReactNode }) {
     closeDrawer,
   } = useModalStore();
 
+  
+
   // if (pathName === "/login") return <div></div>;
 
-  useEffect(() => {
-    console.log("is login modal open", isLogInModalOpen);
-    closeDrawer();
-  }, [pathName]);
+  // useEffect(() => {
+  //   console.log("is login modal open", isLogInModalOpen);
+  //   closeDrawer();
+  // }, [pathName]);
   return (
     <>
       {pathName === "/" && (
@@ -69,31 +76,40 @@ export function Nav({ children }: { children: ReactNode }) {
           <Image
             alt="logo"
             src={"/logo.png"}
-            className=""
+            className="object-cover"
             width={180}
-            height={64}
+            height={70}
           />
         </Link>
         <div className="flex flex-row items-center">
           {children}
-          <Link
-            href={"/profile"}
-            className="border hover:text-primary rounded-full bg-white hover:border-primary w-8 h-8 mr-4"
-          >
-            <image />
-          </Link>
-          <button
-            onClick={openLogInModal}
-            className="border hover:text-primary border-primary rounded-[4px] py-3 px-6 mr-4"
-          >
-            Log In
-          </button>
-          <button
-            onClick={openSignUpModal}
-            className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"
-          >
-            Sign Up
-          </button>
+          {user ? (
+            <Link
+              href={"/profile"}
+              className="border hover:text-primary rounded-full bg-white hover:border-primary w-8 h-8 mr-4"
+            >
+              {/* <image /> */}
+            </Link>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  router.push('/login')
+                }}
+                className="border hover:text-primary border-primary rounded-[4px] py-3 px-6 mr-4"
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => {
+                  router.push('/signup')
+                }}
+                className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
       </nav>
     </>

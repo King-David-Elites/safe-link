@@ -13,15 +13,17 @@ export default function Home() {
             backgroundSize: "cover",
           }}
         >
+          <div className="m-1">
           <img src="/logo.png" className="w-72 h-auto sm:hidden" />
           <img src="/icon.png" className="w-20 h-auto hidden sm:flex" />
-          <div className="text-white">Explore our directory of businesses</div>
+          </div>
+          <div className="text-white m-1">Explore our directory of businesses</div>
           <div className="bg-white w-[75%] sm:w-[90%] py-2 flex flex-row rounded-md m">
             <div className="flex flex-row items-center w-[85%] ml-2 rounded-md  px-2 bg-[#f2f4f8]">
               <IoSearch />
               <input
                 placeholder="Search by name or"
-                className="bg-[#f2f4f8]  rounded-md  py-2 outline-none w-full"
+                className="bg-[#f2f4f8]  rounded-md  p-2 outline-none w-full"
               />
             </div>
             <Link

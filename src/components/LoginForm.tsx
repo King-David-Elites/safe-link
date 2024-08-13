@@ -23,7 +23,7 @@ export default async function LoginForm() {
         <div>Welcome</div>
       </div>
       <form
-        action={logIn}
+        // action={logIn}
         method="post"
         className="flex flex-col w-full text-black  space-y-4"
       >

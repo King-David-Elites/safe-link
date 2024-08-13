@@ -7,6 +7,7 @@ import { MdCancel } from "react-icons/md";
 import ModalButton from "./ModalButton";
 
 async function createInvoice(formData: FormData) {
+  'use server'
   const rawFormData = {
     email: formData.get("email"),
     password: formData.get("password"),

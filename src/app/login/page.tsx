@@ -35,7 +35,7 @@ async function page() {
   //const data = await getData();
   //console.log("data", data);
   return (
-    <div className="flex flex-col items-center px-[10%] sm:px-[5%] min-h-screen ">
+    <div className="flex flex-col items-center sm:px-[2%] min-h-screen max-w-[760px] mx-auto">
       <div className="flex-row w-full flex items-center">
         {/* <Link href={"/"}>
           <MdCancel size={28} />
@@ -45,7 +45,7 @@ async function page() {
         </div>
       </div>
       <div>Welcome back</div>
-      <form className="flex flex-col w-[70%] mt-8 sm:w-[90%] space-y-4">
+      <form className="flex flex-col w-full mt-8 sm:w-full space-y-4">
         <div className="">
           <div>Email</div>
           <input
