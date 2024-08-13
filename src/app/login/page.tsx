@@ -35,7 +35,7 @@ async function page() {
   //const data = await getData();
   //console.log("data", data);
   return (
-    <div className="flex flex-col items-center sm:px-[2%] min-h-screen max-w-[760px] mx-auto">
+    <div className="flex flex-col items-center sm:px-[5%] min-h-screen max-w-[500px] mx-auto">
       <div className="flex-row w-full flex items-center">
         {/* <Link href={"/"}>
           <MdCancel size={28} />

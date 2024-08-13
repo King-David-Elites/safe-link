@@ -32,7 +32,7 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter()
   // Replca this with the actual user
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
 
   const pathName = usePathname();
   const {

@@ -1,8 +1,12 @@
+'use client'
+import { Showcase } from "@/components/Showcase";
 import Image from "next/image";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 import { IoSearch } from "react-icons/io5";
 
 export default function Home() {
+  const router = useRouter()
   return (
     <div className="flex flex-1 flex-col bg-white">
       <div className="h-[70vh] w-full mb-2">
@@ -22,6 +26,9 @@ export default function Home() {
             <div className="flex flex-row items-center w-[85%] ml-2 rounded-md  px-2 bg-[#f2f4f8]">
               <IoSearch />
               <input
+              onClick={() => {
+                router.push('/listings')
+              }}
                 placeholder="Search by name or"
                 className="bg-[#f2f4f8]  rounded-md  p-2 outline-none w-full"
               />
@@ -35,6 +42,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+       <div>
+        <Showcase/>
+       </div>
       <div className="h-[50vh] w-full my-2">
         <div
           className=" h-full w-full image flex flex-col items-center justify-center"
