@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-import { FaBackward, FaCamera } from "react-icons/fa";
-import { IoArrowBack } from "react-icons/io5";
+import { FaCamera } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const ProfileHeader = () => {
   const router = useRouter();
@@ -15,8 +15,8 @@ const ProfileHeader = () => {
         }}
       >
         <div className="flex flex-row w-full px-[5%] mt-2 justify-between">
-          <button onClick={() => router.back()}>
-            <IoArrowBack size={24} />
+          <button className="capitalize flex items-center gap-3" onClick={() => router.back()}>
+            <FaArrowLeftLong size={24} /> back
           </button>
           <button className="rounded-full bg-gray-500/[0.5] p-2">
             <FaCamera size={20} />

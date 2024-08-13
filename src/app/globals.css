@@ -61,3 +61,12 @@ body {
   transform: translateX(100%);
   transition: transform 300ms;
 }
+
+.bg_blend{
+  background-image: url('/background2.jpeg'), linear-gradient(to right, #00000000, #00000061, #000000CC);
+  background-blend-mode: multiply;
+  /* background-color: #171717; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -58,7 +58,7 @@ export function Nav({ children }: { children: ReactNode }) {
   return (
     <>
       {pathName === "/" && (
-        <div className="sm:flex hidden fixed top-0 left-0 z-50">
+        <div className="sm:flex hidden fixed top-0 left-0 z-50 bg-black bg-opacity-50 w-full">
           <button className="p-4  " onClick={openDrawer}>
             <FaBars size={24} color="white" />
           </button>
@@ -66,7 +66,7 @@ export function Nav({ children }: { children: ReactNode }) {
             href={"/"}
             className="w-full flex justify-center bg-transparent"
           >
-            <Image width={280} height={64} alt="logo" src={"/logo.png"} />
+            <Image width={80} height={40} alt="logo" src={'/logo.svg'}  />
           </Link>
         </div>
       )}
@@ -75,10 +75,10 @@ export function Nav({ children }: { children: ReactNode }) {
         <Link href={"/"}>
           <Image
             alt="logo"
-            src={"/logo.png"}
+            src={"/logo.svg"}
             className="object-cover"
-            width={180}
-            height={70}
+            width={100}
+            height={50}
           />
         </Link>
         <div className="flex flex-row items-center">

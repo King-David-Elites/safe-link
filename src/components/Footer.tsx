@@ -6,11 +6,11 @@ import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white text-[12px] pt-4">
+    <footer className="bg-black text-white text-[12px] px-8 pt-14 pb-10">
       <div className="container mx-auto sm:px-6 px-16 grid sm:grid-cols-1 grid-cols-4 gap-8">
         <div>
-          <h2 className="font-bold text-lg mb-4">CREAMCARD</h2>
-          <p className="text-sm mb-6">
+          <h2 className="font-medium text-lg mb-4">CREAMCARD</h2>
+          <p className="text--[12px] mb-6">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh justo
             erat urna a nisl dolor sit amet.
           </p>
@@ -27,7 +27,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h2 className="font-bold text-lg mb-4">CATEGORIES</h2>
+          <h2 className="font-medium text-lg mb-4">CATEGORIES</h2>
           <ul className="space-y-2">
             <li>
               <Link href="#" className="hover:text-primary">
@@ -42,7 +42,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="font-bold text-lg mb-4">BUSINESS</h2>
+          <h2 className="font-medium text-lg mb-4">BUSINESS</h2>
           <ul className="space-y-2">
             <li>
               <Link href="#" className="hover:text-primary">
@@ -57,7 +57,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="font-bold text-lg mb-4">ABOUT</h2>
+          <h2 className="font-medium text-lg mb-4">ABOUT</h2>
           <ul className="space-y-2">
             <li>
               <Link href="#" className="hover:text-primary">
@@ -82,7 +82,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="container mx-auto sm:px-6 px-16 mt-10 text-center border-t border-gray-700 p-5">
+      <div className="container mx-auto sm:px-6 px-16 mt-10 text-center">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} King David Elites. All rights reserved.
         </p>

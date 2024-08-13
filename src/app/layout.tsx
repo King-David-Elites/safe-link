@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import Image from "next/image";
@@ -10,7 +10,12 @@ import LoginForm from "@/components/LoginForm";
 import SignupForm from "@/components/SignupForm";
 import Modal from "@/components/Modal";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "Safe-link",
@@ -24,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${poppins.className}`}>
         <Nav>
           <NavLink href={"/create-listing"}>List With Us</NavLink>
           <NavLink href={"/pricing"}>Pricing</NavLink>
@@ -33,7 +38,9 @@ export default function RootLayout({
 
           {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
         </Nav>
+        <div className="min-h-[500px]">
         {children}
+        </div>
         <Drawer />
         {/* <Modal>
           <LoginForm />
