@@ -1,12 +1,11 @@
 'use client'
-import React from "react";
-import { useRouter } from "next/navigation";
-import { FaArrowLeft } from "react-icons/fa";
+import React from 'react'
+import { useRouter } from 'next/navigation';
 import { IoLogoWhatsapp } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 
-const page = () => {
-  const router = useRouter()
+const ProfilePhotos = () => {
+    const router = useRouter()
     const images = [
         '/image2.jpg',
         '/image3.png',
@@ -15,22 +14,8 @@ const page = () => {
         '/image6.png',
     ]
   return (
-    <section className="px-[4%]">
-      <header className="flex items-center justify-between py-5">
-        <div onClick={() => {
-          router.back()
-        }}>
-          <FaArrowLeft size={20} />
-        </div>
-        <div className="flex-1 flex items-center justify-center gap-3">
-          <button className="bg-[#0D0D0D] p-3 text-[#F2F2F2] text-[12px] leading-4 capitalize rounded-md">photos</button>
-          <button onClick={() => {
-            router.push('/profile/video')
-          }} className="bg-[#A6A6A633] p-3 text-[#252625CC] text-[12px] leading-4 capitalize rounded-md">video</button>
-        </div>
-      </header>
-
-      <div>
+    <div>
+        <div>
         <h2 className="text-black text-[14px] leading-4 font-semibold tracking-wide">Description</h2>
         <p className="text-[10px] leading-4 text-[#444544] tracking-wider">Lorem ipsum dolor sit amet, consectetur adipiscing elit. At tempor mattis turpis egestas quam cursus sit lobortis. Quam cursus bibendum im ut in quam et dis dui. Egestas egestas elementum proin purus. </p>
       </div>
@@ -58,8 +43,8 @@ const page = () => {
             </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  )
+}
 
-export default page;
+export default ProfilePhotos
