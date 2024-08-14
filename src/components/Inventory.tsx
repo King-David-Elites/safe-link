@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaRegHeart } from "react-icons/fa";
 
@@ -22,7 +23,11 @@ const Inventory = ({
               <p className="text-[#49454F] text-[10px] leading-3 tracking-wide my-1">{category?.price}</p>
               <small className="text-[#49454F] text-[8px] leading-3">{category?.description}</small>
             </div>
-            <button className="bg-[#F2BE5C] m-1 p-2 rounded-lg w-full text-white border-[#CAC4D0] border">view more</button>
+            <button className="bg-[#F2BE5C] m-1 p-2 rounded-lg w-full text-white border-[#CAC4D0] border">
+              <Link href={"/profile/photos"}>
+              view more
+              </Link>
+              </button>
           </div>
           
         ))}

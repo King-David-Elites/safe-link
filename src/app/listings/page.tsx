@@ -15,6 +15,8 @@ const Listings = () => {
   };
 
   return (
+    <>
+    <Nav/>
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow container mx-auto p-4">
         <div className="w-full flex justify-center">
@@ -72,6 +74,7 @@ const Listings = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 
