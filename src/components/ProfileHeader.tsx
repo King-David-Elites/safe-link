@@ -31,29 +31,34 @@ const ProfileHeader = () => {
           </button>
         </div>
         <div className="flex items-center gap-5 justify-between ">
-        <div className="">
-          <h1 className="flex items-center gap-2 font-semibold leading-8 text-[22px] sm:text-[14px] text-nowrap">
-            KingDavid Team <img src={"/verification.svg"} alt="" />
-          </h1>
-          <small className="text-[14px] sm:text-[12px] font-semibold leading-5 text-[#737373]">
-            Joined: 2022
-          </small>
-        </div>
+          <div className="">
+            <h1 className="flex items-center gap-2 font-semibold leading-8 text-[22px] sm:text-[14px] text-nowrap">
+              KingDavid Team <img src={"/verification.svg"} alt="" />
+            </h1>
+            <small className="text-[14px] sm:text-[12px] font-semibold leading-5 text-[#737373]">
+              Joined: 2022
+            </small>
+          </div>
 
-        <div className="flex items-center gap-3 justify-between sm:justify-center sm:flex-wrap sm:justify-center">
-          <button className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap sm:hidden">
-            <MdEdit size={20} />
-            edit profile
-          </button>
-          <button className="bg-[#F2BE5C] text-white capitalize flex items-center gap-3 leading-6 p-2 border border-[#F2BE5C] rounded cursor-pointer text-nowrap">
-            <IoMdShareAlt size={20} />
-            share profile
-          </button>
-          <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm:hidden">
-            <HiUpload size={20} />
-            upgrade account
-          </button>
-        </div>
+          <div className="flex items-center gap-3 justify-between sm:justify-center sm:flex-wrap sm:justify-center">
+            <button
+              onClick={() => {
+                router.push("/profile/edit-profile");
+              }}
+              className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap sm:hidden"
+            >
+              <MdEdit size={20} />
+              edit profile
+            </button>
+            <button className="bg-[#F2BE5C] text-white capitalize flex items-center gap-3 leading-6 p-2 border border-[#F2BE5C] rounded cursor-pointer text-nowrap">
+              <IoMdShareAlt size={20} />
+              share profile
+            </button>
+            <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm:hidden">
+              <HiUpload size={20} />
+              upgrade account
+            </button>
+          </div>
         </div>
       </div>
       <p className="my-2 mx-[10%] sm:mx-[2%] p-5 text-[#444544] tracking-wide text-[12px] leading-4">
@@ -65,14 +70,19 @@ const ProfileHeader = () => {
         egestas elementum proin purus.
       </p>
       <div className="hidden sm:flex items-center justify-between mx-[5%]">
-      <button className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap">
-            <MdEdit size={20} />
-            edit profile
-          </button>
-          <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap">
-            <HiUpload size={20} />
-            upgrade account
-          </button>
+        <button
+          onClick={() => {
+            router.push("/profile/edit-profile");
+          }}
+          className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
+        >
+          <MdEdit size={20} />
+          edit profile
+        </button>
+        <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap">
+          <HiUpload size={20} />
+          upgrade account
+        </button>
       </div>
     </header>
   );

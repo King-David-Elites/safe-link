@@ -48,7 +48,7 @@ const page = () => {
             className="border-[0.5px] border-[#A6A6A6] rounded w-full p-2 focus:outline-none"
             type="text"
           />
-          <small className="text-[#A6A6A6] text-[8px] leading-[8px]">
+          <small className="text-[#A6A6A6] text-[10px] leading-[8px]">
             Very Short headline for your listing
           </small>
         </div>
@@ -74,7 +74,7 @@ const page = () => {
                 <small className="text-[#2301F3] text-[12px] leading-3">upload a file</small>
                 <small className="text-[#696969] text-[12px] leading-3">PNG, JPG, GIF up to 5mb</small>
             </div>
-            <small className="text-[#A6A6A6] text-[8px] leading-[8px]">
+            <small className="text-[#A6A6A6] text-[10px] leading-[8px]">
             mark and upload more than one high-quality images.
           </small>
         </div>
@@ -86,7 +86,7 @@ const page = () => {
                 <small className="text-[#2301F3] text-[11px] leading-3">upload a file</small>
                 <small className="text-[#696969] text-[11px] leading-3">MP4 only</small>
             </div>
-            <small className="text-[#A6A6A6] text-[8px] leading-[8px]">
+            <small className="text-[#A6A6A6] text-[10px] leading-[8px]">
             upload a clear video showing the views (optional)
           </small>
         </div>
