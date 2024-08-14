@@ -28,8 +28,8 @@ export default function SignupForm() {
         <ModalButton actionKey="close">
           <MdCancel size={28} />
         </ModalButton>
-        <div className="w-full flex justify-center text-[24px] font-[500]">
-          CREAM CARD
+        <div className="w-full flex justify-center text-[24px] font-[500] uppercase">
+        safelink
         </div>
       </div>
       <div className="w-full flex justify-center ">

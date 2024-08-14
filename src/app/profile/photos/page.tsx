@@ -17,7 +17,9 @@ const page = () => {
   return (
     <section className="px-[4%]">
       <header className="flex items-center justify-between py-5">
-        <div>
+        <div onClick={() => {
+          router.back()
+        }}>
           <FaArrowLeft size={20} />
         </div>
         <div className="flex-1 flex items-center justify-center gap-3">
