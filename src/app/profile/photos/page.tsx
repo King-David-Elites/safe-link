@@ -38,7 +38,9 @@ const page = () => {
         )) }
       </div>
       <div className="my-3">
-        <button className=" bg-[#F2BE5C] w-full rounded text-white p-2">Add this item to your List</button>
+        <button onClick={() => {
+          router.push('/listings/edit-listings')
+        }} className=" bg-[#F2BE5C] w-full rounded text-white p-2">Add this item to your List</button>
 
         <div className="bg-[#B28E49] rounded-md p-2 my-3">
             <p className="text-[12px] leading-4 font-semibold text-white">Your List</p>

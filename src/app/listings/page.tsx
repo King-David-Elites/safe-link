@@ -1,11 +1,14 @@
 "use client";
+import { Nav } from "@/components/Nav";
 // pages/Listings.js
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { FaBars, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { HiHeart } from "react-icons/hi";
 import { IoSearch } from "react-icons/io5";
+import useModalStore from "@/store/useModalStore";
 
 const Listings = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,9 +17,43 @@ const Listings = () => {
     setSearchTerm(event.target.value);
   };
 
+  const {
+    isLogInModalOpen,
+    isSignUpModalOpen,
+    isDrawerOpen,
+    openLogInModal,
+    closeLogInModal,
+    openSignUpModal,
+    closeSignUpModal,
+    openDrawer,
+    closeDrawer,
+  } = useModalStore();
+
   return (
     <>
-    <Nav/>
+    <nav>
+    <div className="sm:flex items-center justify-between px-2 bg-black hidden sticky min-h-fit top-0 left-0 z-50  w-full">
+          <button className="p-4  " onClick={openDrawer}>
+            <FaBars size={24} color="white" />
+          </button>
+          <div>
+          <Link
+            href={"/"}
+            className="w-full flex justify-center bg-transparent"
+          >
+            <Image width={100} height={50} alt="logo" src={'/logo.svg'}  />
+          </Link>
+          </div>
+          <div>
+          <Link
+              href={"/profile"}
+              className="text-[#f2f2f2]"
+            >
+              <FaRegUserCircle size={30} />
+            </Link>
+          </div>
+        </div>
+    </nav>
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow container mx-auto p-4">
         <div className="w-full flex justify-center">
