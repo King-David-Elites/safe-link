@@ -11,6 +11,7 @@ import SignupForm from "./SignupForm";
 import { FaBars } from "react-icons/fa";
 import Drawer from "./Drawer";
 import useModalStore from "@/store/useModalStore";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const ServerLoginForm = dynamic(() => import("./LoginForm"), {
   ssr: false,
@@ -58,16 +59,26 @@ export function Nav({ children }: { children: ReactNode }) {
   return (
     <>
       {pathName === "/" && (
-        <div className="sm:flex hidden fixed top-0 left-0 z-50 bg-black bg-opacity-50 w-full">
+        <div className="sm:flex items-center justify-between px-2 bg-black bg-opacity-10 hidden fixed top-0 left-0 z-50  w-full">
           <button className="p-4  " onClick={openDrawer}>
             <FaBars size={24} color="white" />
           </button>
+          <div>
           <Link
             href={"/"}
             className="w-full flex justify-center bg-transparent"
           >
-            <Image width={80} height={40} alt="logo" src={'/logo.svg'}  />
+            <Image width={100} height={50} alt="logo" src={'/logo.svg'}  />
           </Link>
+          </div>
+          <div>
+          <Link
+              href={"/profile"}
+              className="text-[#f2f2f2]"
+            >
+              <FaRegUserCircle size={30} />
+            </Link>
+          </div>
         </div>
       )}
 
@@ -86,9 +97,9 @@ export function Nav({ children }: { children: ReactNode }) {
           {user ? (
             <Link
               href={"/profile"}
-              className="border hover:text-primary rounded-full bg-white hover:border-primary w-8 h-8 mr-4"
+              className=""
             >
-              {/* <image /> */}
+              <FaRegUserCircle size={20} />
             </Link>
           ) : (
             <>

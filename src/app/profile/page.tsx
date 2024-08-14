@@ -65,29 +65,29 @@ const Page = () => {
 
       <ProfileHeader />
       <QA questions={questions} />
-      <div className="flex-row flex justify-around mt-8">
+      <div className="flex-row flex justify-around my-8 border-y-4 border-[#ECEDEE]">
         <button
           className="items-center flex flex-col"
           onClick={() => setType("images")}
         >
           <div
-            className={`text-[22px] sm:text-[14px] sm:text-[#696969]  font-medium text-black/[0.5]`}
+            className={`text-[18px] sm:text-[13px] py-2 sm:text-[#696969] leading-5 font-medium text-black/[0.5]`}
           >
             My Pictures
           </div>
           {type === "images" && (
-            <div className={`h-[6px] bg-black w-48 sm:w-28 rounded-md`} />
+            <div className={`h-[6px] sm:h-[4px] sm:bg-[#000000] bg-[#00000080] w-48 sm:w-28 rounded-md`} />
           )}
         </button>
         <button
           className="items-center flex flex-col"
           onClick={() => setType("inventory")}
         >
-          <div className="text-[22px] sm:text-[14px] sm:text-[#696969] font-medium text-black/[0.5]">
-            My Inventory
+          <div className="text-[18px] sm:text-[13px] py-2 sm:text-[#696969] font-medium text-black/[0.5]">
+            My Listings
           </div>
           {type === "inventory" && (
-            <div className="h-[6px] sm:w-28 bg-black w-48 rounded-md" />
+            <div className="h-[6px] sm:h-[4px] sm:w-28 sm:bg-[#000000] bg-[#00000080] w-48 rounded-md" />
           )}
         </button>
       </div>

@@ -15,36 +15,16 @@ const Inventory = ({
     <section className="p-6">
       <div className=" grid sm:grid-cols-2 grid-cols-3 gap-4">
         {inventory.map((category, index) => (
-          <div
-            key={index}
-            className=" h-[50vh] rounded-lg w-full sm:w-[45vw] sm:h-[25vh] image flex p-2 flex-col items-center justify-between"
-            style={{
-              backgroundImage: `url(${category.images[0]})`,
-              backgroundSize: "cover",
-            }}
-          >
-            <div className="flex flex-row-reverse w-full ">
-              <button className="hover:text-black/[0.6]">
-                <FaRegHeart size={24} />
-              </button>
+          <div key={index} className="rounded-3xl bg-[#F6F6F6]">
+            <img className="rounded-t-3xl" src={category?.images[0]} alt="" />
+            <div className="p-2">
+              <h3 className="text-[#1C1B1F] text-[11px] font-semibold leading-4 tracking-wider my-2">{category?.title}</h3>
+              <p className="text-[#49454F] text-[10px] leading-3 tracking-wide my-1">{category?.price}</p>
+              <small className="text-[#49454F] text-[8px] leading-3">{category?.description}</small>
             </div>
-            <div className="flex flex-col space-y-2 sm:space-y-1">
-              <div className="text-[#f2f2f2] font-semibold sm:text-[14px] text-[20px]">
-                {category.title}
-              </div>
-              <div className="text-white font-semibold text-[15px] sm:text-[14px]">
-                {category.price}
-              </div>
-              <div className="text-white sm:hidden font-medium text-[12px]">
-                {category.description}
-              </div>
-              <div className="flex flex-row-reverse">
-                <button className="bg-primary text-white px-4 py-1 rounded-sm">
-                  View More
-                </button>
-              </div>
-            </div>
+            <button className="bg-[#F2BE5C] m-1 p-2 rounded-lg w-full text-white border-[#CAC4D0] border">view more</button>
           </div>
+          
         ))}
       </div>
     </section>

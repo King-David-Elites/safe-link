@@ -4,7 +4,7 @@ import { FaRegHeart } from "react-icons/fa";
 export function Showcase() {
   return (
     <>
-      <section className="flex items-center justify-center text-center bg-[#0D0D0D] p-28 my-5">
+      <section className="flex items-center justify-center text-center bg-[#0D0D0D] p-28 my-5 sm:p-4">
         <div>
           <h2 className="font-medium leading-8 text-[24px] text-center text-white">
             What is <span className="text-[#F2BE5C]">Safelink?</span>
@@ -26,18 +26,18 @@ export function Showcase() {
       </section>
       <section className="p-5">
         <div>
-          <h2 className="text-[#FDAF1E] font-semibold leading-6 text-[24px] my-5">
+          <h2 className="text-[#FDAF1E] font-semibold leading-6 text-[24px] my-5 w-full sm:text-center">
             Our Top Sellers
           </h2>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-1 gap-10">
+        <div className="grid grid-cols-3 sm:grid-cols-1  gap-10">
           {[...Array(10)].map((_, index) => (
             <div
               key={index}
               className="border-x border-b border-[#000000] rounded-lg  flex flex-col"
             >
               <div className="items-center mb-4 flex flex-col">
-                <div className="w-full h-[200px] bg-[url('/image6.png')] rounded-lg bg-cover bg-no-repeat relative">
+                <div className="w-full h-[200px]  bg-[url('/image6.png')] rounded-lg bg-cover bg-no-repeat relative">
                   <div className="flex flex-row-reverse mr-4 mt-4">
                     <button>
                       <FaRegHeart size={20} />
@@ -86,21 +86,21 @@ export function Showcase() {
             // }}
           >
             <div className="flex flex-col items-center">
-              <h2 className="text-white font-semibold sm:text-lg text-[28px] max-w-[700px] text-center">
+              <h2 className="text-white font-semibold sm:text-lg text-[28px] sm:text-[18px] text-center">
                 {" "}
                 Present Yourself and Your Business Better with{" "}
                 <span className="text-primary uppercase font-semibold text-[28px]">
                   CreamCard
                 </span>
               </h2>
-              <p className="text-[#f2f2f2] text-center mt-2">
+              <p className="text-[#f2f2f2] text-center sm:text-[14px] mt-2">
                 CREAMCARD helps you tell your prospects and clients about
                 yourself, your business and why they should buy from you
               </p>
             </div>
 
             <button className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium">
-            Create an Account
+            SIGN UP FOR A PROFILE TODAY
           </button>
           </div>
         </div>
