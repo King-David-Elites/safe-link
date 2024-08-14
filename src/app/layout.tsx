@@ -8,7 +8,8 @@ import Footer from "@/components/Footer";
 import Drawer from "@/components/Drawer";
 import LoginForm from "@/components/LoginForm";
 import SignupForm from "@/components/SignupForm";
-import Modal from "@/components/Modal";
+import LoginModal from "@/components/LoginModal";
+import SignupModal from "@/components/SignupModal";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -38,16 +39,14 @@ export default function RootLayout({
 
           {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
         </Nav>
-        <div className="min-h-[500px]">
-        {children}
-        </div>
+        <div className="min-h-[500px]">{children}</div>
         <Drawer />
-        {/* <Modal>
+        <LoginModal>
           <LoginForm />
-        </Modal>
-        <Modal>
+        </LoginModal>
+        <SignupModal>
         <SignupForm/>
-        </Modal> */}
+        </SignupModal>
         <Footer />
       </body>
     </html>

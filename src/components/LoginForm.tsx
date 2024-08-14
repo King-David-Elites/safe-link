@@ -1,20 +1,33 @@
-"use server";
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { MdCancel } from "react-icons/md";
 import ModalButton from "./ModalButton";
+import useModalStore from "@/store/useModalStore";
 import { logIn } from "@/actions/authActions";
 
-export default async function LoginForm() {
-  //console.log("asddff");
+
+export default function LoginForm() {
+  const {
+    closeLogInModal,
+    closeSignUpModal,
+    isLogInModalOpen,
+    isSignUpModalOpen,
+  } = useModalStore();
+ 
   return (
-    <div className="text-black text-[12px]">
+    <>
+  
+    <div className={`text-black text-[12px] max-w-[500px] bg-white p-3 rounded-md mr-10 ml-auto `}>
       <div className="flex-row w-full flex items-center">
-        <ModalButton actionKey="close">
+        {/* <ModalButton actionKey="close"> */}
+        <button onClick={closeLogInModal} className="text-blue-500 text-[10px] font-medium">
+
           <MdCancel size={28} />
-        </ModalButton>
+        </button>
+        {/* </ModalButton> */}
         <div className="w-full flex justify-center text-[24px] font-[500]">
           CREAM CARD
         </div>
@@ -65,11 +78,12 @@ export default async function LoginForm() {
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
       </button>
-      <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
+      <div className="flex flex-row w-full items-center justify-center space-x-[2px] mt-2">
         <div className="text-[10px] font-medium">Don't have an account?</div>
 
         <ModalButton actionKey="openSignUp">Sign up</ModalButton>
       </div>
     </div>
+    </>
   );
 }

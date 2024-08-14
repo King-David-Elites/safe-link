@@ -23,12 +23,12 @@ export default function Home() {
           <div className="m-1 flex items-center justify-center">
           <Image alt="logo" src="/safe.svg" width={250} height={70} className="object-cover my-3 sm:hidden" />
           </div>
-          <div className="flex flex-col items-center mb-3">
+          <div className="sm:flex flex-col items-center mb-3 hidden">
             <img src="/icon.svg" alt="" />
             <p className="text-white text-[15px] sm:block hidden">Explore our directory of businesses</p>
           </div>
       
-          <div className="bg-white w-[75%] sm:w-[90%] py-2 flex flex-row rounded-md m">
+          <div className="bg-white w-[75%] sm:w-[90%] py-2 flex flex-row rounded-md">
             <div className="flex flex-row items-center w-[85%] ml-2 rounded-md  px-2 bg-[#f2f4f8] sm:w-full">
               <IoSearch />
               <div className="p-2 w-full flex items-center justify-between">

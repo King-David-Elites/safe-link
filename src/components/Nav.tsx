@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ComponentProps, ReactNode, useEffect, useState } from "react";
-import Modal from "./Modal";
+import Modal from "./LoginModal";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import LoginForm from "./LoginForm";
@@ -31,9 +31,9 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 }
 
 export function Nav({ children }: { children: ReactNode }) {
-  const router = useRouter()
+  const router = useRouter();
   // Replca this with the actual user
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
 
   const pathName = usePathname();
   const {
@@ -47,8 +47,6 @@ export function Nav({ children }: { children: ReactNode }) {
     openDrawer,
     closeDrawer,
   } = useModalStore();
-
-  
 
   // if (pathName === "/login") return <div></div>;
 
@@ -64,18 +62,16 @@ export function Nav({ children }: { children: ReactNode }) {
             <FaBars size={24} color="white" />
           </button>
           <div>
-          <Link
-            href={"/"}
-            className="w-full flex justify-center bg-transparent"
-          >
-            <Image width={100} height={50} alt="logo" src={'/logo.svg'}  />
-          </Link>
-          </div>
-          <div>
-          <Link
-              href={"/profile"}
-              className="text-[#f2f2f2]"
+            <Link
+              href={"/"}
+              className="w-full flex justify-center bg-transparent"
             >
+              <Image width={100} height={50} alt="logo" src={"/logo.svg"} />
+            </Link>
+          </div>
+
+          <div className={`${user ? "block" : "invisible"}`}>
+            <Link href={"/profile"} className="text-[#f2f2f2]">
               <FaRegUserCircle size={30} />
             </Link>
           </div>
@@ -95,26 +91,19 @@ export function Nav({ children }: { children: ReactNode }) {
         <div className="flex flex-row items-center">
           {children}
           {user ? (
-            <Link
-              href={"/profile"}
-              className=""
-            >
+            <Link href={"/profile"} className="">
               <FaRegUserCircle size={20} />
             </Link>
           ) : (
             <>
               <button
-                onClick={() => {
-                  router.push('/login')
-                }}
+                onClick={openLogInModal}
                 className="border hover:text-primary border-primary rounded-[4px] py-3 px-6 mr-4"
               >
                 Log In
               </button>
               <button
-                onClick={() => {
-                  router.push('/signup')
-                }}
+                // onClick={}
                 className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"
               >
                 Sign Up

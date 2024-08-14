@@ -1,5 +1,4 @@
-"use client";
-// components/Modal.js
+'use client'
 import useModalStore from "@/store/useModalStore";
 import { ReactNode } from "react";
 
@@ -7,14 +6,14 @@ type ModalProps = {
   children: ReactNode;
 };
 
-export default function Modal({ children }: ModalProps) {
+export default function LoginModal({ children }: ModalProps) {
   const {
     closeLogInModal,
     closeSignUpModal,
     isLogInModalOpen,
     isSignUpModalOpen,
   } = useModalStore();
-  const isOpen = isLogInModalOpen || isSignUpModalOpen;
+  const isOpen = isLogInModalOpen;
   const onClose = () => {
     closeLogInModal();
     closeSignUpModal();
