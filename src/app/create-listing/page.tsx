@@ -157,8 +157,8 @@ export default function Page() {
               "Leisure Pictures",
             ].map((label, index) => (
               <div key={index} className="mb-6">
-                <label className="block text-gray-700">{label}</label>
-                <div className="flex-col border-dashed border-2 border-gray-300 rounded px-4 py-8 flex justify-center items-center">
+                <label className="block text-[#252625] font-medium text-[12px] leading-3 my-1">{label}</label>
+                <div className="flex-col border-dashed border border-[#A6A6A6] rounded px-4 py-8 flex justify-center items-center">
                   <input
                     type="file"
                     name={label.toLowerCase().replace(" ", "_")}
@@ -170,11 +170,11 @@ export default function Page() {
                   <MdInsertPhoto size={48} color="grey" />
                   <label
                     htmlFor={label}
-                    className="cursor-pointer text-blue-500"
+                    className="cursor-pointer text-[#2301F3] text-[12px] leading-3 py-2"
                   >
                     upload a file
                   </label>
-                  <p className="text-gray-500">PNG, JPG, GIF up to 5mb</p>
+                  <p className="text-[#A6A6A6] text-[10px] leading-3">PNG, JPG, GIF up to 5mb</p>
                   <div className="flex flex-wrap mt-2">
                     {form[label.toLowerCase().replace(" ", "_")] &&
                       Array.from(
