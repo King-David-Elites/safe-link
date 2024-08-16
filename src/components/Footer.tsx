@@ -6,7 +6,7 @@ import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white text-[12px] pt-4">
+    <footer className="bg-black text-white font-semibold text-[12px]  pt-4 mt-auto">
       <div className="container mx-auto sm:px-6 px-16 grid sm:grid-cols-1 grid-cols-4 gap-8">
         <div>
           <h2 className="font-bold text-lg mb-4">CREAMCARD</h2>

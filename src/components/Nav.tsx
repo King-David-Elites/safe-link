@@ -10,10 +10,7 @@ import SignupForm from "./SignupForm";
 import { FaBars } from "react-icons/fa";
 import Drawer from "./Drawer";
 import useModalStore from "@/store/useModalStore";
-
-const ServerLoginForm = dynamic(() => import("./LoginForm"), {
-  ssr: false,
-});
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
   const pathName = usePathname();
@@ -51,16 +48,26 @@ export function Nav({ children }: { children: ReactNode }) {
   return (
     <>
       {pathName === "/" && (
-        <div className="sm:flex hidden fixed top-0 left-0 z-50">
-          <button className="p-4  " onClick={openDrawer}>
-            <FaBars size={24} color="white" />
-          </button>
-          <Link
-            href={"/"}
-            className="w-full flex justify-center bg-transparent"
-          >
-            <Image width={280} height={64} alt="logo" src={"/logo.png"} />
-          </Link>
+        <div className="sm:flex  hidden fixed top-0 left-0 z-50">
+          <div className="flex flex-row justify-between items-center w-screen pr-4">
+            <button className="p-4 " onClick={openDrawer}>
+              <FaBars size={24} color="white" />
+            </button>
+            <Link
+              href={"/"}
+              className="w-full sm:flex hidden justify-center bg-transparent"
+            >
+              <Image
+                width={100}
+                height={60}
+                alt="logo"
+                src={"/text-logo.png"}
+              />
+            </Link>
+            <Link href={"/profile"}>
+              <IoPersonCircleOutline color="#fff" size={28} />
+            </Link>
+          </div>
         </div>
       )}
 
@@ -68,9 +75,9 @@ export function Nav({ children }: { children: ReactNode }) {
         <Link href={"/"}>
           <Image
             alt="logo"
-            src={"/logo.png"}
+            src={"/text-logo.png"}
             className=""
-            width={180}
+            width={120}
             height={64}
           />
         </Link>
@@ -80,7 +87,7 @@ export function Nav({ children }: { children: ReactNode }) {
             href={"/profile"}
             className="border hover:text-primary rounded-full bg-white hover:border-primary w-8 h-8 mr-4"
           >
-            <image />
+            <div></div>
           </Link>
           <button
             onClick={openLogInModal}

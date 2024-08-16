@@ -17,29 +17,29 @@ const Inventory = ({
         {inventory.map((category, index) => (
           <div
             key={index}
-            className=" h-[50vh] rounded-lg w-full sm:w-[45vw] sm:h-[25vh] image flex p-2 flex-col items-center justify-between"
-            style={{
-              backgroundImage: `url(${category.images[0]})`,
-              backgroundSize: "cover",
-            }}
+            className="border-[#cac4d0] rounded-lg border bg-[#f6f6f6] pb-2"
           >
-            <div className="flex flex-row-reverse w-full ">
+            <img
+              src={category.images[0]}
+              className=" h-[40vh] rounded-lg w-full sm:w-[45vw] sm:h-[25vh] image flex flex-col items-center justify-between"
+            />
+            {/* <div className="flex flex-row-reverse w-full ">
               <button className="hover:text-black/[0.6]">
                 <FaRegHeart size={24} />
               </button>
-            </div>
-            <div className="flex flex-col space-y-2 sm:space-y-1">
-              <div className="text-[#f2f2f2] font-semibold sm:text-[14px] text-[20px]">
+            </div> */}
+            <div className="flex flex-col px-2 space-y-1 sm:space-y-[2px]">
+              <div className=" font-semibold sm:text-[14px] text-[20px]">
                 {category.title}
               </div>
-              <div className="text-white font-semibold text-[15px] sm:text-[14px]">
+              <div className=" font-semibold text-[15px] sm:text-[14px]">
                 {category.price}
               </div>
-              <div className="text-white sm:hidden font-medium text-[12px]">
+              <div className="sm:hidden font-medium text-[12px]">
                 {category.description}
               </div>
               <div className="flex flex-row-reverse">
-                <button className="bg-primary text-white px-4 py-1 rounded-sm">
+                <button className="bg-primary text-white px-4 py-1 rounded-xl">
                   View More
                 </button>
               </div>

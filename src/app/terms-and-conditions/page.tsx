@@ -1,5 +1,6 @@
 // pages/terms-and-conditions.
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { IoArrowBack } from "react-icons/io5";
@@ -184,13 +185,12 @@ const Page = () => {
               <p>
                 If you have any questions about these Terms and Conditions,
                 please contact us at{" "}
-                <a
+                <Link
                   href="mailto:creamcardng@gmail.com"
                   className="text-blue-500"
                 >
-                  creamcardng@gmail.com
-                </a>
-                .
+                  <div>creamcardng@gmail.com</div>
+                </Link>
               </p>
             </div>
             <div className="mt-6">
@@ -210,15 +210,15 @@ const Page = () => {
               &copy; 2022 King David Elites. All rights reserved
             </p>
             <div className="space-x-4">
-              <a href="#" className="text-gray-600">
+              <Link href="#" className="text-gray-600">
                 Terms and Conditions
-              </a>
-              <a href="#" className="text-gray-600">
+              </Link>
+              <Link href="#" className="text-gray-600">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-gray-600">
+              </Link>
+              <Link href="#" className="text-gray-600">
                 Contact Us
-              </a>
+              </Link>
             </div>
           </div>
         </footer>

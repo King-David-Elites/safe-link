@@ -25,21 +25,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Nav>
-          <NavLink href={"/create-listing"}>List With Us</NavLink>
-          <NavLink href={"/pricing"}>Pricing</NavLink>
+        <div className="flex flex-col min-h-[100vh]">
+          <Nav>
+            <NavLink href={"/create-listing"}>List With Us</NavLink>
+            <NavLink href={"/pricing"}>Pricing</NavLink>
+          </Nav>
+          <div className="mb-4">{children}</div>
 
-          {/* <NavLink href={"/null"}>Log In</NavLink> */}
-
-          {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
-        </Nav>
-        {children}
-        <Drawer />
-        <Modal>
-          <LoginForm />
-        </Modal>
-        {/* <SignupForm/> */}
-        <Footer />
+          <Drawer />
+          <Modal>
+            <LoginForm />
+          </Modal>
+          {/* <SignupForm/> */}
+          <Footer />
+        </div>
       </body>
     </html>
   );

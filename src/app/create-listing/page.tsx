@@ -66,17 +66,18 @@ export default function Page() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, files } = e.target as HTMLInputElement;
+    const key = name as keyof FormState;
     if (files) {
       const newFiles = Array.from(files);
       setForm((prevForm) => ({
         ...prevForm,
-        [name]:
-          name === "cover"
-            ? newFiles
-            : [...((prevForm[name] as File[]) || []), ...newFiles],
+        [key]:
+          key === "cover"
+            ? newFiles[0] || null
+            : [...((prevForm[key] as File[]) || []), ...newFiles],
       }));
     } else {
-      setForm({ ...form, [name]: value });
+      setForm({ ...form, [key]: value });
     }
   };
 
@@ -136,74 +137,83 @@ export default function Page() {
               "What is your favourite thing about this business of yours? (Tell us what gives you the most joy in this line of work)",
               "What are your greatest achievements since you started this business? (Tell us what you have been able to accomplish in this line of business and yeah, it is totally great if you are a newbie. You can specify that)",
               "In this order, tell us your favourite food, colour and hobby. (Interesting questions to forge interesting conversations with your prospects)",
-            ].map((question, index) => (
-              <div key={index} className="mb-6">
-                <label className="block text-gray-700">{question}</label>
-                <textarea
-                  name={`question${index + 1}`}
-                  value={form[`question${index + 1}`]}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-2"
-                  maxLength={100}
-                />
-                <p className="text-gray-500">Maximum of 100 words</p>
-              </div>
-            ))}
+            ].map((question, index) => {
+              const questionKey = `question${index + 1}` as keyof FormState;
+              return (
+                <div key={index} className="mb-6">
+                  <label className="block text-gray-700">{question}</label>
+                  <textarea
+                    name={questionKey}
+                    value={(form[questionKey] as string) || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-2"
+                    maxLength={100}
+                  />
+                  <p className="text-gray-500">Maximum of 100 words</p>
+                </div>
+              );
+            })}
 
             {[
-              "Cover",
-              "Professional Pictures",
-              "Work Pictures",
-              "Leisure Pictures",
-            ].map((label, index) => (
-              <div key={index} className="mb-6">
-                <label className="block text-gray-700">{label}</label>
-                <div className="flex-col border-dashed border-2 border-gray-300 rounded px-4 py-8 flex justify-center items-center">
-                  <input
-                    type="file"
-                    name={label.toLowerCase().replace(" ", "_")}
-                    onChange={handleChange}
-                    multiple={label !== "Cover"}
-                    className="hidden"
-                    id={label}
-                  />
-                  <MdInsertPhoto size={48} color="grey" />
-                  <label
-                    htmlFor={label}
-                    className="cursor-pointer text-blue-500"
-                  >
-                    upload a file
-                  </label>
-                  <p className="text-gray-500">PNG, JPG, GIF up to 5mb</p>
-                  <div className="flex flex-wrap mt-2">
-                    {form[label.toLowerCase().replace(" ", "_")] &&
-                      Array.from(
-                        form[label.toLowerCase().replace(" ", "_")]
-                      ).map((file, fileIndex) => (
-                        <div key={fileIndex} className="relative mr-2 mb-2">
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={file.name}
-                            className="w-16 h-16 object-cover rounded"
-                          />
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleDelete(
-                                label.toLowerCase().replace(" ", "_"),
-                                fileIndex
-                              )
-                            }
-                            className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 h-4 w-4 items-center justify-center flex"
-                          >
-                            &times;
-                          </button>
-                        </div>
-                      ))}
+              { label: "Cover", name: "cover", multiple: false },
+              {
+                label: "Professional Pictures",
+                name: "professionalPictures",
+                multiple: true,
+              },
+              { label: "Work Pictures", name: "workPictures", multiple: true },
+              {
+                label: "Leisure Pictures",
+                name: "leisurePictures",
+                multiple: true,
+              },
+            ].map(({ label, name, multiple }, index) => {
+              const nameKey = name as keyof FormState;
+              return (
+                <div key={index} className="mb-6">
+                  <label className="block text-gray-700">{label}</label>
+                  <div className="flex-col border-dashed border-2 border-gray-300 rounded px-4 py-8 flex justify-center items-center">
+                    <input
+                      type="file"
+                      name={name}
+                      onChange={handleChange}
+                      multiple={multiple}
+                      className="hidden"
+                      id={label}
+                    />
+                    <MdInsertPhoto size={48} color="grey" />
+                    <label
+                      htmlFor={label}
+                      className="cursor-pointer text-blue-500"
+                    >
+                      upload a file
+                    </label>
+                    <p className="text-gray-500">PNG, JPG, GIF up to 5mb</p>
+                    <div className="flex flex-wrap mt-2">
+                      {form[nameKey] &&
+                        Array.from(form[nameKey] as File[]).map(
+                          (file, fileIndex) => (
+                            <div key={fileIndex} className="relative mr-2 mb-2">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={file.name}
+                                className="w-16 h-16 object-cover rounded"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleDelete(nameKey, fileIndex)}
+                                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 h-4 w-4 items-center justify-center flex"
+                              >
+                                &times;
+                              </button>
+                            </div>
+                          )
+                        )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             <button
               type="submit"
