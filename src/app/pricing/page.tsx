@@ -74,7 +74,7 @@ const page = () => {
         </div>
       </div>
 
-      <div>
+      <div className='sm:w-full sm:flex sm:flex-col grid grid-cols-2 gap-5 max-w-[860px] mx-auto'>
         {
           SubscriptionList.map((subscription, idx) => (
             <SubscriptionCard key={idx} subscriptions={subscription} />

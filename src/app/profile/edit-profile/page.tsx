@@ -108,10 +108,10 @@ const page = () => {
   
 
   return (
-    <section className="px-3 py-5">
+    <section className="px-3 py-5 sm:w-full max-w-[960px] mx-auto">
     <div className="flex items-start mb-5">
       <button
-        className="p-2"
+        className="p-2 cursor-pointer"
         onClick={() => {
           router.back();
         }}

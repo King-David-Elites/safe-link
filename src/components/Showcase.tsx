@@ -1,7 +1,22 @@
+'use client'
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
+import useModalStore from "@/store/useModalStore";
 
 export function Showcase() {
+
+  const {
+    isLogInModalOpen,
+    isSignUpModalOpen,
+    isDrawerOpen,
+    openLogInModal,
+    closeLogInModal,
+    openSignUpModal,
+    closeSignUpModal,
+    openDrawer,
+    closeDrawer,
+  } = useModalStore();
+
   return (
     <>
       <section className="flex items-center justify-center text-center bg-[#0D0D0D] p-28 my-5 sm:p-4">
@@ -19,7 +34,7 @@ export function Showcase() {
             to refer you to more of their friends and colleagues
             at the same time.
           </p>
-          <button className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium">
+          <button onClick={openSignUpModal} className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium">
             Create an Account
           </button>
         </div>
@@ -99,7 +114,7 @@ export function Showcase() {
               </p>
             </div>
 
-            <button className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium">
+            <button onClick={openSignUpModal} className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium">
             SIGN UP FOR A PROFILE TODAY
           </button>
           </div>

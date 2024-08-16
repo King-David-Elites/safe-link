@@ -36,7 +36,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({subscriptions}) => {
                         ))}
                     </div>
                     <div>
-                        <button className='bg-[#F2BE5C] w-full py-4 px-5 rounded-full my-3 text-white capitalize text-[12px] leading-5 text-center font-bold'>get started</button>
+                        <button className='bg-[#F2BE5C] w-full py-4 px-5 rounded-full my-3 text-white capitalize text-[12px] leading-5 text-center font-bold cursor-pointer'>get started</button>
                     </div>
                 </div>
             
