@@ -9,6 +9,7 @@ import Drawer from "@/components/Drawer";
 import LoginForm from "@/components/LoginForm";
 import SignupForm from "@/components/SignupForm";
 import Modal from "@/components/Modal";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Modal>
             <LoginForm />
           </Modal>
+          <Toaster />
           {/* <SignupForm/> */}
           <Footer />
         </div>

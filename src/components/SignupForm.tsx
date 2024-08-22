@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { MdCancel } from "react-icons/md";
 import ModalButton from "./ModalButton";
+import SignUpButton from "./SignUpButton";
 
 async function createInvoice(formData: FormData) {
   const rawFormData = {
@@ -66,8 +67,8 @@ export default function SignupForm() {
           <label htmlFor="password">Confirm Password</label>
           <input
             className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
-            id="confirm-password"
-            name="confirm-password"
+            id="confirmPassword"
+            name="confirmPpassword"
             placeholder="••••••••"
             type="password"
             required
@@ -80,12 +81,7 @@ export default function SignupForm() {
             and conditions.
           </div>
         </div>
-        <button
-          type="submit"
-          className="bg-gradient-to-r from bg-[#f2be5c] to-white py-2 rounded-md"
-        >
-          Sign Up
-        </button>
+        <SignUpButton />
       </form>
       <div className="flex flex-row justify-center mt-2 items-center space-x-2">
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { MdCancel } from "react-icons/md";
 import ModalButton from "./ModalButton";
 import { logIn } from "@/actions/authActions";
+import LogInButton from "./LogInButton";
 
 export default async function LoginForm() {
   //console.log("asddff");
@@ -49,12 +50,13 @@ export default async function LoginForm() {
             required
           />
         </div>
-        <button
+        {/* <button
           type="submit"
           className="bg-gradient-to-r from bg-[#f2be5c] to-white py-2 rounded-md"
         >
           Login
-        </button>
+        </button> */}
+        <LogInButton />
       </form>
       <div className="flex flex-row justify-center my-2 items-center space-x-2">
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>

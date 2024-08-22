@@ -13,7 +13,7 @@ interface StoreState {
   closeDrawer: () => void;
 }
 
-const useStore = create<StoreState>((set) => ({
+const useModalStore = create<StoreState>((set) => ({
   isLogInModalOpen: false,
   isSignUpModalOpen: false,
   isDrawerOpen: false,
@@ -25,4 +25,4 @@ const useStore = create<StoreState>((set) => ({
   closeDrawer: () => set({ isDrawerOpen: false }),
 }));
 
-export default useStore;
+export default useModalStore;

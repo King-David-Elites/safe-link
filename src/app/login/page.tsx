@@ -1,39 +1,29 @@
+"use server";
+import { logIn } from "@/actions/authActions";
+import LogInButton from "@/components/LogInButton";
 import Image from "next/image";
 import Link from "next/link";
 //import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 import { MdCancel } from "react-icons/md";
-
-async function getData() {
-  const res = await fetch("https://freetestapi.com/api/v1/books");
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
 
 async function page() {
   //const router = useRouter();
-  async function createInvoice(formData: FormData) {
-    "use server";
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const result = await logIn(formData);
+      if (result.success) {
+        toast.success("Logged in successfully");
+      } else {
+        toast.error(result.message || "An error occurred");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred");
+    }
+  };
 
-    const rawFormData = {
-      customerId: formData.get("customerId"),
-      amount: formData.get("amount"),
-      //status: formData.get("status"),
-    };
-    console.log("form data", rawFormData);
-
-    // mutate data
-    // revalidate cache
-  }
-  //const data = await getData();
-  //console.log("data", data);
   return (
     <div className="flex flex-col items-center px-[10%] sm:px-[5%] min-h-screen ">
       <div className="flex-row w-full flex items-center">
@@ -80,20 +70,21 @@ async function page() {
           />
         </div> */}
 
-        <button
+        {/* <button
           title="submit"
-          formAction={createInvoice}
+          formAction={handleSubmit}
           className="bg-gradient-to-r from bg-[#f2be5c] to-white py-2 rounded-md"
         >
           login
-        </button>
+        </button> */}
+        <LogInButton />
       </form>
       <div className="flex flex-row justify-center my-4 items-center space-x-2">
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-2 my-2 w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      <button className="flex flex-row py-2 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
       </button>
