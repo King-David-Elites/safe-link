@@ -1,5 +1,5 @@
 "use client";
-// pages/profile.tsx
+
 import { useState } from "react";
 import { MdInsertPhoto } from "react-icons/md";
 
@@ -26,10 +26,10 @@ interface FormState {
 }
 
 interface SelectedFilesState {
-  cover: string;
-  professional_pictures: string[];
-  work_pictures: string[];
-  leisure_pictures: string[];
+  cover: string | null;
+  professionalPictures: string[];
+  workPictures: string[];
+  leisurePictures: string[];
 }
 
 export default function Page() {
@@ -56,35 +56,60 @@ export default function Page() {
   });
 
   const [selectedFiles, setSelectedFiles] = useState<SelectedFilesState>({
-    cover: "",
-    professional_pictures: [],
-    work_pictures: [],
-    leisure_pictures: [],
+    cover: null,
+    professionalPictures: [],
+    workPictures: [],
+    leisurePictures: [],
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, files } = e.target as HTMLInputElement;
+  
     if (files) {
       const newFiles = Array.from(files);
-      setForm((prevForm) => ({
-        ...prevForm,
-        [name]:
-          name === "cover"
-            ? newFiles
-            : [...((prevForm[name] as File[]) || []), ...newFiles],
-      }));
+  
+      if (name === "cover") {
+        setForm((prevForm) => ({
+          ...prevForm,
+          cover: newFiles[0] || null,
+        }));
+        setSelectedFiles((prevFiles) => ({
+          ...prevFiles,
+          cover: newFiles[0] ? URL.createObjectURL(newFiles[0]) : null,
+        }));
+      } else if (
+        name === "professionalPictures" ||
+        name === "workPictures" ||
+        name === "leisurePictures"
+      ) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          [name]: [...(prevForm[name as keyof FormState] as File[]), ...newFiles],
+        }));
+        setSelectedFiles((prevFiles) => ({
+          ...prevFiles,
+          [name]: [...(prevFiles[name as keyof SelectedFilesState] as string[]), ...newFiles.map((file) => URL.createObjectURL(file))],
+        }));
+      }
     } else {
       setForm({ ...form, [name]: value });
     }
   };
+  
 
   const handleDelete = (name: keyof FormState, index: number) => {
     setForm((prevForm) => {
       const updatedFiles = [...(prevForm[name] as File[])];
       updatedFiles.splice(index, 1);
       return { ...prevForm, [name]: updatedFiles };
+    });
+
+    setSelectedFiles((prevFiles) => {
+      const updatedFiles = [...(prevFiles[name as keyof SelectedFilesState] as string[])];
+      updatedFiles.splice(index, 1);
+      return { ...prevFiles, [name]: updatedFiles };
     });
   };
 
@@ -96,11 +121,11 @@ export default function Page() {
   return (
     <div className="container mx-auto bg-gray-200 p-4 sm:bg-white sm:p-2">
       <div className="flex flex-row sm:flex-col space-x-8 sm:space-x-0">
-        <div className="bg-gray-200 sm:bg-white text-nowrap  ">
+        <div className="bg-gray-200 sm:bg-white text-nowrap">
           <h1 className="text-3xl font-bold mb-4 sm:text-center">Profile</h1>
           <div>This information will be available publicly</div>
         </div>
-        <div className="bg-white p-8 rounded-md ">
+        <div className="bg-white p-8 rounded-md">
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-gray-700">Name</label>
@@ -141,7 +166,7 @@ export default function Page() {
                 <label className="block text-gray-700">{question}</label>
                 <textarea
                   name={`question${index + 1}`}
-                  value={form[`question${index + 1}`]}
+                  value={form[`question${index + 1}` as keyof FormState] as string}
                   onChange={handleChange}
                   className="w-full p-2 border border-gray-300 rounded mt-2"
                   maxLength={100}
@@ -151,48 +176,47 @@ export default function Page() {
             ))}
 
             {[
-              "Cover",
-              "Professional Pictures",
-              "Work Pictures",
-              "Leisure Pictures",
-            ].map((label, index) => (
+              "cover",
+              "professionalPictures",
+              "workPictures",
+              "leisurePictures",
+            ].map((field, index) => (
               <div key={index} className="mb-6">
-                <label className="block text-[#252625] font-medium text-[12px] leading-3 my-1">{label}</label>
+                <label className="block text-[#252625] font-medium text-[12px] leading-3 my-1">
+                  {field.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                </label>
                 <div className="flex-col border-dashed border border-[#A6A6A6] rounded px-4 py-8 flex justify-center items-center">
                   <input
                     type="file"
-                    name={label.toLowerCase().replace(" ", "_")}
+                    name={field}
                     onChange={handleChange}
-                    multiple={label !== "Cover"}
+                    multiple={field !== "cover"}
                     className="hidden"
-                    id={label}
+                    id={field}
                   />
                   <MdInsertPhoto size={48} color="grey" />
                   <label
-                    htmlFor={label}
+                    htmlFor={field}
                     className="cursor-pointer text-[#2301F3] text-[12px] leading-3 py-2"
                   >
                     upload a file
                   </label>
-                  <p className="text-[#A6A6A6] text-[10px] leading-3">PNG, JPG, GIF up to 5mb</p>
+                  <p className="text-[#A6A6A6] text-[10px] leading-3">
+                    PNG, JPG, GIF up to 5mb
+                  </p>
                   <div className="flex flex-wrap mt-2">
-                    {form[label.toLowerCase().replace(" ", "_")] &&
-                      Array.from(
-                        form[label.toLowerCase().replace(" ", "_")]
-                      ).map((file, fileIndex) => (
+                    {selectedFiles[field as keyof SelectedFilesState] &&
+                      (selectedFiles[field as keyof SelectedFilesState] as string[]).map((file, fileIndex) => (
                         <div key={fileIndex} className="relative mr-2 mb-2">
                           <img
-                            src={URL.createObjectURL(file)}
-                            alt={file.name}
+                            src={file}
+                            alt={`Preview ${fileIndex}`}
                             className="w-16 h-16 object-cover rounded"
                           />
                           <button
                             type="button"
                             onClick={() =>
-                              handleDelete(
-                                label.toLowerCase().replace(" ", "_"),
-                                fileIndex
-                              )
+                              handleDelete(field as keyof FormState, fileIndex)
                             }
                             className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 h-4 w-4 items-center justify-center flex"
                           >
@@ -214,114 +238,10 @@ export default function Page() {
           </form>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Address</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <label className="block text-gray-700">Address 1</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-2"
-                />
-              </div>
-              <div className="grid sm:grid-cols-1 grid-cols-2 gap-4 mb-6">
-                <div>
-                  <label className="block text-gray-700">Country</label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={form.country}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                    readOnly
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">State</label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={form.state}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={form.city}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">
-                    Zip / Postal code
-                  </label>
-                  <input
-                    type="text"
-                    name="zip"
-                    value={form.zip}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Save
-              </button>
-            </form>
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <label className="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-2"
-                />
-              </div>
-              <div className="grid sm:grid-cols-1 grid-cols-2 gap-4 mb-6">
-                <div>
-                  <label className="block text-gray-700">Phone 1</label>
-                  <input
-                    type="text"
-                    name="phone1"
-                    value={form.phone1}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Phone 2</label>
-                  <input
-                    type="text"
-                    name="phone2"
-                    value={form.phone2}
-                    onChange={handleChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-2"
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Save
-              </button>
-            </form>
+            <h2 className="text-lg font-semibold">Saved Data</h2>
+            <pre className="bg-gray-100 p-4 rounded">
+              {JSON.stringify(form, null, 2)}
+            </pre>
           </div>
         </div>
       </div>
