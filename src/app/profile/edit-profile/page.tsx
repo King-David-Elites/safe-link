@@ -21,7 +21,7 @@ interface FormState {
     address: string;
     country: string;
     state: string;
-    city: string;
+    city?: string;
     zip: string;
     email: string;
     phone1: string;
@@ -30,9 +30,9 @@ interface FormState {
 
   interface SelectedFilesState {
     cover: string;
-    professional_pictures: string[];
-    work_pictures: string[];
-    leisure_pictures: string[];
+    professionalPictures: string[];
+    workPictures: string[];
+    leisurePictures: string[];
   }
 
 
@@ -68,9 +68,9 @@ const page = () => {
 
   const [selectedFiles, setSelectedFiles] = useState<SelectedFilesState>({
     cover: "",
-    professional_pictures: [],
-    work_pictures: [],
-    leisure_pictures: [],
+    professionalPictures: [],
+    workPictures: [],
+    leisurePictures: [],
   });
 
 
@@ -86,7 +86,7 @@ const page = () => {
         [name]:
           name === "cover"
             ? newFiles
-            : [...((prevForm[name] as File[]) || []), ...newFiles],
+            : [...((prevForm[name as keyof SelectedFilesState] as File[]) || []), ...newFiles],
       }));
     } else {
       setForm({ ...form, [name]: value });
@@ -307,7 +307,7 @@ const page = () => {
                     upload a file
                   </label>
                   <p className="text-[#A6A6A6] text-[10px] leading-3">PNG, JPG, GIF up to 5mb</p>
-                  <div className="flex flex-wrap mt-2">
+                  {/**<div className="flex flex-wrap mt-2">
                     {form[label.toLowerCase().replace(" ", "_")] &&
                       Array.from(
                         form[label.toLowerCase().replace(" ", "_")]
@@ -332,7 +332,7 @@ const page = () => {
                           </button>
                         </div>
                       ))}
-                  </div>
+                  </div>**/}
                 </div>
               </div>
             ))}
