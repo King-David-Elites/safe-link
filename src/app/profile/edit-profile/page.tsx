@@ -49,6 +49,7 @@ interface SelectedFilesState {
   leisure_pictures: string[];
 }
 
+
 const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
