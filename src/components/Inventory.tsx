@@ -1,49 +1,35 @@
+import { Product } from "@/types/product";
+import Link from "next/link";
 import React from "react";
 import { FaRegHeart } from "react-icons/fa";
 
-const Inventory = ({
-  inventory,
-}: {
-  inventory: {
-    title: string;
-    images: string[];
-    price: string;
-    description: string;
-  }[];
-}) => {
+const Inventory = ({ inventory }: { inventory: Product[] }) => {
   return (
     <section className="p-6">
-      <div className=" grid sm:grid-cols-2 grid-cols-3 gap-4">
-        {inventory.map((category, index) => (
-          <div
-            key={index}
-            className="border-[#cac4d0] rounded-lg border bg-[#f6f6f6] pb-2"
-          >
+      <div className=" grid sm:grid-cols-1 grid-cols-3 gap-4">
+        {inventory?.map((item, index) => (
+          <div key={index} className="rounded-3xl bg-[#F6F6F6]">
             <img
-              src={category.images[0]}
-              className=" h-[40vh] rounded-lg w-full sm:w-[45vw] sm:h-[25vh] image flex flex-col items-center justify-between"
+              className="rounded-t-3xl w-full h-48 sm:36"
+              src={item?.images[0]}
+              alt=""
             />
-            {/* <div className="flex flex-row-reverse w-full ">
-              <button className="hover:text-black/[0.6]">
-                <FaRegHeart size={24} />
-              </button>
-            </div> */}
-            <div className="flex flex-col px-2 space-y-1 sm:space-y-[2px]">
-              <div className=" font-semibold sm:text-[14px] text-[20px]">
-                {category.title}
-              </div>
-              <div className=" font-semibold text-[15px] sm:text-[14px]">
-                {category.price}
-              </div>
-              <div className="sm:hidden font-medium text-[12px]">
-                {category.description}
-              </div>
-              <div className="flex flex-row-reverse">
-                <button className="bg-primary text-white px-4 py-1 rounded-xl">
-                  View More
-                </button>
-              </div>
+            <div className="p-2">
+              <h3 className="text-[#1C1B1F] text-[11px] font-semibold leading-4 tracking-wider my-2">
+                {item?.title}
+              </h3>
+              <p className="text-[#49454F] text-[10px] leading-3 tracking-wide my-1">
+                {item?.price}
+              </p>
+              <small className="text-[#49454F] text-[8px] leading-3">
+                {item?.description}
+              </small>
             </div>
+            <button className="bg-[#F2BE5C] m-1 p-2 rounded-lg w-full text-white border-[#CAC4D0] border">
+              <Link href={{ pathname: "/product", query: { id: item._id } }}>
+                view more
+              </Link>
+            </button>
           </div>
         ))}
       </div>

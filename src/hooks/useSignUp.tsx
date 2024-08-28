@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import useModalStore from "@/store/useModalStore";
 import { object, string, InferType, ref } from "yup";
+import { baseUrl } from "@/lib/api";
 
 export function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,26 +19,25 @@ export function useSignUp() {
   });
 
   const signUp = async (rawFormData: FormData) => {
-    console.log("form data", rawFormData);
+    console.log("raw form data", rawFormData);
     const formData = {
       email: rawFormData.get("email"),
       password: rawFormData.get("password"),
       confirmPassword: rawFormData.get("confirmPassword"),
     };
-    setIsLoading(true);
-    try {
-      await schema.validate(formData, { abortEarly: false });
+    console.log("form data", formData);
 
-      const response = await fetch(
-        `https://cream-card-api.onrender.com/api/v1/auth/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+    try {
+      await schema.validate(formData, { abortEarly: true });
+      setIsLoading(true);
+
+      const response = await fetch(`${baseUrl}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
         //console.log("res", response);

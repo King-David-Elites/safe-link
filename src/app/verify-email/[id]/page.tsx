@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
 function page() {
+  const router = useRouter();
   const params = useParams();
   const { id } = params;
   console.log("id", id);
@@ -41,6 +42,7 @@ function page() {
       const data = await response.json();
       console.log("response", data);
       toast.success("Account verified successfully");
+      router.push("/login");
 
       return { success: true, data };
     } catch (error: any) {

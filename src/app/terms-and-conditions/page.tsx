@@ -55,26 +55,26 @@ const Page = () => {
             <div>
               <h3 className="font-semibold">1. Acceptance of Terms</h3>
               <p>
-                By using or accessing the CREAMCARD website, mobile app, or
-                other services (collectively, the "CREAMCARD Services"), you
-                agree to be bound by these terms and conditions (the "Terms and
+                By using or accessing the SAFELINK website, mobile app, or other
+                services (collectively, the "SAFELINK Services"), you agree to
+                be bound by these terms and conditions (the "Terms and
                 Conditions"). If you do not agree to these Terms and Conditions,
-                you may not use the CREAMCARD Services.
+                you may not use the SAFELINK Services.
               </p>
             </div>
             <div>
               <h3 className="font-semibold">2. Description of Services</h3>
               <p>
-                CREAMCARD provides a platform for businesses to store and send
+                SAFELINK provides a platform for businesses to store and send
                 their profile and inventory to customers and other businesses.
-                CREAMCARD also provides a variety of other services, such as the
+                SAFELINK also provides a variety of other services, such as the
                 ability to create and manage listings.
               </p>
             </div>
             <div>
               <h3 className="font-semibold">3. Account Creation</h3>
               <p>
-                To create an account with CREAMCARD, you will need to provide
+                To create an account with SAFELINK, you will need to provide
                 certain information, such as your name, email address, and
                 mailing address. You will also need to create a password. You
                 agree to provide accurate and complete information, and to keep
@@ -87,7 +87,7 @@ const Page = () => {
                 You are responsible for all activity that occurs under your
                 account. You agree to keep your password confidential and to not
                 share your account with anyone else. You agree to notify
-                CREAMCARD immediately if you believe that your account has been
+                SAFELINK immediately if you believe that your account has been
                 compromised.
               </p>
             </div>
@@ -95,7 +95,7 @@ const Page = () => {
               <h3 className="font-semibold">
                 5. Prohibited Content and Activities
               </h3>
-              <p>You may not use the CREAMCARD Services to:</p>
+              <p>You may not use the SAFELINK Services to:</p>
               <ul className="list-disc list-inside">
                 <li>
                   Post or transmit any content that is unlawful, harmful,
@@ -106,8 +106,8 @@ const Page = () => {
                 <li>Infringe the intellectual property rights of others.</li>
                 <li>Impersonate any person or entity.</li>
                 <li>
-                  Interfere with the CREAMCARD Services or with the use and
-                  enjoyment of the CREAMCARD Services by others.
+                  Interfere with the SAFELINK Services or with the use and
+                  enjoyment of the SAFELINK Services by others.
                 </li>
                 <li>Violate any applicable laws or regulations.</li>
               </ul>
@@ -115,19 +115,19 @@ const Page = () => {
             <div>
               <h3 className="font-semibold">6. Enforcement</h3>
               <p>
-                CREAMCARD reserves the right to deny you access to the CREAMCARD
+                SAFELINK reserves the right to deny you access to the SAFELINK
                 Services at any time for any reason, without notice.
               </p>
             </div>
             <div>
               <h3 className="font-semibold">7. Modifications</h3>
               <p>
-                CREAMCARD reserves the right to modify these Terms and
-                Conditions at any time. Any changes to these Terms and
-                Conditions will be effective immediately upon posting on the
-                CREAMCARD website. Your continued use of the CREAMCARD Services
-                after any changes to these Terms and Conditions will constitute
-                your acceptance of the changes.
+                SAFELINK reserves the right to modify these Terms and Conditions
+                at any time. Any changes to these Terms and Conditions will be
+                effective immediately upon posting on the SAFELINK website. Your
+                continued use of the SAFELINK Services after any changes to
+                these Terms and Conditions will constitute your acceptance of
+                the changes.
               </p>
             </div>
             <div>
@@ -142,8 +142,8 @@ const Page = () => {
               <h3 className="font-semibold">9. Entire Agreement</h3>
               <p>
                 These Terms and Conditions constitute the entire agreement
-                between you and CREAMCARD with respect to your use of the
-                CREAMCARD Services and supersede all prior or contemporaneous
+                between you and SAFELINK with respect to your use of the
+                SAFELINK Services and supersede all prior or contemporaneous
                 communications, representations, or agreements, whether oral or
                 written.
               </p>
@@ -161,8 +161,7 @@ const Page = () => {
               <h3 className="font-semibold">11. Waiver</h3>
               <p>
                 No waiver of any provision of these Terms and Conditions will be
-                effective unless in writing and signed by both you and
-                CREAMCARD.
+                effective unless in writing and signed by both you and SAFELINK.
               </p>
             </div>
             <div>
@@ -186,10 +185,10 @@ const Page = () => {
                 If you have any questions about these Terms and Conditions,
                 please contact us at{" "}
                 <Link
-                  href="mailto:creamcardng@gmail.com"
+                  href="mailto:SAFELINKng@gmail.com"
                   className="text-blue-500"
                 >
-                  <div>creamcardng@gmail.com</div>
+                  <div>SAFELINKng@gmail.com</div>
                 </Link>
               </p>
             </div>

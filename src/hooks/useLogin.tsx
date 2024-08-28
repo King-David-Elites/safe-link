@@ -2,10 +2,14 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import useModalStore from "@/store/useModalStore";
 import { object, string, InferType } from "yup";
+import { baseUrl } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { closeLogInModal } = useModalStore();
+  console.log("fgh", baseUrl);
+  const router = useRouter();
 
   const schema = object({
     email: string().required("Email is required").email("Invalid email format"),
@@ -20,20 +24,18 @@ export function useLogin() {
       password: rawFormData.get("password"),
     };
     console.log("form data", formData);
-    setIsLoading(true);
-    try {
-      await schema.validate(formData, { abortEarly: false });
 
-      const response = await fetch(
-        `https://cream-card-api.onrender.com/api/v1/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+    try {
+      await schema.validate(formData, { abortEarly: true });
+      setIsLoading(true);
+      const response = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        //cache: "force-cache",
+      });
 
       if (!response.ok) {
         const res = await response.json();
@@ -48,7 +50,10 @@ export function useLogin() {
       }
 
       const data = await response.json();
-      console.log("response", data);
+      console.log("response", data.data.user);
+      localStorage.setItem("accessToken", data.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.data.user));
+      router.replace("/");
       toast.success("Logged in successfully");
       closeLogInModal();
       return { success: true, data };

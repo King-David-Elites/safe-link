@@ -1,5 +1,5 @@
 import LoadingModal from "@/components/LoadingModal";
-import Modal from "@/components/Modal";
+import Modal from "@/components/LoginModal";
 //import { BeatLoader, BounceLoader, DotLoader } from "react-spinners";
 
 export default function Loading() {

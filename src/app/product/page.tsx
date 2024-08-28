@@ -4,8 +4,8 @@ import NextJsLightBox from "@/components/NextJsLightBox";
 import ProductImages from "@/components/ProductImages";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaArrowLeft, FaWhatsapp } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
@@ -16,21 +16,74 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Video from "yet-another-react-lightbox/plugins/video";
 import ProductVideos from "@/components/ProductVideos";
+import { Product } from "@/types/product";
+import { fetchSingleInventory } from "@/lib/api";
+import Loading from "../loading";
+import useListStore from "@/store/useListStore";
+import Toast from "react-hot-toast";
 
 function Page() {
+  const router = useRouter();
   const params = useSearchParams();
   const id = params.get("id");
   const [open, setOpen] = useState(false);
   const [mediaType, setMediaType] = useState<"images" | "videos">("images");
-  const images = [...Array(5)].map(() => ({
-    src: "/image8.png",
-  }));
-  const videos = [...Array(2)].map(() => ({
-    src: "/video1.mp4",
-    type: "video/mp4",
-  }));
+  // const videos = [...Array(2)].map(() => ({
+  //   src: "/video1.mp4",
+  //   type: "video/mp4",
+  // }));
 
-  console.log("images", images);
+  const [isLoading, setIsLoading] = useState(false);
+  const [inventory, setInventory] = useState<Product>({});
+
+  useEffect(() => {
+    const loadInventory = async () => {
+      setIsLoading(true);
+      const data = await fetchSingleInventory(id, router);
+      if (data) {
+        setInventory(data);
+        console.log("loaded inventory", data);
+        setIsLoading(false);
+      }
+      setIsLoading(false);
+    };
+    if (id) {
+      loadInventory();
+    }
+  }, [id]);
+
+  const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
+    useListStore();
+
+  const isFavorite = favorites.some((item) => item.id === inventory._id);
+
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      removeFromFavorites(inventory._id);
+      Toast.error("item removed from your list");
+    } else {
+      // Add the item to favorites with relevant properties
+      Toast.success("item added to your list");
+      addToFavorites({
+        id: inventory._id,
+        title: inventory.title,
+        description: inventory.description,
+        price: inventory.price,
+        image: inventory.images[0],
+      });
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  const imageSlides = inventory?.images?.map((image) => ({ src: image }));
+  const videoSlides = inventory?.videos?.map((video) => ({ src: video }));
 
   return (
     <div>
@@ -38,52 +91,37 @@ function Page() {
         <Lightbox
           open={open}
           close={() => setOpen(false)}
-          slides={images}
+          slides={imageSlides}
           render={{ slide: NextJsLightBox }}
           plugins={[Thumbnails, Fullscreen]}
         />
       ) : (
-        <Lightbox
-          plugins={[Video]}
-          slides={[
-            {
-              type: "video",
-              width: 1280,
-              height: 720,
-              poster: "/public/poster-image.jpg",
-              sources: videos,
-            },
-          ]}
-        />
+        <Lightbox plugins={[Video]} slides={videoSlides} />
       )}
 
       <div className="mt-4 mx-4 text-center">
         <div className="mt-2 mx-4 flex-row flex items-center">
-          <button className="bg-transparent flex flex-row space-x-2">
+          <button
+            onClick={() => router.back()}
+            className="bg-transparent flex flex-row space-x-2"
+          >
             <FaArrowLeft size={24} />
             <div>Back</div>
           </button>
           <div className="flex flex-1 flex-col">
             <h2 className="font-bold sm:text-lg text-2xl text-primary">
-              Dianne Russel
+              {inventory?.title}
             </h2>
             <p className="font-semibold">
               {new Intl.NumberFormat("en-NG", {
                 style: "currency",
                 currency: "NGN",
-              }).format(60000)}
+              }).format(inventory?.price)}
             </p>
           </div>
         </div>
 
-        <p className="text-gray-500 text-left mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. At tempor
-          mattis turpis egestas quam cursus sit lobortis. Quam cursus bibendum
-          imperdiet sollicitudin porttitor. Eleifend nisi, mattis pulvinar
-          sagittis at nisi aliquam metus. Ante accumsan vitae tristique at
-          laoreet libero. Mauris tellus, nulla aliquam ut in quam et dis dui.
-          Egestas egestas elementum proin purus.
-        </p>
+        <p className="text-gray-500 text-left mt-2">{inventory?.description}</p>
 
         <div className="flex flex-row justify-center mt-4 space-x-2">
           <button
@@ -101,10 +139,14 @@ function Page() {
         </div>
 
         <div className="mt-4 sm:mt-2 gap-3 grid">
-          {true && (
+          {inventory.images && inventory.videos && (
             <>
               <div className="space-y-4 flex flex-col items-center">
-                {mediaType === "images" ? <ProductImages /> : <ProductVideos />}
+                {mediaType === "images" ? (
+                  <ProductImages images={inventory?.images} />
+                ) : (
+                  <ProductVideos videos={inventory?.videos} />
+                )}
 
                 {mediaType === "images" && (
                   <button
@@ -116,8 +158,13 @@ function Page() {
                   </button>
                 )}
 
-                <button className="bg-primary hover:bg-opacity-80 p-2  text-white rounded-md w-[70%] sm:w-[90%]">
-                  Add this item to your List
+                <button
+                  onClick={handleFavoriteToggle}
+                  className="bg-primary hover:bg-opacity-80 p-2  text-white rounded-md w-[70%] sm:w-[90%]"
+                >
+                  {isFavorite
+                    ? "remove this item from your list"
+                    : "Add this item to your List"}
                 </button>
 
                 <div className="bg-primary/[0.6] py-4 w-[60%] rounded-lg sm:w-[90%] space-y-4 items-start px-2 flex flex-col">
