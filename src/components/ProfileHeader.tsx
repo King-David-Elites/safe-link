@@ -8,6 +8,10 @@ import { HiUpload } from "react-icons/hi";
 
 const ProfileHeader = () => {
   const router = useRouter();
+  const stringifiedUser = localStorage.getItem("user");
+  const user = JSON.parse(stringifiedUser);
+  console.log("user", user);
+
   return (
     <header className="max-w-full">
       <div className="relative">
@@ -19,10 +23,10 @@ const ProfileHeader = () => {
           <FaArrowLeftLong size={24} /> back
         </button>
       </div>
-      <div className="w-full max-w-[960px] mx-auto flex items-end sm:items-center -mt-12 sm:mt-3 justify-between space-x-10 sm:space-x-1 sm:px-2">
+      <div className="w-full max-w-[960px] mx-auto flex items-end sm:items-center -mt-12 sm1:mt-3 justify-between space-x-10 sm1:space-x-1 sm1:px-2 ">
         <div className="relative">
           <img
-            className="h-28 w-28 sm:h-16 sm:w-16"
+            className="h-28 w-28 sm1:h-14 sm1:w-14 rounded-full"
             src={"/pp-placeholder.png"}
             alt="profile"
           />
@@ -32,15 +36,15 @@ const ProfileHeader = () => {
         </div>
         <div className="flex items-center gap-5 justify-between ">
           <div className="">
-            <h1 className="flex items-center gap-2 font-semibold leading-8 text-[22px] sm:text-[14px] text-nowrap">
-              KingDavid Team <img src={"/verification.svg"} alt="" />
+            <h1 className="flex items-center gap-2 font-semibold leading-8 text-[22px] sm1:text-[12px]  text-nowrap">
+              {user.email} <img src={"/verification.svg"} alt="" />
             </h1>
-            <small className="text-[14px] sm:text-[12px] font-semibold leading-5 text-[#737373]">
-              Joined: 2022
+            <small className="text-[14px] sm1:text-[12px] font-semibold leading-5 text-[#737373]">
+              Joined: {user?.createdAt.slice(0, 4)}
             </small>
           </div>
 
-          <div className="flex items-center gap-3 justify-between sm:justify-center sm:flex-wrap sm:justify-center">
+          <div className="flex items-center gap-3 justify-between sm1:flex-wrap sm1:justify-center">
             <button
               onClick={() => {
                 router.push("/profile/edit-profile");
@@ -54,20 +58,15 @@ const ProfileHeader = () => {
               <IoMdShareAlt size={20} />
               share profile
             </button>
-            <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm:hidden">
+            <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden">
               <HiUpload size={20} />
               upgrade account
             </button>
           </div>
         </div>
       </div>
-      <p className="my-2 mx-[10%] sm:mx-[2%] p-5 text-[#444544] tracking-wide text-[12px] leading-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. At tempor
-        mattis turpis egestas quam cursus sit lobortis. Quam cursus bibendum
-        imperdiet sollicitudin porttitor. Eleifend nisi, mattis pulvinar
-        sagittis at nisi aliquam metus. Ante accumsan vitae tristique at laoreet
-        libero. Mauris tellus, nulla aliquam ut in quam et dis dui. Egestas
-        egestas elementum proin purus.
+      <p className="my-2 mx-[10%] sm1:mx-[2%] p-5 text-[#444544] tracking-wide text-[12px] leading-4">
+        {user?.about}
       </p>
       <div className="hidden sm:flex items-center justify-between mx-[5%]">
         <button
@@ -76,7 +75,7 @@ const ProfileHeader = () => {
           }}
           className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
         >
-          <MdEdit size={20} />
+          <MdEdit size={16} />
           edit profile
         </button>
         <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap">

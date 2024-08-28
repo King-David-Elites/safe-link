@@ -32,8 +32,11 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const stringifiedUser = localStorage.getItem("user");
+  const user = JSON.parse(stringifiedUser);
+  console.log("user", user);
   // Replca this with the actual user
-  const [user, setUser] = useState(true);
+  //const [user, setUser] = useState(true);
 
   const pathName = usePathname();
   const {
@@ -57,7 +60,9 @@ export function Nav({ children }: { children: ReactNode }) {
   return (
     <>
       {pathName === "/" && (
-        <div className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-10 hidden fixed top-0 left-0 z-50  w-full `}>
+        <div
+          className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-10 hidden fixed top-0 left-0 z-50  w-full `}
+        >
           <button className="p-4  " onClick={openDrawer}>
             <FaBars size={24} color="white" />
           </button>
@@ -70,17 +75,34 @@ export function Nav({ children }: { children: ReactNode }) {
             </Link>
           </div>
 
-          <div className={`${user ? "block" : "invisible"}`}>
-            <Link href={"/profile"} className="text-[#f2f2f2]">
-              <FaRegUserCircle size={30} />
-            </Link>
-          </div>
+          {user?.email === undefined ? (
+            <div className="">
+              <Link href={"/profile"} className="text-[#f2f2f2]">
+                <FaRegUserCircle size={30} />
+              </Link>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={openLogInModal}
+                className="border hover:text-primary sm:hidden border-primary rounded-[4px] py-3 px-6 mr-4"
+              >
+                Log In
+              </button>
+              {/* <button
+                onClick={openSignUpModal}
+                className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"
+              >
+                Sign Up
+              </button> */}
+            </>
+          )}
         </div>
       )}
 
-     
-
-      <nav className={`bg-black flex  justify-between text-white sm:hidden h-16 items-center pl-6 pr-4`}>
+      <nav
+        className={`bg-black flex  justify-between text-white sm:hidden h-16 items-center pl-6 pr-4`}
+      >
         <Link href={"/"}>
           <Image
             alt="logo"
@@ -100,16 +122,16 @@ export function Nav({ children }: { children: ReactNode }) {
             <>
               <button
                 onClick={openLogInModal}
-                className="border hover:text-primary border-primary rounded-[4px] py-3 px-6 mr-4"
+                className="border hover:text-primary sm:hidden border-primary rounded-[4px] py-3 px-6 mr-4"
               >
                 Log In
               </button>
-              <button
+              {/* <button
                 onClick={openSignUpModal}
                 className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"
               >
                 Sign Up
-              </button>
+              </button> */}
             </>
           )}
         </div>

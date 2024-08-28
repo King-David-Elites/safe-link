@@ -5,22 +5,22 @@ import { FaArrowLeft } from "react-icons/fa";
 import PaymentTransfer from "@/components/PaymentTransfer";
 import PaymentCard from "@/components/PaymentCard";
 
-
 const page = () => {
   const router = useRouter();
   const [type, setType] = useState<"card" | "transfer">("card");
-  const SubscriptionList =[ {
-    type: "12 months plan",
-    amount: "N18,000",
-    duration: "12 months",
-    offers: [
-      "Unlimited Listings",
-      "12 MONTH SUBSCRIPTION",
-      "Occasional Feature on the homepage",
-      "Occasional Feature on the Safelink social media platforms",
-    ],
-  }
-]
+  const SubscriptionList = [
+    {
+      type: "12 months plan",
+      amount: "N18,000",
+      duration: "12 months",
+      offers: [
+        "Unlimited Listings",
+        "12 MONTH SUBSCRIPTION",
+        "Occasional Feature on the homepage",
+        "Occasional Feature on the Safelink social media platforms",
+      ],
+    },
+  ];
 
   return (
     <section className="px-5 py-10">
@@ -38,7 +38,7 @@ const page = () => {
             Payment
           </h1>
           <p className="text-[#252625] leading-4 text-[10px]">
-          Select a payment method for your transaction 
+            Select a payment method for your transaction
           </p>
         </div>
       </div>
@@ -74,11 +74,7 @@ const page = () => {
         </button>
       </div>
 
-      <div>{type === "card" ? 
-     
-            <PaymentCard  />
-    
-         : <PaymentTransfer />}</div>
+      <div>{type === "card" ? <PaymentCard /> : <PaymentTransfer />}</div>
     </section>
   );
 };

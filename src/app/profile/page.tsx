@@ -3,58 +3,78 @@ import Inventory from "@/components/Inventory";
 import PictureCategories from "@/components/PictureCategories";
 import ProfileHeader from "@/components/ProfileHeader";
 import QA from "@/components/QA";
+import { fetchQuestionsAnswers, fetchUserInventory } from "@/lib/api";
+import useListStore from "@/store/useListStore";
+import { Product } from "@/types/product";
+import { formatToNaira } from "@/util/formatToNaira";
 import Head from "next/head";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { IoLogoWhatsapp } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
 }
 
-const questions = [
-  {
-    question: "How did you get into this line of business?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun",
-  },
-  {
-    question: "What are your biggest hopes and dreams for your business?",
-    answer:
-      "e et ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun",
-  },
-
-  {
-    question: "What is your favorite thing about this business of yours?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun",
-  },
-];
+const stringifiedUser = localStorage.getItem("user");
+const user = JSON.parse(stringifiedUser);
+console.log("user", user);
 
 const categories = [
   {
     title: "Professional Pictures",
-    images: ["/image3.png", "/image4.png", "/image5.png"],
+    images: user?.professionalPictures,
   },
   {
     title: "Work Pictures",
-    images: ["/image3.png", "/image4.png", "/image5.png"],
+    images: user?.workPictures,
   },
   {
     title: "Leisure Pictures",
-    images: ["/image3.png", "/image4.png", "/image5.png"],
+    images: user?.leisurePictures,
   },
 ];
 
-const inventoryObject = {
-  title: "Name of Product",
-  price: "Price of Product",
-  description:
-    "This is a short explanation of the product to be sold and clicking the read more should lead to the pictures",
-  images: ["/image4.png"],
-};
-const inventory = createObjectCopies(inventoryObject);
-
 const Page = () => {
   const [type, setType] = useState<"images" | "inventory">("images");
+  const router = useRouter();
+  //const inventory = createObjectCopies(inventoryObject);
+  const [questions, setQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [inventory, setInventory] = useState<Product>({});
+  const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
+    useListStore();
+
+  const fetchQuestionsAndAnswerdata = async () => {
+    const response = await fetchQuestionsAnswers(router);
+    if (response) {
+      setQuestions(response);
+    }
+  };
+
+  const loadInventory = async () => {
+    setIsLoading(true);
+    const data = await fetchUserInventory(user._id, router);
+    if (data) {
+      setInventory(data);
+      console.log("loaded inventory", data);
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchQuestionsAndAnswerdata();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      loadInventory();
+    }
+  }, [user]);
+
+  console.log("fav", favorites);
 
   return (
     <div className="w-full">
@@ -64,7 +84,7 @@ const Page = () => {
       </Head>
 
       <ProfileHeader />
-      <QA questions={questions} />
+      {questions.length > 0 && <QA questions={questions} />}
       <div className="flex-row flex justify-around my-8 border-y-4 border-[#ECEDEE]">
         <button
           className="items-center flex flex-col"
@@ -76,7 +96,9 @@ const Page = () => {
             My Pictures
           </div>
           {type === "images" && (
-            <div className={`h-[6px] sm:h-[4px] sm:bg-[#000000] bg-[#00000080] w-48 sm:w-28 rounded-md`} />
+            <div
+              className={`h-[6px] sm:h-[4px] sm:bg-[#000000] bg-[#00000080] w-48 sm:w-28 rounded-md`}
+            />
           )}
         </button>
         <button
@@ -95,6 +117,47 @@ const Page = () => {
         <PictureCategories categories={categories} />
       ) : (
         <Inventory inventory={inventory} />
+      )}
+      {favorites.length > 0 && (
+        <div className="bg-[#B28E49] rounded-md p-2 my-3">
+          <p className="text-[12px] leading-4 font-semibold text-white">
+            Your List
+          </p>
+          {favorites.map((item, index) => (
+            <div className="bg-white p-1 flex items-center justify-between gap-3 my-2 rounded-md">
+              <img className="w-10 h-10" src={item.image} alt="" />
+              <div className="flex-1">
+                <h3 className="text-[#F2BE5C] font-semibold text-[12px] leading-5">
+                  {item?.title}
+                </h3>
+                <small className="font-medium text-[12px] leading-5">
+                  {formatToNaira(item?.price)}
+                </small>
+              </div>
+              <div className="flex items-center gap-2">
+                {/* <img src={"/remove.svg"} alt="" />
+              <small>1</small>
+              <img src={"/add.svg"} alt="" /> */}
+                <button onClick={() => removeFromFavorites(item.id)}>
+                  <MdDelete className="text-[#DC1F1F]" size={20} />
+                </button>
+              </div>
+            </div>
+          ))}
+          <div className="flex items-center justify-between gap-1">
+            <button className="text-white font-semibold text-[12px] leading-5 flex items-center gap-3 bg-[#4CAF50] p-2 rounded-md my-2 flex-1 text-nowrap">
+              <IoLogoWhatsapp size={25} />
+              Share list to seller via Whatsapp
+            </button>
+            <button
+              onClick={clearFavorites}
+              className="text-white font-semibold text-[12px] leading-5 flex items-center gap-3 bg-[#A70A0A] p-2 rounded-md my-2 text-nowrap"
+            >
+              <MdDelete size={25} />
+              Clear list
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

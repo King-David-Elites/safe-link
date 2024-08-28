@@ -1,3 +1,5 @@
+import { register } from "@/actions/authActions";
+import SignUpButton from "@/components/SignUpButton";
 import Image from "next/image";
 import Link from "next/link";
 //import { useRouter } from "next/navigation";
@@ -6,8 +8,6 @@ import { MdCancel } from "react-icons/md";
 
 async function getData() {
   const res = await fetch("https://freetestapi.com/api/v1/books");
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -41,7 +41,7 @@ async function page() {
           <MdCancel size={28} />
         </Link> */}
         <div className="w-full flex justify-center mt-4 text-[24px] font-[500]">
-          CREAM CARD
+          SAFE LINK
         </div>
       </div>
       <div>Welcome back</div>
@@ -72,9 +72,9 @@ async function page() {
           <div>Confirm Password</div>
           <input
             className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
-            id="confirm-password"
+            id="confirmPassword"
             title="Confirm Password"
-            name="confirm-password"
+            name="confirmPassword"
             placeholder="••••••••"
             type="password"
           />
@@ -83,25 +83,26 @@ async function page() {
         <div className="flex flex-row space-x-2 items-start">
           <input type="checkbox"></input>
           <div className="text-xs">
-            By clicking here, I state that I have read and understood the terms
-            and conditions.
+            By clicking here, I state that I have read and understood the{" "}
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={"terms-and-conditions"}
+              className="text-primary"
+            >
+              Terms and Conditions.
+            </Link>
           </div>
         </div>
 
-        <button
-          title="submit"
-          formAction={createInvoice}
-          className="bg-gradient-to-r from bg-[#f2be5c] to-white py-2 rounded-md"
-        >
-          Sign up
-        </button>
+        <SignUpButton />
       </form>
       <div className="flex flex-row justify-center my-4 items-center space-x-2">
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-2 my-2 w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      <button className="flex flex-row py-2 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
       </button>

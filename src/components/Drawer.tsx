@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 //import NavLink from "next/NavLink";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdContactMail, MdDescription } from "react-icons/md";
 import {
   FaHome,
   FaList,
@@ -11,9 +11,11 @@ import {
   FaBell,
   FaHeart,
   FaUser,
+  FaUserCircle,
 } from "react-icons/fa";
 import { NavLink } from "./Nav";
 import useModalStore from "@/store/useModalStore";
+import Link from "next/link";
 
 {
   /* <Drawer
@@ -35,6 +37,10 @@ import useModalStore from "@/store/useModalStore";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
+  const stringifiedUser = localStorage.getItem("user");
+  const user = JSON.parse(stringifiedUser);
+  console.log("user", user);
+
   return (
     <div
       className={`fixed inset-0 z-50 transition-transform transform  ${
@@ -60,7 +66,7 @@ const Drawer = () => {
             <span>List With Us</span>
           </div>
         </NavLink>
-        <NavLink href="/messages">
+        {/* <NavLink href="/messages">
           <div className="flex-row flex items-center space-x-4">
             <FaEnvelope />
             <span>Messages</span>
@@ -71,32 +77,55 @@ const Drawer = () => {
             <FaBell />
             <span>Notifications</span>
           </div>
-        </NavLink>
-        <NavLink href="/saved">
+        </NavLink> */}
+        {/* <NavLink href="/saved">
           <div className="flex-row flex items-center space-x-4">
             <FaHeart />
             <span>Saved Listings</span>
           </div>
-        </NavLink>
-        <NavLink href="/profile">
-          <div className="flex-row flex items-center space-x-4">
-            <FaUser />
-            <span>Profile</span>
-          </div>
-        </NavLink>
+        </NavLink> */}
+        {user && (
+          <NavLink href="/profile">
+            <div className="flex-row flex items-center space-x-4">
+              <FaUser />
+              <span>Profile</span>
+            </div>
+          </NavLink>
+        )}
         <hr />
-        <NavLink href="/about">
-          <span>About</span>
-        </NavLink>
-        <NavLink href="/contact">
-          <span>Contact Us</span>
-        </NavLink>
-        <NavLink href="/login">
+        <NavLink href={"/about"}>
           <div className="flex-row flex items-center space-x-4">
-            <FaUser />
-            <span>Log in</span>
+            <MdDescription />
+            <span>About</span>
           </div>
         </NavLink>
+        <Link
+          href="mailto:usesafelink@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-primary"
+        >
+          <div className="flex-row flex items-center space-x-4">
+            <MdContactMail />
+            <span>Contact Us</span>
+          </div>
+        </Link>
+        {!user && (
+          <>
+            <NavLink href="/login">
+              <div className="flex-row flex items-center space-x-4">
+                <FaUser />
+                <span>Log in</span>
+              </div>
+            </NavLink>
+            <NavLink href="/login">
+              <div className="flex-row flex items-center space-x-4">
+                <FaUserCircle />
+                <span>Sign up</span>
+              </div>
+            </NavLink>
+          </>
+        )}
       </nav>
     </div>
   );
