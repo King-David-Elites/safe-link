@@ -10,25 +10,25 @@ export default function CreateListing() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState<any>("");
   const [currency, setCurrency] = useState("USD");
-  const [images, setImages] = useState([]);
-  const [videos, setVideos] = useState([]);
+  const [images, setImages] = useState<any>([]);
+  const [videos, setVideos] = useState<any>([]);
   const [cover, setCover] = useState(null);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: any) => {
     setImages([...e.target.files]);
   };
 
-  const handleVideoChange = (e) => {
+  const handleVideoChange = (e: any) => {
     setVideos([...e.target.files]);
   };
 
-  const handleCoverChange = (e) => {
+  const handleCoverChange = (e: any) => {
     setCover(e.target.files[0]);
   };
 
-  const convertFileToBase64 = (file) => {
+  const convertFileToBase64 = (file: any) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -50,7 +50,7 @@ export default function CreateListing() {
     );
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
 
