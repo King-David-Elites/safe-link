@@ -34,12 +34,12 @@ function Page() {
   // }));
 
   const [isLoading, setIsLoading] = useState(false);
-  const [inventory, setInventory] = useState<Product>({});
+  const [inventory, setInventory] = useState<Product | any>({});
 
   useEffect(() => {
     const loadInventory = async () => {
       setIsLoading(true);
-      const data = await fetchSingleInventory(id, router);
+      const data = await fetchSingleInventory(id as string, router);
       if (data) {
         setInventory(data);
         console.log("loaded inventory", data);
@@ -82,11 +82,11 @@ function Page() {
     );
   }
 
-  const imageSlides = inventory?.images?.map((image) => ({ src: image }));
-  const videoSlides = inventory?.videos?.map((video) => ({ src: video }));
+  const imageSlides = inventory?.images?.map((image:any) => ({ src: image }));
+  const videoSlides = inventory?.videos?.map((video: any) => ({ src: video }));
 
   return (
-    <div>
+    <div>:
       {mediaType === "images" ? (
         <Lightbox
           open={open}
