@@ -37,10 +37,14 @@ import Link from "next/link";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
-  const stringifiedUser = localStorage.getItem("user");
-  const user = JSON.parse(stringifiedUser);
-  console.log("user", user);
+  let stringifiedUser;
+  if (typeof window !== "undefined") {
+    stringifiedUser = localStorage.getItem("user");
+  }
 
+  const user =
+    typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
+  console.log("user", user);
   return (
     <div
       className={`fixed inset-0 z-50 transition-transform transform  ${

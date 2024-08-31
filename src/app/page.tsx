@@ -1,4 +1,5 @@
 "use client";
+import DynamicBackground from "@/components/DynamicBackground";
 import { Showcase } from "@/components/Showcase";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,20 +9,22 @@ import { MdImageSearch } from "react-icons/md";
 
 export default function Home() {
   const router = useRouter();
+  const images = [
+    "homepage-image-1.jpg",
+    "homepage-image-2.jpg",
+    "homepage-image-3.jpg",
+    "homepage-image-4.jpg",
+    "homepage-image-5.jpg",
+    "homepage-image-6.jpg",
+    "homepage-image-7.jpg",
+    "homepage-image-8.jpg",
+    "homepage-image-9.jpg",
+  ];
 
   return (
     <div className="flex flex-1 flex-col bg-white">
       <div className="h-[70vh] w-full mb-2">
-        <div
-          className=" h-full w-full image flex flex-col items-center justify-center"
-          style={{
-            backgroundImage: "url('/background1.png')",
-            backgroundColor: "#00000080",
-            backgroundSize: "cover",
-            backgroundBlendMode: "mutiply",
-            backgroundPosition: "center",
-          }}
-        >
+        <DynamicBackground images={images}>
           <div className="m-1 flex items-center justify-center">
             <Image
               alt="logo"
@@ -59,7 +62,7 @@ export default function Home() {
               Search
             </Link>
           </div>
-        </div>
+        </DynamicBackground>
       </div>
       <div className="my-5">
         <Showcase />

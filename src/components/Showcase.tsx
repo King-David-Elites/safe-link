@@ -37,8 +37,9 @@ export function Showcase() {
     useListStore();
 
   //const isFavorite = (id) => favorites.some((item) => item.id === data._id);
-  const isFavorite = (id) => favorites.find((obj) => obj.id === id);
+  const isFavorite = (id: string) => favorites.find((obj) => obj.id === id);
 
+  //@ts-ignore
   const handleFavoriteToggle = (data) => {
     if (isFavorite(data._id)) {
       removeFromFavorites(data._id);

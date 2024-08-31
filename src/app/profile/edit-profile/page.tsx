@@ -49,15 +49,18 @@ interface SelectedFilesState {
   leisure_pictures: string[];
 }
 
-
 const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const stringifiedUser = localStorage.getItem("user");
-  const user = JSON.parse(stringifiedUser);
+  let stringifiedUser;
+  if (typeof window !== "undefined") {
+    stringifiedUser = localStorage.getItem("user");
+  }
+
+  const user =
+    typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
   console.log("user", user);
-  const id = user?._id;
 
   useEffect(() => {
     setIsLoading(true);

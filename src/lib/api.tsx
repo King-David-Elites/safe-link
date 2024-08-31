@@ -49,7 +49,7 @@ export const fetchInventory = async (router: any): Promise<any[] | null> => {
 };
 
 export const fetchSingleInventory = async (
-  id: string,
+  id: string | null,
   router: any
 ): Promise<any[] | null> => {
   Toast.dismiss();

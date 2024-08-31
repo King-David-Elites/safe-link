@@ -9,7 +9,7 @@ import { HiUpload } from "react-icons/hi";
 const UserProfileHeader = () => {
   const router = useRouter();
   const stringifiedUser = localStorage.getItem("user");
-  const user = JSON.parse(stringifiedUser);
+  const user = JSON.parse(stringifiedUser ?? "");
   console.log("user", user);
 
   return (

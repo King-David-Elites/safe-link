@@ -34,6 +34,7 @@ function Page() {
   // }));
 
   const [isLoading, setIsLoading] = useState(false);
+  //@ts-ignore
   const [inventory, setInventory] = useState<Product>({});
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function Page() {
       setIsLoading(true);
       const data = await fetchSingleInventory(id, router);
       if (data) {
+        //@ts-ignore
         setInventory(data);
         console.log("loaded inventory", data);
         setIsLoading(false);
@@ -55,10 +57,10 @@ function Page() {
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
-  const isFavorite = favorites.some((item) => item.id === inventory._id);
+  const isFavorite = favorites.some((item) => item.id === inventory?._id);
 
   const handleFavoriteToggle = () => {
-    if (isFavorite) {
+    if (isFavorite && inventory?._id !== null) {
       removeFromFavorites(inventory._id);
       Toast.error("item removed from your list");
     } else {

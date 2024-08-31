@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-function ProductVideos({ videos }: { videos: string }) {
+function ProductVideos({ videos }: { videos: string[] }) {
   const otherVideos = videos?.slice(1);
   if (videos) {
     return (
