@@ -56,7 +56,7 @@ const page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user = JSON.parse(stringifiedUser);
+  const user =stringifiedUser;
   console.log("user", user);
   const id = user?._id;
 

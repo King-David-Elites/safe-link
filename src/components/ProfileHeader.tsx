@@ -10,7 +10,7 @@ import useLocalStorage from "use-local-storage";
 const ProfileHeader = () => {
   const router = useRouter();
   const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user = JSON.parse(stringifiedUser);
+  const user =stringifiedUser;
   console.log("user", user);
 
   return (

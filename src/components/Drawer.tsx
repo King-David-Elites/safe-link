@@ -39,7 +39,7 @@ import useLocalStorage from "use-local-storage";
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
   const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user = JSON.parse(stringifiedUser);
+  const user =stringifiedUser;
   console.log("user", user);
 
   return (

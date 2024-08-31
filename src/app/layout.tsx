@@ -38,15 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className}`}>
+      <body className={`${poppins.className}`}>
         <Toaster />
         <Nav>
           <NavLink href={"/create-listing"}>List With Us</NavLink>
           <NavLink href={"/pricing"}>Pricing</NavLink>
-
-          {/* <NavLink href={"/null"}>Log In</NavLink> */}
-
-          {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
         </Nav>
         <div className="min-h-[500px]">{children}</div>
         <Drawer />
