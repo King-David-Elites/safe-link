@@ -11,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 
 const page = () => {
   const [type, setType] = useState<"images" | "inventory">("images");
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<any>([]);
 
   function createObjectCopies<T>(obj: T): T[] {
     return new Array(6).fill({ ...obj });

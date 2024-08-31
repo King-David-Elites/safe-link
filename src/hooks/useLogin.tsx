@@ -51,8 +51,11 @@ export function useLogin() {
 
       const data = await response.json();
       console.log("response", data.data.user);
-      localStorage.setItem("accessToken", data.data.accessToken);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("accessToken", data.data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.data.user));
+      }
+      
       router.replace("/");
       toast.success("Logged in successfully");
       closeLogInModal();
