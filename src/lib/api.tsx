@@ -93,8 +93,11 @@ export const updateProfile = async (data: any, router: any) => {
     const response = await api.put(`user/`, data);
     console.log("rr", response.data.data);
     if (response.status === 200) {
-      localStorage.setItem("user", JSON.stringify(response.data.data));
+      if (typeof window !== "undefined") {
+       localStorage.setItem("user", JSON.stringify(response.data.data));
       Toast.success("Profile updated successfully");
+      }
+      
     } else {
       //console.log()
       Toast.error("Error updating profile");

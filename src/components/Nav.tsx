@@ -12,6 +12,7 @@ import { FaBars } from "react-icons/fa";
 import Drawer from "./Drawer";
 import useModalStore from "@/store/useModalStore";
 import { FaRegUserCircle } from "react-icons/fa";
+import useLocalStorage from "use-local-storage";
 
 const ServerLoginForm = dynamic(() => import("./LoginForm"), {
   ssr: false,
@@ -32,13 +33,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter();
-  let stringifiedUser;
-  if (typeof window !== "undefined") {
-    stringifiedUser = localStorage.getItem("user");
-  }
-
-  const user =
-    typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
+  const [stringifiedUser] = useLocalStorage<any>("user", null);
+  const user = JSON.parse(stringifiedUser);
   console.log("user", user);
   // Replca this with the actual user
   //const [user, setUser] = useState(true);

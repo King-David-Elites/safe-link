@@ -10,10 +10,13 @@ export const getAccessToken = () => {
 
 export const clearUserData = () => {
   try {
-    localStorage.removeItem("accessToken");
+    if (typeof window !== "undefined") {
+     localStorage.removeItem("accessToken");
     //await SecureStore.deleteItemAsync("refreshToken");
     localStorage.removeItem("userDetails");
     console.log("User data cleared successfully");
+    }
+    
   } catch (error) {
     console.error("Error clearing user data:", error);
   }

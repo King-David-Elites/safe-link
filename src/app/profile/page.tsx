@@ -12,13 +12,15 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import useLocalStorage from "use-local-storage";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
 }
 
-const stringifiedUser = localStorage.getItem("user");
-const user = JSON.parse(stringifiedUser);
+const [stringifiedUser] = useLocalStorage<any>("user", null);
+
+const user = JSON.parse(stringifiedUser as string);
 console.log("user", user);
 
 const categories = [
@@ -40,9 +42,9 @@ const Page = () => {
   const [type, setType] = useState<"images" | "inventory">("images");
   const router = useRouter();
   //const inventory = createObjectCopies(inventoryObject);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [inventory, setInventory] = useState<Product>({});
+  const [inventory, setInventory] = useState<Product | any>({});
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 

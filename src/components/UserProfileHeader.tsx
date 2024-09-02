@@ -5,11 +5,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 import { IoMdShareAlt } from "react-icons/io";
 import { HiUpload } from "react-icons/hi";
+import useLocalStorage from "use-local-storage";
 
 const UserProfileHeader = () => {
   const router = useRouter();
-  const stringifiedUser = localStorage.getItem("user");
-  const user = JSON.parse(stringifiedUser ?? "");
+  const [stringifiedUser] = useLocalStorage<any>("user", null);
+  const user = JSON.parse(stringifiedUser);
   console.log("user", user);
 
   return (

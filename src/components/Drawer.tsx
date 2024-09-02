@@ -16,6 +16,7 @@ import {
 import { NavLink } from "./Nav";
 import useModalStore from "@/store/useModalStore";
 import Link from "next/link";
+import useLocalStorage from "use-local-storage";
 
 {
   /* <Drawer
@@ -37,13 +38,8 @@ import Link from "next/link";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
-  let stringifiedUser;
-  if (typeof window !== "undefined") {
-    stringifiedUser = localStorage.getItem("user");
-  }
-
-  const user =
-    typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
+  const [stringifiedUser] = useLocalStorage<any>("user", null);
+  const user = JSON.parse(stringifiedUser);
   console.log("user", user);
   return (
     <div

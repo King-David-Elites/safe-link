@@ -34,13 +34,12 @@ function Page() {
   // }));
 
   const [isLoading, setIsLoading] = useState(false);
-  //@ts-ignore
-  const [inventory, setInventory] = useState<Product>({});
+  const [inventory, setInventory] = useState<Product | any>({});
 
   useEffect(() => {
     const loadInventory = async () => {
       setIsLoading(true);
-      const data = await fetchSingleInventory(id, router);
+      const data = await fetchSingleInventory(id as string, router);
       if (data) {
         //@ts-ignore
         setInventory(data);
@@ -84,11 +83,12 @@ function Page() {
     );
   }
 
-  const imageSlides = inventory?.images?.map((image) => ({ src: image }));
-  const videoSlides = inventory?.videos?.map((video) => ({ src: video }));
+  const imageSlides = inventory?.images?.map((image: any) => ({ src: image }));
+  const videoSlides = inventory?.videos?.map((video: any) => ({ src: video }));
 
   return (
     <div>
+      :
       {mediaType === "images" ? (
         <Lightbox
           open={open}
@@ -100,7 +100,6 @@ function Page() {
       ) : (
         <Lightbox plugins={[Video]} slides={videoSlides} />
       )}
-
       <div className="mt-4 mx-4 text-center">
         <div className="mt-2 mx-4 flex-row flex items-center">
           <button

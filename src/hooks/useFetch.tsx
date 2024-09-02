@@ -18,7 +18,7 @@ export function useFetch() {
             localStorage.removeItem('accessToken');
           }
           // Navigate to login page
-          await router.push('/login');
+           router.push('/login');
         }
         // You can handle other status codes here if needed
       }

@@ -17,6 +17,7 @@ import {
   convertFilesToBase64,
   convertFileToBase64,
 } from "@/util/convertImage";
+import useLocalStorage from "use-local-storage";
 
 interface FormState {
   name: string;
@@ -53,6 +54,7 @@ const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+<<<<<<< HEAD
   let stringifiedUser;
   if (typeof window !== "undefined") {
     stringifiedUser = localStorage.getItem("user");
@@ -60,6 +62,10 @@ const page = () => {
 
   const user =
     typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
+=======
+  const [stringifiedUser] = useLocalStorage<any>("user", null);
+  const user = JSON.parse(stringifiedUser);
+>>>>>>> e3fde985db921ba7ffe579e9c5ede8523d265f38
   console.log("user", user);
 
   useEffect(() => {
@@ -74,38 +80,38 @@ const page = () => {
   }, []);
 
   const [form, setForm] = useState<FormState>({
-    name: user.name || "",
-    about: user.about || "",
+    name: user?.name || "",
+    about: user?.about || "",
     // question1: "",
     // question2: "",
     // question3: "",
     // question4: "",
     // question5: "",
     // question6: "",
-    cover: user.profilePicture
-      ? base64ToFile(user.profilePicture, "cover.png", "image/png")
+    cover: user?.profilePicture
+      ? base64ToFile(user?.profilePicture, "cover.png", "image/png")
       : null,
-    professionalPictures: user.professionalPictures
-      ? user.professionalPictures.map((pic: string, index: number) =>
+    professionalPictures: user?.professionalPictures
+      ? user?.professionalPictures.map((pic: string, index: number) =>
           base64ToFile(pic, `professional_${index}.png`, "image/png")
         )
       : [],
-    workPictures: user.workPictures
-      ? user.workPictures.map((pic: string, index: number) =>
+    workPictures: user?.workPictures
+      ? user?.workPictures.map((pic: string, index: number) =>
           base64ToFile(pic, `work_${index}.png`, "image/png")
         )
       : [],
-    leisurePictures: user.leisurePictures
-      ? user.leisurePictures.map((pic: string, index: number) =>
+    leisurePictures: user?.leisurePictures
+      ? user?.leisurePictures.map((pic: string, index: number) =>
           base64ToFile(pic, `leisure_${index}.png`, "image/png")
         )
       : [],
-    address: user.address || "",
-    country: user.country || "Nigeria",
-    state: user.state || "",
+    address: user?.address || "",
+    country: user?.country || "Nigeria",
+    state: user?.state || "",
     zip: "",
-    email: user.email || "",
-    phone1: user.phoneNumber || "",
+    email: user?.email || "",
+    phone1: user?.phoneNumber || "",
     phone2: "",
     answers: {},
   });
@@ -189,7 +195,7 @@ const page = () => {
       const profilePayload = {
         firstName: form.name.split(" ")[0],
         lastName: form.name.split(" ")[1] || "",
-        _id: id, // Replace with actual user ID
+        _id: id, // Replace with actual user? ID
         about: form.about,
         profilePicture: profilePictureBase64,
         professionalPictures: professionalPicturesBase64,
