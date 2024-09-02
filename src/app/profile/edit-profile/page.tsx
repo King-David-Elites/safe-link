@@ -54,19 +54,10 @@ const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
-<<<<<<< HEAD
-  let stringifiedUser;
-  if (typeof window !== "undefined") {
-    stringifiedUser = localStorage.getItem("user");
-  }
-
-  const user =
-    typeof stringifiedUser === "string" && JSON.parse(stringifiedUser);
-=======
   const [stringifiedUser] = useLocalStorage<any>("user", null);
   const user = JSON.parse(stringifiedUser);
->>>>>>> e3fde985db921ba7ffe579e9c5ede8523d265f38
   console.log("user", user);
+  const id = user?._id;
 
   useEffect(() => {
     setIsLoading(true);
