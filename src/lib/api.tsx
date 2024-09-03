@@ -94,10 +94,9 @@ export const updateProfile = async (data: any, router: any) => {
     console.log("rr", response.data.data);
     if (response.status === 200) {
       if (typeof window !== "undefined") {
-       localStorage.setItem("user", JSON.stringify(response.data.data));
-      Toast.success("Profile updated successfully");
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        Toast.success("Profile updated successfully");
       }
-      
     } else {
       //console.log()
       Toast.error("Error updating profile");
@@ -175,7 +174,7 @@ export const fetchQuestionsAnswers = async (
   try {
     const api = await createApiInstance(router);
     const response = await api.get(`/questions/answer`);
-    console.log("Questions and Answers response:", response);
+    //console.log("Questions and Answers response:", response);
 
     const data = response.data.data;
 
@@ -183,6 +182,22 @@ export const fetchQuestionsAnswers = async (
   } catch (error) {
     console.error("Error fetching question and answers:", error);
     Toast.error("Error fetching question and answers:");
+    return null;
+  }
+};
+
+export const fetchUsers = async (router: any): Promise<any[] | null> => {
+  Toast.dismiss();
+  try {
+    const api = await createApiInstance(router);
+    const response = await api.get(`/user`);
+    console.log("Inventory response:", response);
+
+    const data = response.data.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    Toast.error("Error fetching user");
     return null;
   }
 };

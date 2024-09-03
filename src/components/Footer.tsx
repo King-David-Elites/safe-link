@@ -37,7 +37,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <div>
+        {/* <div>
           <h2 className="font-medium text-lg mb-4">CATEGORIES</h2>
           <ul className="space-y-2">
             <li>
@@ -51,7 +51,7 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div>
           <h2 className="font-medium text-lg mb-4">BUSINESS</h2>
           <ul className="space-y-2">
@@ -100,8 +100,7 @@ export default function Footer() {
       </div>
       <div className="container mx-auto sm:px-6 px-16 mt-10 text-center">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} King David Elites. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} SAFELINK. All rights reserved.
         </p>
       </div>
     </footer>

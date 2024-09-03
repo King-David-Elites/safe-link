@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useModalStore from "@/store/useModalStore";
-import { fetchInventory } from "@/lib/api";
+import { fetchInventory, fetchUsers } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
@@ -23,15 +23,17 @@ export function Showcase() {
   const [inventory, setInventory] = useState<Product[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    const getInventory = async () => {
-      const inventory = await fetchInventory(router);
-      if (inventory) {
-        setInventory(inventory);
-      }
-    };
-    getInventory();
-  }, []);
+  // useEffect(() => {
+  //   const getInventory = async () => {
+  //     const inventory = await fetchInventory(router);
+  //     const users = await fetchUsers(router);
+  //     console.log("users loaded", users);
+  //     if (inventory) {
+  //       setInventory(inventory);
+  //     }
+  //   };
+  //   getInventory();
+  // }, []);
 
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
@@ -77,7 +79,7 @@ export function Showcase() {
           </button>
         </div>
       </section>
-      <section className="p-5">
+      {/* <section className="p-5">
         <div>
           <h2 className="text-[#FDAF1E] font-semibold leading-6 text-[24px] my-5 w-full sm:text-center">
             Our Top Sellers
@@ -126,7 +128,7 @@ export function Showcase() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section>
         <div className="h-[50vh] w-full my-2">

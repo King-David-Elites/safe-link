@@ -41,7 +41,7 @@ async function page() {
           <MdCancel size={28} />
         </Link> */}
         <div className="w-full flex justify-center mt-4 text-[24px] font-[500]">
-          SAFE LINK
+          SAFELINK
         </div>
       </div>
       <div>Welcome back</div>
