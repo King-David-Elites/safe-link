@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const ProfileHeader = () => {
   const router = useRouter();
+
   const [user] = useLocalStorage<any>("user", null);
 
   console.log("user", user);

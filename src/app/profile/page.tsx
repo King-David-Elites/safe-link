@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import useLocalStorage from "use-local-storage";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
@@ -45,6 +44,30 @@ const Page = () => {
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
+    const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const stringifiedUser = localStorage.getItem("user");
+    if (stringifiedUser) {
+      setUser(JSON.parse(stringifiedUser));
+    }
+  }, []);
+
+  const categories = [
+    {
+      title: "Professional Pictures",
+      images: user?.professionalPictures,
+    },
+    {
+      title: "Work Pictures",
+      images: user?.workPictures,
+    },
+    {
+      title: "Leisure Pictures",
+      images: user?.leisurePictures,
+    },
+  ];
+
   const fetchQuestionsAndAnswerdata = async () => {
     const response = await fetchQuestionsAnswers(router);
     if (response) {
@@ -73,7 +96,12 @@ const Page = () => {
     }
   }, [user]);
 
-  console.log("fav", favorites);
+
+  if(!user){
+    return (
+      <div>Loading</div>
+    )
+  }
 
   return (
     <div className="w-full">

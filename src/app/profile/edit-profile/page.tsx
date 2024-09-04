@@ -54,9 +54,11 @@ const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+
   const [answers, setAnswers] = useState([]);
   const [questionForm, setQuestionsForm] = useState({});
   const [user] = useLocalStorage<any>("user", null);
+
   console.log("user", user);
   const id = user?._id;
 
