@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import useLocalStorage from "use-local-storage";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
