@@ -44,15 +44,6 @@ const Page = () => {
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
-    const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const stringifiedUser = localStorage.getItem("user");
-    if (stringifiedUser) {
-      setUser(JSON.parse(stringifiedUser));
-    }
-  }, []);
-
   const categories = [
     {
       title: "Professional Pictures",
