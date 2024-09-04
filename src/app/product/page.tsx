@@ -41,6 +41,7 @@ function Page() {
       setIsLoading(true);
       const data = await fetchSingleInventory(id as string, router);
       if (data) {
+        //@ts-ignore
         setInventory(data);
         console.log("loaded inventory", data);
         setIsLoading(false);
@@ -55,10 +56,10 @@ function Page() {
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
-  const isFavorite = favorites.some((item) => item.id === inventory._id);
+  const isFavorite = favorites.some((item) => item.id === inventory?._id);
 
   const handleFavoriteToggle = () => {
-    if (isFavorite) {
+    if (isFavorite && inventory?._id !== null) {
       removeFromFavorites(inventory._id);
       Toast.error("item removed from your list");
     } else {
@@ -82,11 +83,12 @@ function Page() {
     );
   }
 
-  const imageSlides = inventory?.images?.map((image:any) => ({ src: image }));
+  const imageSlides = inventory?.images?.map((image: any) => ({ src: image }));
   const videoSlides = inventory?.videos?.map((video: any) => ({ src: video }));
 
   return (
-    <div>:
+    <div>
+      :
       {mediaType === "images" ? (
         <Lightbox
           open={open}
@@ -98,7 +100,6 @@ function Page() {
       ) : (
         <Lightbox plugins={[Video]} slides={videoSlides} />
       )}
-
       <div className="mt-4 mx-4 text-center">
         <div className="mt-2 mx-4 flex-row flex items-center">
           <button

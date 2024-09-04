@@ -6,11 +6,13 @@ import { MdEdit } from "react-icons/md";
 import { IoMdShareAlt } from "react-icons/io";
 import { HiUpload } from "react-icons/hi";
 import useLocalStorage from "use-local-storage";
+import Link from "next/link";
 
 const ProfileHeader = () => {
   const router = useRouter();
-  const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user =stringifiedUser;
+
+  const [user] = useLocalStorage<any>("user", null);
+
   console.log("user", user);
 
   return (
@@ -46,23 +48,27 @@ const ProfileHeader = () => {
           </div>
 
           <div className="flex items-center gap-3 justify-between sm1:flex-wrap sm1:justify-center">
-            <button
-              onClick={() => {
-                router.push("/profile/edit-profile");
-              }}
+            <Link
+              href="/profile/edit-profile"
+              // onClick={() => {
+              //   router.push("/profile/edit-profile");
+              // }}
               className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap sm:hidden"
             >
               <MdEdit size={20} />
               edit profile
-            </button>
+            </Link>
             <button className="bg-[#F2BE5C] text-white capitalize flex items-center gap-3 leading-6 p-2 border border-[#F2BE5C] rounded cursor-pointer text-nowrap">
               <IoMdShareAlt size={20} />
               share profile
             </button>
-            <button className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden">
+            <Link
+              href={"/pricing"}
+              className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden"
+            >
               <HiUpload size={20} />
               upgrade account
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -17,9 +17,24 @@ function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
 }
 
-
-
 const Page = () => {
+  const [user] = useLocalStorage<any>("user", null);
+  console.log("user", user);
+  const categories = [
+    {
+      title: "Professional Pictures",
+      images: user?.professionalPictures,
+    },
+    {
+      title: "Work Pictures",
+      images: user?.workPictures,
+    },
+    {
+      title: "Leisure Pictures",
+      images: user?.leisurePictures,
+    },
+  ];
+
   const [type, setType] = useState<"images" | "inventory">("images");
   const router = useRouter();
   //const inventory = createObjectCopies(inventoryObject);

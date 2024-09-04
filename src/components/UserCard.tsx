@@ -8,7 +8,8 @@ import useListStore from "@/store/useListStore";
 function UserCard({ data }: { data: Product }) {
   console.log("sdf", data);
   const image = data.images[0];
-  const { favorites, addToFavorites, removeFromFavorites } = useListStore();
+  const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
+    useListStore();
 
   const isFavorite = favorites.some((item) => item.id === data._id);
 

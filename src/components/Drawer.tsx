@@ -38,9 +38,7 @@ import useLocalStorage from "use-local-storage";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
-  const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user =stringifiedUser;
-  console.log("user", user);
+  const [user] = useLocalStorage<any>("user", null);
 
   return (
     <div
@@ -94,12 +92,12 @@ const Drawer = () => {
           </NavLink>
         )}
         <hr />
-        <NavLink href={"/about"}>
+        {/* <NavLink href={"/about"}>
           <div className="flex-row flex items-center space-x-4">
             <MdDescription />
             <span>About</span>
           </div>
-        </NavLink>
+        </NavLink> */}
         <Link
           href="mailto:usesafelink@gmail.com"
           target="_blank"

@@ -34,8 +34,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [stringifiedUser] = useLocalStorage<any>("user", null);
+  const user = stringifiedUser;
 
-  const user =stringifiedUser;
   console.log("user", user);
   // Replca this with the actual user
   //const [user, setUser] = useState(true);
@@ -138,6 +138,13 @@ export function Nav({ children }: { children: ReactNode }) {
           )}
         </div>
       </nav>
+      {pathName === "/" && (
+        <div className="sm:hidden bg-transparent absolute top-15 left-2">
+          <button className="p-4  " onClick={openDrawer}>
+            <FaBars size={24} color="grey" />
+          </button>
+        </div>
+      )}
     </>
   );
 }

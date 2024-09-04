@@ -50,13 +50,15 @@ interface SelectedFilesState {
   leisure_pictures: string[];
 }
 
-
 const page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user =stringifiedUser;
+
+  const [answers, setAnswers] = useState([]);
+  const [questionForm, setQuestionsForm] = useState({});
+  const [user] = useLocalStorage<any>("user", null);
+
   console.log("user", user);
   const id = user?._id;
 
@@ -69,7 +71,42 @@ const page = () => {
         setQuestions(data);
       }
     });
+    fetchQuestionsAnswers(router);
   }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchQuestionsAnswers(router).then((data) => {
+      console.log("answers", data);
+      setIsLoading(false);
+      if (data) {
+        setAnswers(data);
+        const newAnswers = {};
+        data.forEach((item) => {
+          newAnswers[item.questionId.id] = item.answer;
+        });
+        setForm((prevForm) => ({
+          ...prevForm,
+          answers: newAnswers,
+        }));
+      }
+    });
+  }, []);
+
+  const updateQuestionsForm = () => {
+    const newQuestionsForm = {};
+    answers.forEach((item) => {
+      const key = item.questionId.id;
+      const value = item.answer;
+      newQuestionsForm[key] = value;
+    });
+    setQuestionsForm(newQuestionsForm);
+  };
+  console.log("asd", questionForm);
+
+  useEffect(() => {
+    updateQuestionsForm();
+  }, [answers]);
 
   const [form, setForm] = useState<FormState>({
     name: user?.name || "",
@@ -105,7 +142,7 @@ const page = () => {
     email: user?.email || "",
     phone1: user?.phoneNumber || "",
     phone2: "",
-    answers: {},
+    answers: questionForm,
   });
 
   const handleChange = (
@@ -210,6 +247,8 @@ const page = () => {
       setIsLoading(false);
     }
   };
+
+  console.log("ff", form.answers);
 
   return (
     <section className="px-3 py-5 sm:w-full max-w-[960px] mx-auto">
