@@ -23,7 +23,7 @@ const DynamicBackground = ({
 
   return (
     <div
-      className=" h-full w-full image flex flex-col items-center justify-center"
+      className=" h-full w-full image flex flex-col items-center justify-center relative"
       style={{
         backgroundImage: `url(${images[currentImage]})`,
         backgroundSize: "cover",
@@ -41,6 +41,7 @@ const DynamicBackground = ({
       //   backgroundPosition: "center",
       // }}
     >
+      <div className="bg_overlay" />
       {children}
     </div>
   );
