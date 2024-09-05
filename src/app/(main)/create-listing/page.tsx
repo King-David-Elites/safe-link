@@ -1,8 +1,9 @@
 "use client";
+import Loading from "@/app/loading";
 import { addInventory } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Loading from "../loading";
+
 //import axios from 'axios';
 
 export default function CreateListing() {
