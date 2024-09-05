@@ -39,7 +39,7 @@ async function page() {
         <div className="">
           <div>Email</div>
           <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
             id="email"
             title="Email"
             name="email"
@@ -50,7 +50,7 @@ async function page() {
         <div className="">
           <div>Password</div>
           <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
             id="password"
             title="Password"
             name="password"
@@ -84,15 +84,15 @@ async function page() {
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-2 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
       </button>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
-        <div className="text-[12px] font-medium">Don't have an account?</div>
+        <div className="text-[14px] font-medium">Don't have an account?</div>
         <Link
           href={"/signup"}
-          className="text-blue-500 text-[12px] font-medium"
+          className="text-blue-500 text-[14px] font-medium"
         >
           Sign up
         </Link>

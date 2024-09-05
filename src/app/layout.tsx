@@ -40,20 +40,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className}`}>
         <Toaster />
-        <Nav>
-          <NavLink href={"/create-listing"}>List With Us</NavLink>
-          <NavLink href={"/pricing"}>Pricing</NavLink>
-        </Nav>
-        <div className="min-h-[500px]">{children}</div>
-        <Drawer />
-        <LoginModal>
-          <LoginForm />
-        </LoginModal>
-        <SignupModal>
-          <SignupForm />
-        </SignupModal>
-
-        <Footer />
+          {children}
       </body>
     </html>
   );
