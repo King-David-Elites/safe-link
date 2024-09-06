@@ -89,7 +89,7 @@ async function page() {
         <div>sign up with google</div>
       </button>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
-        <div className="text-[14px] font-medium">Don't have an account?</div>
+        <div className="text-[14px] font-medium">Don't have an account?</div>J
         <Link
           href={"/signup"}
           className="text-blue-500 text-[14px] font-medium"
