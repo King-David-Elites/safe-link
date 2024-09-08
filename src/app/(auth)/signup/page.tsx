@@ -6,17 +6,6 @@ import Link from "next/link";
 import React from "react";
 import { MdCancel } from "react-icons/md";
 
-async function getData() {
-  const res = await fetch("https://freetestapi.com/api/v1/books");
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
 async function page() {
   //const router = useRouter();
   async function createInvoice(formData: FormData) {
@@ -35,7 +24,7 @@ async function page() {
   //const data = await getData();
   //console.log("data", data);
   return (
-    <div className="flex flex-col items-center sm:px-[5%] min-h-screen max-w-[500px] mx-auto">
+    <div className="flex flex-col items-center sm:px-[5%] h-screen max-w-[500px] mx-auto">
       <div className="flex-row w-full flex items-center">
         {/* <Link href={"/"}>
           <MdCancel size={28} />
@@ -49,7 +38,7 @@ async function page() {
         <div className="">
           <div>Email</div>
           <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
             id="email"
             title="Email"
             name="email"
@@ -60,7 +49,7 @@ async function page() {
         <div className="">
           <div>Password</div>
           <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
             id="password"
             title="Password"
             name="password"
@@ -71,7 +60,7 @@ async function page() {
         <div className="">
           <div>Confirm Password</div>
           <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-2 w-full rounded-[4px]"
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
             id="confirmPassword"
             title="Confirm Password"
             name="confirmPassword"
@@ -102,13 +91,13 @@ async function page() {
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-2 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
       </button>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
-        <div className="text-[12px] font-medium">Have an account?</div>
-        <Link href={"/login"} className="text-blue-500 text-[12px] font-medium">
+        <div className="text-[14px] font-medium">Have an account?</div>
+        <Link href={"/login"} className="text-blue-500 text-[14px] font-medium">
           Sign in
         </Link>
       </div>

@@ -18,7 +18,7 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import ProductVideos from "@/components/ProductVideos";
 import { Product } from "@/types/product";
 import { fetchSingleInventory } from "@/lib/api";
-import Loading from "../loading";
+import Loading from "@/app/loading";
 import useListStore from "@/store/useListStore";
 import Toast from "react-hot-toast";
 

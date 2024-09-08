@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
-import { Poppins, Open_Sans } from "next/font/google";
+import { Poppins, Open_Sans, Raleway } from "next/font/google";
 import "./globals.css";
 import toast, { Toaster } from "react-hot-toast";
 
-import Image from "next/image";
-import { Nav, NavLink } from "@/components/Nav";
-import Footer from "@/components/Footer";
-import Drawer from "@/components/Drawer";
-import LoginForm from "@/components/LoginForm";
-import SignupForm from "@/components/SignupForm";
-import LoginModal from "@/components/LoginModal";
-import SignupModal from "@/components/SignupModal";
 
-const poppins = Poppins({
+const raleway = Raleway({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-poppins",
+  variable: "--font-raleway",
 });
 
 const openSans = Open_Sans({
@@ -38,22 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className}`}>
+      <body className={`${raleway.className}`}>
         <Toaster />
-        <Nav>
-          <NavLink href={"/create-listing"}>List With Us</NavLink>
-          <NavLink href={"/pricing"}>Pricing</NavLink>
-        </Nav>
-        <div className="min-h-[500px]">{children}</div>
-        <Drawer />
-        <LoginModal>
-          <LoginForm />
-        </LoginModal>
-        <SignupModal>
-          <SignupForm />
-        </SignupModal>
-
-        <Footer />
+          {children}
       </body>
     </html>
   );
