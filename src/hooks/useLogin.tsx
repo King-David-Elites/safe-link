@@ -4,10 +4,12 @@ import useModalStore from "@/store/useModalStore";
 import { object, string, InferType } from "yup";
 import { baseUrl } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import useUserStore from "@/store/useUserStore";
 
 export function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { closeLogInModal } = useModalStore();
+  const { setUser } = useUserStore();
   console.log("fgh", baseUrl);
   const router = useRouter();
 
@@ -53,9 +55,10 @@ export function useLogin() {
       console.log("response", data.data.user);
       if (typeof window !== "undefined") {
         localStorage.setItem("accessToken", data.data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.data.user));
+        localStorage.setItem("user", JSON.stringify(data.data.user));
       }
-      
+      setUser(data.data.user);
+
       router.replace("/");
       toast.success("Logged in successfully");
       closeLogInModal();

@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
-import FileBase64 from "react-file-base64";
-import { HiX } from "react-icons/hi";
 import {
   fetchQuestions,
   fetchQuestionsAnswers,
@@ -12,53 +10,64 @@ import {
 } from "@/lib/api";
 import Loading from "@/app/loading";
 import { QuestionInput } from "@/components/QuestionInput";
-import {
-  base64ToFile,
-  convertFilesToBase64,
-  convertFileToBase64,
-} from "@/util/convertImage";
-import useLocalStorage from "use-local-storage";
+import { convertFilesToBase64, convertFileToBase64 } from "@/util/convertImage";
+import useUserStore from "@/store/useUserStore";
+
+interface Question {
+  id: string;
+  text: string;
+  // Add other properties of the question object if needed
+}
+
+interface Answer {
+  questionId: {
+    id: string;
+  };
+  answer: string;
+}
 
 interface FormState {
   name: string;
   about: string;
-  // question1: string;
-  // question2: string;
-  // question3: string;
-  // question4: string;
-  // question5: string;
-  // question6: string;
-  cover: File | null;
-  professionalPictures: File[];
-  workPictures: File[];
-  leisurePictures: File[];
+  cover: File | string | null;
+  professionalPictures: File[] | string[];
+  workPictures: File[] | string[];
+  leisurePictures: File[] | string[];
   address: string;
   country: string;
   state: string;
-  //city: string;
   zip: string;
   email: string;
   phone1: string;
   phone2: string;
-  answers: {};
+  answers: Record<string, string>;
 }
 
-interface SelectedFilesState {
-  cover: string;
-  professional_pictures: string[];
-  work_pictures: string[];
-  leisure_pictures: string[];
-}
-
-const page = () => {
+const Page: React.FC = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
-  const [questionForm, setQuestionsForm] = useState({});
-  const [user] = useLocalStorage<any>("user", null);
-  console.log("user", user);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [questionForm, setQuestionsForm] = useState<Record<string, string>>({});
+  const { user } = useUserStore();
   const id = user?._id;
+
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    about: user?.about || "",
+    cover: user?.profilePicture ?? null,
+    professionalPictures: user?.professionalPictures ?? [],
+    workPictures: user?.workPictures ?? [],
+    leisurePictures: user?.leisurePictures ?? [],
+    address: user?.address || "",
+    country: user?.country || "Nigeria",
+    state: user?.state || "",
+    zip: "",
+    email: user?.email || "",
+    phone1: user?.phoneNumber || "",
+    phone2: "",
+    answers: {},
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,7 +79,7 @@ const page = () => {
       }
     });
     fetchQuestionsAnswers(router);
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -79,7 +88,7 @@ const page = () => {
       setIsLoading(false);
       if (data) {
         setAnswers(data);
-        const newAnswers = {};
+        const newAnswers: Record<string, string> = {};
         data.forEach((item) => {
           newAnswers[item.questionId.id] = item.answer;
         });
@@ -89,10 +98,10 @@ const page = () => {
         }));
       }
     });
-  }, []);
+  }, [router]);
 
   const updateQuestionsForm = () => {
-    const newQuestionsForm = {};
+    const newQuestionsForm: Record<string, string> = {};
     answers.forEach((item) => {
       const key = item.questionId.id;
       const value = item.answer;
@@ -100,65 +109,46 @@ const page = () => {
     });
     setQuestionsForm(newQuestionsForm);
   };
-  console.log("asd", questionForm);
 
   useEffect(() => {
     updateQuestionsForm();
   }, [answers]);
 
-  const [form, setForm] = useState<FormState>({
-    name: user?.name || "",
-    about: user?.about || "",
-    // question1: "",
-    // question2: "",
-    // question3: "",
-    // question4: "",
-    // question5: "",
-    // question6: "",
-    cover: user?.profilePicture
-      ? base64ToFile(user?.profilePicture, "cover.png", "image/png")
-      : null,
-    professionalPictures: user?.professionalPictures
-      ? user?.professionalPictures.map((pic: string, index: number) =>
-          base64ToFile(pic, `professional_${index}.png`, "image/png")
-        )
-      : [],
-    workPictures: user?.workPictures
-      ? user?.workPictures.map((pic: string, index: number) =>
-          base64ToFile(pic, `work_${index}.png`, "image/png")
-        )
-      : [],
-    leisurePictures: user?.leisurePictures
-      ? user?.leisurePictures.map((pic: string, index: number) =>
-          base64ToFile(pic, `leisure_${index}.png`, "image/png")
-        )
-      : [],
-    address: user?.address || "",
-    country: user?.country || "Nigeria",
-    state: user?.state || "",
-    zip: "",
-    email: user?.email || "",
-    phone1: user?.phoneNumber || "",
-    phone2: "",
-    answers: questionForm,
-  });
+  useEffect(() => {
+    if (user) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        name: prevForm.name,
+        about: user.about || prevForm.about,
+        cover: user.profilePicture || prevForm.cover,
+        professionalPictures:
+          user.professionalPictures || prevForm.professionalPictures,
+        workPictures: user.workPictures || prevForm.workPictures,
+        leisurePictures: user.leisurePictures || prevForm.leisurePictures,
+        address: user?.address || "",
+        country: user?.country || "Nigeria",
+        state: user?.state || "",
+        zip: "",
+        email: user?.email || "",
+        phone1: user?.phoneNumber || "",
+        phone2: "",
+        answers: questionForm,
+      }));
+    }
+  }, [user, questionForm]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, files, type } = e.target;
+    //@ts-ignore
+    const { name, value, files } = e.target;
 
-    // Handle file inputs
-    if (type === "file") {
-      if (files) {
-        //const newFiles = Array.from(files);
-        setForm((prevForm) => ({
-          ...prevForm,
-          [name]: name === "cover" ? [...files] : [...files],
-        }));
-      }
+    if (files) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: name === "cover" ? files[0] : Array.from(files),
+      }));
     } else {
-      // Handle text inputs
       setForm((prevForm) => ({
         ...prevForm,
         [name]: value,
@@ -166,7 +156,7 @@ const page = () => {
     }
   };
 
-  const handleAnswerChange = (e) => {
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
@@ -179,7 +169,7 @@ const page = () => {
 
   const handleDelete = (name: keyof FormState, index: number) => {
     setForm((prevForm) => {
-      const updatedFiles = [...(prevForm[name] as File[])];
+      const updatedFiles = [...(prevForm[name] as (File | string)[])];
       updatedFiles.splice(index, 1);
       return { ...prevForm, [name]: updatedFiles };
     });
@@ -199,30 +189,31 @@ const page = () => {
       return;
     }
 
-    //Convert files to base64 if necessary
     const profilePictureBase64 = form.cover
-      ? await convertFileToBase64(form.cover)
-      : [];
+      ? await convertFileToBase64(form.cover as File)
+      : "";
     const professionalPicturesBase64 = await convertFilesToBase64(
-      form.professionalPictures
+      form.professionalPictures as File[]
     );
-    const workPicturesBase64 = await convertFilesToBase64(form.workPictures);
+    const workPicturesBase64 = await convertFilesToBase64(
+      form.workPictures as File[]
+    );
     const leisurePicturesBase64 = await convertFilesToBase64(
-      form.leisurePictures
+      form.leisurePictures as File[]
     );
 
     try {
       setIsLoading(true);
-      // Map over each answer and send a POST request using submitAnswer
       for (const [questionId, answer] of Object.entries(form.answers)) {
-        await submitAnswer(questionId, answer, router);
+        if (answer && answer.trim() !== "") {
+          await submitAnswer(questionId, answer, router);
+        }
       }
 
-      // After all answers are submitted, send the final profile POST request
       const profilePayload = {
         firstName: form.name.split(" ")[0],
         lastName: form.name.split(" ")[1] || "",
-        _id: id, // Replace with actual user? ID
+        _id: id,
         about: form.about,
         profilePicture: profilePictureBase64,
         professionalPictures: professionalPicturesBase64,
@@ -231,8 +222,6 @@ const page = () => {
         address: form.address,
         country: form.country,
         state: form.state,
-        // city: form.city, // Assuming city is similar to state
-        zipCode: form.zip,
         phoneNumber: form.phone1,
       };
 
@@ -240,13 +229,10 @@ const page = () => {
       console.log("response", response);
     } catch (error) {
       console.error("Error submitting the form", error);
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
   };
-
-  console.log("ff", form.answers);
 
   return (
     <section className="px-3 py-5 sm:w-full max-w-[960px] mx-auto">
@@ -357,11 +343,31 @@ const page = () => {
                 PNG, JPG, GIF up to 5mb
               </p>
               <div className="flex flex-wrap mt-2">
-                {form[item.name] &&
+                {item.name === "cover" ? (
+                  <>
+                    {form[item.name] !== null && (
+                      <div className="relative mr-2 mb-2">
+                        <img
+                          src={form[item.name] as string}
+                          alt="cover picture"
+                          className="w-16 h-16 object-cover rounded"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setForm({ ...form, cover: null })}
+                          className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 h-4 w-4 items-center justify-center flex"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  form[item.name] &&
                   Array.from(form[item.name]).map((file, fileIndex) => (
                     <div key={fileIndex} className="relative mr-2 mb-2">
                       <img
-                        src={URL.createObjectURL(file)}
+                        src={file as string}
                         alt={file.name}
                         className="w-16 h-16 object-cover rounded"
                       />
@@ -373,7 +379,8 @@ const page = () => {
                         &times;
                       </button>
                     </div>
-                  ))}
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -431,7 +438,7 @@ const page = () => {
           />
         </div>
 
-        <div className="flex flex-col items-start gap-2 my-2">
+        {/* <div className="flex flex-col items-start gap-2 my-2">
           <label
             className="text-[#252625] font-medium text-[14px] leading-3"
             htmlFor="title"
@@ -446,7 +453,7 @@ const page = () => {
             className="border-[0.5px] border-[#A6A6A6] rounded w-full p-2 focus:outline-none"
             type="text"
           />
-        </div>
+        </div> */}
 
         <div className="flex flex-col items-start gap-2 my-2">
           <label
@@ -509,4 +516,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

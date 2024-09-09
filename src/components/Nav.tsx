@@ -13,6 +13,7 @@ import Drawer from "./Drawer";
 import useModalStore from "@/store/useModalStore";
 import { FaRegUserCircle } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
+import useUserStore from "@/store/useUserStore";
 
 const ServerLoginForm = dynamic(() => import("./LoginForm"), {
   ssr: false,
@@ -33,8 +34,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user = stringifiedUser;
+  const { user } = useUserStore();
+  //const user = stringifiedUser;
   console.log("user", user);
   // Replca this with the actual user
   //const [user, setUser] = useState(true);
@@ -76,9 +77,17 @@ export function Nav({ children }: { children: ReactNode }) {
             </Link>
           </div>
 
-          {user?.email === undefined ? (
+          {user?.email ? (
             <div className="">
-              <Link href={"/profile"} className="text-[#f2f2f2]">
+              <Link
+                href={{
+                  pathname: "/profile",
+                  query: {
+                    id: user?._id,
+                  },
+                }}
+                className="text-[#f2f2f2]"
+              >
                 <FaRegUserCircle size={30} />
               </Link>
             </div>
@@ -116,8 +125,19 @@ export function Nav({ children }: { children: ReactNode }) {
         <div className="flex flex-row items-center">
           {children}
           {user ? (
-            <Link href={"/profile"} className="">
-              <FaRegUserCircle size={30} />
+            <Link
+              href={{
+                pathname: "/profile",
+                query: {
+                  id: user?._id,
+                },
+              }}
+              className=""
+            >
+              <FaRegUserCircle
+                size={30}
+                color={pathName === "/profile" ? "#f2be56" : "#fff"}
+              />
             </Link>
           ) : (
             <>

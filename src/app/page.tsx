@@ -10,15 +10,23 @@ import { MdImageSearch } from "react-icons/md";
 export default function Home() {
   const router = useRouter();
   const images = [
-    "homepage-image-1.jpg",
-    "homepage-image-2.jpg",
-    "homepage-image-3.jpg",
-    "homepage-image-4.jpg",
-    "homepage-image-5.jpg",
-    "homepage-image-6.jpg",
-    "homepage-image-7.jpg",
-    "homepage-image-8.jpg",
-    "homepage-image-9.jpg",
+    "/homepage-image-1.jpg",
+    "/homepage-image-2.jpg",
+    "/homepage-image-3.jpg",
+    "/homepage-image-4.jpg",
+    "/homepage-image-5.jpg",
+    "/homepage-image-6.jpg",
+    "/homepage-image-7.jpg",
+    "/homepage-image-8.jpg",
+    "/homepage-image-9.jpg",
+    "/homepage-image-10.jpg",
+    "/homepage-image-11.jpg",
+    "/homepage-image-12.jpg",
+    "/homepage-image-13.jpg",
+    "/homepage-image-14.jpg",
+    "/homepage-image-15.jpg",
+    "/homepage-image-16.jpg",
+    "/homepage-image-17.jpg",
   ];
 
   return (
@@ -64,7 +72,7 @@ export default function Home() {
           </div>
         </DynamicBackground>
       </div>
-      <div className="my-5">
+      <div className="relative top-[15vh]">
         <Showcase />
       </div>
     </div>

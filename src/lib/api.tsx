@@ -181,7 +181,7 @@ export const fetchQuestionsAnswers = async (
     return data;
   } catch (error) {
     console.error("Error fetching question and answers:", error);
-    Toast.error("Error fetching question and answers:");
+    //Toast.error("Error fetching question and answers:");
     return null;
   }
 };
@@ -190,14 +190,14 @@ export const fetchUsers = async (router: any): Promise<any[] | null> => {
   Toast.dismiss();
   try {
     const api = await createApiInstance(router);
-    const response = await api.get(`/user`);
+    const response = await api.get(`/user/all`);
     console.log("Inventory response:", response);
 
     const data = response.data.data;
     return data;
   } catch (error) {
     console.error("Error fetching user:", error);
-    Toast.error("Error fetching user");
+    //Toast.error("Error fetching user");
     return null;
   }
 };
