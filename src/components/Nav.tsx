@@ -63,7 +63,7 @@ export function Nav({ children }: { children: ReactNode }) {
     <>
       {pathName === "/" && (
         <div
-          className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-10 hidden fixed top-0 left-0  w-full `}
+          className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-30 hidden fixed z-50 top-0 left-0  w-full `}
         >
           <button className="p-4  " onClick={openDrawer}>
             <FaBars size={24} color="white" />
