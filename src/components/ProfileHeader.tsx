@@ -51,7 +51,7 @@ const ProfileHeader = () => {
       </div>
       <div className="w-full mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
         <div className="flex flex-row items-center gap-2 ">
-          <div className="w-28 h-28  sm1:h-12 sm1:w-12 rounded-full">
+          <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full">
             <img
               className="w-full h-full rounded-full"
               src={user?.profilePicture ?? "/pp-placeholder.png"}

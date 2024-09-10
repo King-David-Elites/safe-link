@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col bg-white">
-      <div className="h-[70vh] w-full mb-2">
+      <div className="h-[70vh] w-full mb-2  ">
         <DynamicBackground images={images}>
           <div className="m-1 flex items-center justify-center">
             <Image

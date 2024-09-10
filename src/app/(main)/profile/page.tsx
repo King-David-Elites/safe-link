@@ -126,7 +126,7 @@ const Page = () => {
         <Inventory inventory={inventory} />
       ) : (
         <div className="flex justify-center items-center">
-          <div className="my-4 border-4 border-primary rounded-full border-dashed animate-spin w-12 h-12 sm:w-8 sm:h-8"></div>
+          <div className="my-4 border-4 border-primary rounded-full border-dashed animate-spin w-8 h-8 sm:w-8 sm:h-8"></div>
         </div>
       )}
       {favorites.length > 0 && (

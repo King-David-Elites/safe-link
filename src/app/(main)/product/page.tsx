@@ -18,7 +18,7 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import ProductVideos from "@/components/ProductVideos";
 import { Product } from "@/types/product";
 import { fetchSingleInventory } from "@/lib/api";
-import Loading from "../loading";
+import Loading from "@/app/loading";
 import useListStore from "@/store/useListStore";
 import Toast from "react-hot-toast";
 
@@ -172,7 +172,8 @@ function Page() {
                   <div className="font-semibold">Your List</div>
                   <div className="flex flex-row sm:flex-col justify-between  w-full ">
                     <Link
-                      href={"/whatsapp"}
+                      prefetch={false}
+                      href={""}
                       className="bg-green-700 hover:bg-opacity-80 py-1 px-2 font-semibold sm:justify-center rounded-lg text-white flex flex-row items-center sm:space-x-2 space-x-1"
                     >
                       <FaWhatsapp size={24} color="#fff" />

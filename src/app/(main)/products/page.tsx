@@ -8,7 +8,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { HiHeart } from "react-icons/hi";
 import { IoSearch } from "react-icons/io5";
 import Toast from "react-hot-toast";
-import Loading from "../loading";
+import Loading from "@/app/loading";
 import { baseUrl, fetchInventory } from "@/lib/api";
 import customFetch from "@/lib/customFetch";
 import { useFetch } from "@/hooks/useFetch";

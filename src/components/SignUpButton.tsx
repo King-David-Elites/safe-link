@@ -1,26 +1,32 @@
 "use client";
-import { useLogin } from "@/hooks/useLogin";
 import { useSignUp } from "@/hooks/useSignUp";
-import useModalStore from "@/store/useModalStore";
 import React from "react";
-import toast from "react-hot-toast";
+import Loader from "./Loader";
 
 function SignUpButton() {
   const { signUp, isLoading } = useSignUp();
 
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    const form = document.querySelector("form"); // Assuming this button is inside a form
+    const formData = new FormData(form as HTMLFormElement); // Gather form data
+
+    await signUp(formData); // Call the signUp function with the form data
+  };
+
   return (
-    <button
-      title="submit"
-      formAction={signUp}
-      disabled={isLoading}
-      className="bg-gradient-to-r from flex flex-row  justify-center items-center  bg-[#f2be5c] to-white py-2 rounded-md"
-      //onLoad={}
-    >
-      Sign Up
-      {isLoading && (
-        <div className="rounded-full h-4 w-4 ml-2 border-2 border-dashed border-black animate-spin"></div>
-      )}
-    </button>
+    <>
+      <button
+        title="submit"
+        onClick={handleClick} // Trigger sign-up process
+        disabled={isLoading} // Disable button while loading
+        className="bg-gradient-to-r from flex flex-row justify-center items-center bg-[#f2be5c] to-white py-3 rounded-md"
+      >
+        {isLoading ? "Signing up..." : "Sign Up"}
+      </button>
+
+      {isLoading && <Loader />}
+    </>
   );
 }
 

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins, Open_Sans } from "next/font/google";
+import { Poppins, Open_Sans, Raleway } from "next/font/google";
 import "./globals.css";
-import toast, { Toaster } from "react-hot-toast";
-
-import Image from "next/image";
 import { Nav, NavLink } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Drawer from "@/components/Drawer";
@@ -11,12 +8,13 @@ import LoginForm from "@/components/LoginForm";
 import SignupForm from "@/components/SignupForm";
 import LoginModal from "@/components/LoginModal";
 import SignupModal from "@/components/SignupModal";
+import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({
+const raleway = Raleway({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-poppins",
+  variable: "--font-raleway",
 });
 
 const openSans = Open_Sans({
@@ -42,16 +40,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className}`}>
-        <Toaster />
+      <body className={`${raleway.className}`}>
         <Nav>
           <NavLink href={"/create-listing"}>List With Us</NavLink>
           <NavLink href={"/pricing"}>Pricing</NavLink>
-
-          {/* <NavLink href={"/null"}>Log In</NavLink> */}
-
-          {/* <NavLink href={"/signup"}>Sign Up</NavLink> */}
         </Nav>
+        <Toaster />
         <div className="min-h-[500px]">{children}</div>
         <Drawer />
         <LoginModal>
