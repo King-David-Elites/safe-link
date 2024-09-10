@@ -1,6 +1,7 @@
 import { useState, useEffect, ReactNode } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Nav } from "./Nav";
 
 const DynamicBackground = ({
   images,
@@ -28,6 +29,7 @@ const DynamicBackground = ({
   };
   return (
     <div className="h-[80vh] mb-8 relative overflow-hidden">
+      
       {/* Current Image */}
       <Carousel
         responsive={responsive}
