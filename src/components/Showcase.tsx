@@ -31,15 +31,18 @@ export function Showcase() {
     closeDrawer,
   } = useModalStore();
   const [users, setUsers] = useState<User[]>([]); // Add type annotation
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const getUsers = async () => {
+      setIsLoading(true);
       const usersArray = await fetchUsers(router);
       console.log("users loaded", usersArray);
       if (usersArray) {
         setUsers(usersArray);
       }
+      setIsLoading(false);
     };
     getUsers();
   }, [router]); // Add router to the dependency array
@@ -94,7 +97,10 @@ export function Showcase() {
           </h2>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-1  gap-10">
-          {users.length > 0 &&
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            users.length > 0 &&
             users?.map((item, index) => (
               <div
                 key={index}
@@ -126,7 +132,8 @@ export function Showcase() {
                 </div>
                 <div className="flex-grow mb-4"></div>
               </div>
-            ))}
+            ))
+          )}
         </div>
       </section>
 

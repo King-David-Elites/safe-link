@@ -39,9 +39,7 @@ import useUserStore from "@/store/useUserStore";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
-  const { user } = useUserStore();
-  //const [user] = useLocalStorage<any>("user", null);
-  //const user = stringifiedUser;
+  const [user] = useLocalStorage<any>("user", null);
 
   return (
     <div

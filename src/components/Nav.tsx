@@ -15,10 +15,6 @@ import { FaRegUserCircle } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
 import useUserStore from "@/store/useUserStore";
 
-const ServerLoginForm = dynamic(() => import("./LoginForm"), {
-  ssr: false,
-});
-
 export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
   const pathName = usePathname();
   const isActive = pathName === props.href;
