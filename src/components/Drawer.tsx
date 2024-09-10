@@ -17,6 +17,7 @@ import { NavLink } from "./Nav";
 import useModalStore from "@/store/useModalStore";
 import Link from "next/link";
 import useLocalStorage from "use-local-storage";
+import useUserStore from "@/store/useUserStore";
 
 {
   /* <Drawer
@@ -38,7 +39,9 @@ import useLocalStorage from "use-local-storage";
 
 const Drawer = () => {
   const { closeDrawer, openDrawer, isDrawerOpen } = useModalStore();
-  const [user] = useLocalStorage<any>("user", null);
+  const { user } = useUserStore();
+  //const [user] = useLocalStorage<any>("user", null);
+  //const user = stringifiedUser;
 
   return (
     <div
@@ -84,7 +87,14 @@ const Drawer = () => {
           </div>
         </NavLink> */}
         {user && (
-          <NavLink href="/profile">
+          <NavLink
+            href={{
+              pathname: "/profile",
+              query: {
+                id: user?._id,
+              },
+            }}
+          >
             <div className="flex-row flex items-center space-x-4">
               <FaUser />
               <span>Profile</span>
