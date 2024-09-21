@@ -88,7 +88,7 @@ const ProfileHeader = () => {
           <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full relative">
             <img
               className="w-full h-full rounded-full object-cover"
-              src={user?.profilePicture ?? profilePicture}
+              src={user?.profilePicture as string}
               alt="profile"
             />
             <button className="rounded-full bg-gray-500/[0.5] p-2 absolute bottom-1 -right-1 cursor-pointer">

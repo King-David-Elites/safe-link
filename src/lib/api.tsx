@@ -32,6 +32,8 @@ export const createApiInstance = async (router: any) => {
   return api;
 };
 
+
+
 export const fetchInventory = async (router: any): Promise<any[] | null> => {
   Toast.dismiss();
   try {
