@@ -11,24 +11,58 @@ import Toast from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import useUserStore from "@/store/useUserStore";
 import { base64ToFile } from "@/util/convertImage";
+import FileBase64 from "react-file-base64";
+import { updateProfile, updateProfilePicture } from "@/lib/api";
+import ReactFileBase64 from "react-file-base64";
+import axios from "axios";
 //import { ShareSocial } from "react-share-social";
 
 const ProfileHeader = () => {
   const router = useRouter();
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
+  const [profilePicture, setProfilePicture] = useState(
+    user?.profilePicture || ""
+  );
 
   const params = useSearchParams();
   const profileId = params.get("id");
 
   const isOwnProfile = user?._id === profileId;
 
-  console.log("user", user);
+  // console.log("user", user);
 
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
     setShareUrl(`${window.location.origin}/profile/${user?._id}`);
   }, [user?._id]);
+
+
+  const handleProfilePictureChange = async (image: any) => {
+    try {
+    
+      const response = await updateProfilePicture(image);
+      console.log(123)
+      if (response) {
+        // Toast.success("Profile picture updated successfully");
+        // const data = response;
+        // setUser(response?.data?.data);
+        fetchUser(response?.data?.data)
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      Toast.error("Error updating profile picture");
+    }
+  };
+
+  const fetchUser = async (data: any) => {
+    // fetch user details from server
+    // const response = await fetch(`/api/user/${profileId}`);
+    // const data = await response.json();
+    setUser(data);
+  }
+
 
   return (
     <header className="w-full overflow-x-hidden">
@@ -51,12 +85,21 @@ const ProfileHeader = () => {
       </div>
       <div className="w-full mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
         <div className="flex flex-row items-center gap-2 ">
-          <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full">
+          <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full relative">
             <img
-              className="w-full h-full rounded-full"
-              src={user?.profilePicture ?? "/pp-placeholder.png"}
+              className="w-full h-full rounded-full object-cover"
+              src={user?.profilePicture as string}
               alt="profile"
             />
+            <button className="rounded-full bg-gray-500/[0.5] p-2 absolute bottom-1 -right-1 cursor-pointer">
+              <ReactFileBase64 multiple={false} onDone={async (f) => {
+                 if (f) {
+                  setProfilePicture(f);
+                 await handleProfilePictureChange(f); // Update immediately after file is uploaded
+                }
+              }} />
+              <FaCamera size={15} />
+            </button>
           </div>
           <div className="">
             <h1 className="flex items-center gap-1 font-semibold sm:w-auto w-[40vw] text-[22px] sm1:text-[12px] break-words">

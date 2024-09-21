@@ -106,7 +106,7 @@ export function Nav({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <nav
+      <div
         className={`bg-black flex  justify-between text-white sm:hidden h-16 items-center pl-6 pr-4`}
       >
         <Link href={"/"}>
@@ -152,7 +152,7 @@ export function Nav({ children }: { children: ReactNode }) {
             </>
           )}
         </div>
-      </nav>
+      </div>
       {pathName === "/" && (
         <div className="sm:hidden bg-transparent absolute top-15 left-2">
           <button className="p-4  " onClick={openDrawer}>

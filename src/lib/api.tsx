@@ -6,7 +6,7 @@ import { clearUserData, getAccessToken } from "./userDetails";
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 export const createApiInstance = async (router: any) => {
-  const accessToken = await getAccessToken();
+  const accessToken = getAccessToken();
   const api = axios.create({
     baseURL: baseUrl,
     //timeout: 20000,
@@ -31,6 +31,8 @@ export const createApiInstance = async (router: any) => {
 
   return api;
 };
+
+
 
 export const fetchInventory = async (router: any): Promise<any[] | null> => {
   Toast.dismiss();
@@ -86,7 +88,7 @@ export const fetchUserInventory = async (
   }
 };
 
-export const updateProfile = async (data: any, router: any) => {
+export const updateProfile = async (data: any, router?: any) => {
   Toast.dismiss();
   const api = await createApiInstance(router);
   try {
@@ -97,6 +99,7 @@ export const updateProfile = async (data: any, router: any) => {
         localStorage.setItem("user", JSON.stringify(response.data.data));
         Toast.success("Profile updated successfully");
       }
+      return response
     } else {
       //console.log()
       Toast.error("Error updating profile");
@@ -107,6 +110,31 @@ export const updateProfile = async (data: any, router: any) => {
     return null;
   }
 };
+
+export const updateProfilePicture = async (data: any) => {
+  Toast.dismiss();
+  const api = await createApiInstance('user/');
+  try {
+    const response = await api.put(`user/`, {
+      profilePicture: data.base64,
+    });
+    console.log("rr", response.data.data);
+    if (response.status === 200) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        Toast.success("Profile updated successfully");
+      }
+      return response
+    } else {
+      //console.log()
+      Toast.error("Error updating profile");
+    }
+  } catch (e) {
+    console.error("Error updating profile:", e);
+    Toast.error("Error updating profile");
+    return null;
+  }
+}
 
 export const addInventory = async (data: any, router: any) => {
   Toast.dismiss();
