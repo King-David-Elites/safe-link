@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
@@ -7,13 +7,44 @@ import { IoMdShareAlt } from "react-icons/io";
 import { HiUpload } from "react-icons/hi";
 import useLocalStorage from "use-local-storage";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const ProfileHeader = () => {
   const router = useRouter();
 
   const [user] = useLocalStorage<any>("user", null);
 
-  console.log("user", user);
+  const [isSharing, setIsSharing] = useState(false);
+
+  const handleShare = async () => {
+    if (!navigator.share) {
+      console.log('Web Share API not supported in this browser.');
+      return;
+    }
+
+    // Prevent multiple share attempts
+    if (isSharing) {
+      return;
+    }
+
+    setIsSharing(true);
+
+    try {
+      await navigator.share({
+        title: 'Check out my Profile on Safelink',
+          text: `'Check out my Profile on Safelink`,
+          url: `https://usesafelink.com/${user._id}`, // URL to share
+      });
+      console.log('Content shared successfully');
+    } catch (error) {
+      toast(error as string)
+      console.error('Error sharing:', error);
+    } finally {
+      // Reset the sharing state whether successful or not
+      setIsSharing(false);
+      toast("error")
+    }
+  };
 
   return (
     <header className="max-w-full">
@@ -66,10 +97,12 @@ const ProfileHeader = () => {
               <MdEdit size={20} />
               edit profile
             </Link>
-            <button className="bg-[#F2BE5C] text-white capitalize flex items-center gap-3 leading-6 p-2 border border-[#F2BE5C] rounded cursor-pointer text-nowrap">
+
+            <button onClick={handleShare} className="bg-[#F2BE5C] text-white capitalize flex items-center gap-3 leading-6 p-2 border border-[#F2BE5C] rounded cursor-pointer text-nowrap">
               <IoMdShareAlt size={20} />
               share profile
             </button>
+
             <Link
               href={"/pricing"}
               className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden"
