@@ -11,17 +11,20 @@ export const convertFilesToBase64 = (files: File[]): Promise<string[]> => {
   );
 };
 
-export const convertFileToBase64 = (file: File[] | null): Promise<string> => {
-  return new Promise((resolve, reject) => {
+export const convertFileToBase64 = async (file: File | null): Promise<string> => {
+  console.log(file)
+  let resp = await  new Promise((resolve, reject) => {
     if (!file) {
       resolve(""); // or resolve(null) depending on what you want for empty inputs
       return;
     }
     const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
+    reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error);
   });
+
+  return resp as string
 };
 
 export function base64ToFile(

@@ -11,17 +11,17 @@ import Toast from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import useUserStore from "@/store/useUserStore";
 import { base64ToFile } from "@/util/convertImage";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 //import { ShareSocial } from "react-share-social";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ user }: any) => {
   const router = useRouter();
-  const { user } = useUserStore();
 
   const params = useSearchParams();
   const profileId = params.get("id");
 
-  const isOwnProfile = user?._id === profileId;
-
+  const isOwnProfile = true
+//  user?._id === profileId;
   console.log("user", user);
 
   const [shareUrl, setShareUrl] = useState("");
@@ -49,9 +49,10 @@ const ProfileHeader = () => {
           <FaArrowLeftLong size={24} /> back
         </button>
       </div>
-      <div className="w-full mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
+
+      <div className="w-[90%] sm1:w-[98%] mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
         <div className="flex flex-row items-center gap-2 ">
-          <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full">
+          <div className="w-[120px] h-[120px]  sm1:h-[80px] sm1:w-[80px] rounded-full">
             <img
               className="w-full h-full rounded-full"
               src={user?.profilePicture ?? "/pp-placeholder.png"}
@@ -59,9 +60,12 @@ const ProfileHeader = () => {
             />
           </div>
           <div className="">
-            <h1 className="flex items-center gap-1 font-semibold sm:w-auto w-[40vw] text-[22px] sm1:text-[12px] break-words">
-              <span className="max-w-full overflow-hidden">{user?.email}</span>
-              <img src={"/verification.svg"} alt="" />
+            <h1 className="flex items-center gap-1 font-semibold sm:w-auto w-[40vw] text-[22px] sm1:text-sm break-words">
+              <span className="max-w-full overflow-hidden">{user?.name}</span>
+              <RiVerifiedBadgeFill className="text-primary" />
+            </h1>
+            <h1 className="flex items-center gap-1 font-semibold sm:w-auto w-[40vw] text-[22px] sm1:text-sm break-words">
+              {user?.email}
             </h1>
             <small className="text-[14px]  sm1:text-[12px] font-semibold leading-5 text-[#737373]">
               Joined: {user?.createdAt && user?.createdAt.slice(0, 4)}
@@ -107,7 +111,7 @@ const ProfileHeader = () => {
         </div>
       </div>
 
-      <p className="my-2 mx-[5%] sm1:mx-[5%]  text-[#444544] tracking-wide sm:text-[12px] text-[18px] leading-4">
+      <p className="my-2 mx-[5%] sm1:mx-[5%]  text-[#444544] tracking-wide sm:text-sm text-[18px] leading-4">
         {user?.about}
       </p>
       {isOwnProfile && (
@@ -133,14 +137,14 @@ const ProfileHeader = () => {
               onClick={() => {
                 router.push("/profile/edit-profile");
               }}
-              className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
+              className="text-[#737373] text-sm capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
             >
               <MdEdit size={16} />
               edit profile
             </button>
             <Link
               href={"/pricing"}
-              className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap"
+              className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap text-sm"
             >
               <HiUpload size={20} />
               upgrade account

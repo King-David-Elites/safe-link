@@ -5,7 +5,7 @@ import { FaRegHeart } from "react-icons/fa";
 
 const Inventory = ({ inventory }: { inventory: Product[] }) => {
   return (
-    <section className="p-6">
+    <section className="py-6 w-[90%] m-auto sm:w-[98%]">
       <div className=" grid sm:grid-cols-1 grid-cols-3 gap-4">
         {inventory?.map((item, index) => (
           <div key={index} className="rounded-3xl bg-[#F6F6F6]">

@@ -137,12 +137,13 @@ export function Nav({ children }: { children: ReactNode }) {
             </Link>
           ) : (
             <>
-              <button
-                onClick={openLogInModal}
+              <Link
+              href="/login"
+                // onClick={openLogInModal}
                 className="border hover:text-primary sm:hidden border-primary rounded-[4px] py-3 px-6 mr-4"
               >
                 Log In
-              </button>
+              </Link>
               {/* <button
                 onClick={openSignUpModal}
                 className="bg-primary rounded-[4px] py-3 px-6 hover:text-white hover:bg-primary/[0.8]  focus-visible:text-white"

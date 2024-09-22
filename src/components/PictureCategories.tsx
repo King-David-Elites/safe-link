@@ -7,7 +7,7 @@ const PictureCategories = ({
   categories: { title: string; images?: string[] }[];
 }) => {
   return (
-    <section className="p-6">
+    <section className="py-6 w-[90%] m-auto sm:w-[90%]">
       <div className="space-y-6">
         {categories?.map((category, index) => (
           <div key={index}>
@@ -22,7 +22,7 @@ const PictureCategories = ({
                     base64ToFile(image, `image${index}.png`, "image/png")
                   )}
                   alt={category?.title}
-                  className="w-[100%] h-[50vh] sm:w-[45vw] sm:h-auto rounded"
+                  className="w-[100%] h-[50vh] sm:w-[45vw] sm:h-[100px] rounded border border-primary"
                 />
               ))}
             </div>

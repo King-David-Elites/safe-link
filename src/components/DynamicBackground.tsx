@@ -49,7 +49,8 @@ const DynamicBackground = ({
               alt={`Slide ${index}`}
               className="w-full h-[100vh] object-cover"
             />
-            <div className="absolute  top-[25vh] sm:[15vh] left-0 right-0 flex flex-col items-center justify-center ">
+          <div className="overlay" />
+            <div className="absolute  top-[25vh] sm:[15vh] left-0 right-0 z-[10] flex flex-col items-center justify-center ">
               {children}
             </div>
           </>

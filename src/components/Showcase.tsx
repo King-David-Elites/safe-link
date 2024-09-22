@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import useListStore from "@/store/useListStore";
+import Loading from "@/app/loading";
+import Loader from "./Loader";
+import LoadingSpinner from "./LoadingSpinner";
+import Link from "next/link";
 //import { User } from "@/types/user"; // Add this import
 
 export interface User {
@@ -98,41 +102,55 @@ export function Showcase() {
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-1  gap-10">
           {isLoading ? (
-            <div>Loading...</div>
+            <div>
+              <LoadingSpinner />
+            </div>
           ) : (
             users.length > 0 &&
-            users?.map((item, index) => (
-              <div
-                key={index}
-                className="border-x border-b border-[#000000] rounded-lg  flex flex-col"
-              >
-                <div className="items-center mb-4 flex flex-col">
-                  <div
-                    className="w-full h-[200px] border rounded-lg bg-cover bg-no-repeat relative"
-                    style={{
-                      backgroundImage: `url(${item?.professionalPictures[0] || ""})`,
-                    }}
-                  >
-                    <div className="absolute -bottom-5 left-3">
-                      <img
-                        src={item?.profilePicture || "/image7.png"}
-                        alt="Profile"
-                        className="rounded-full w-12 h-12 bg-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="px-4 mt-10 w-full">
-                    <h3 className="text-[18px] text-left leading-6 text-black my-2">
-                      {item?.name}
-                    </h3>
-                    <p className="text-[#444544F2] text-left leading-5 text-[14px] tracking-wide">
-                      {item?.about}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex-grow mb-4"></div>
-              </div>
-            ))
+            users?.map((item, index) => {
+              return (
+                <>
+                  {
+                    item?.professionalPictures.length !== 0
+                      ?
+                      <Link
+                      href={`/profile?id=${item._id}`}
+                        key={index}
+                        className="border-x border-2 border-primary rounded-lg  flex flex-col"
+                      >
+                        <div className="items-center mb-4 flex flex-col">
+                          <div
+                            className="w-full h-[200px] border rounded-lg bg-cover bg-no-repeat relative"
+                            style={{
+                              backgroundImage: `url(${item?.professionalPictures[0] || ""})`,
+                            }}
+                          >
+                            <div className="absolute -bottom-[40px] left-3">
+                              <img
+                                src={item?.profilePicture || "/image7.png"}
+                                alt="Profile"
+                                className="rounded-full w-[80px] h-[80px] bg-cover border-2 border-primary"
+                              />
+                            </div>
+                          </div>
+                          <div className="px-4 mt-10 w-full">
+                            <h3 className="text-[18px] text-left leading-6 text-black my-2">
+                              {item?.name}
+                            </h3>
+                            <p className="text-[#444544F2] text-left leading-5 text-[14px] tracking-wide">
+                              {item?.about}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex-grow mb-4"></div>
+                      </Link>
+                      :
+
+                      null
+                  }
+                </>
+              )
+            })
           )}
         </div>
       </section>
@@ -141,12 +159,12 @@ export function Showcase() {
         <div className="h-[50vh] w-full my-2">
           <div
             className=" h-full w-full image flex flex-col items-center justify-center bg_blend"
-            // style={{
-            //   backgroundImage: "url('/background2.jpeg')",
-            //   backgroundSize: "cover",
-            //   backgroundRepeat: "no-repeat",
-            //   backgroundPosition: "center",
-            // }}
+          // style={{
+          //   backgroundImage: "url('/background2.jpeg')",
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
+          //   backgroundPosition: "center",
+          // }}
           >
             <div className="flex flex-col items-center">
               <h2 className="text-white font-semibold sm:text-lg text-[28px] sm:text-[18px] text-center">
