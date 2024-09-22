@@ -17,6 +17,7 @@ import { NavLink } from "./Nav";
 import useModalStore from "@/store/useModalStore";
 import Link from "next/link";
 import useLocalStorage from "use-local-storage";
+import useUserStore from "@/store/useUserStore";
 
 {
   /* <Drawer
@@ -84,7 +85,14 @@ const Drawer = () => {
           </div>
         </NavLink> */}
         {user && (
-          <NavLink href="/profile">
+          <NavLink
+            href={{
+              pathname: "/profile",
+              query: {
+                id: user?._id,
+              },
+            }}
+          >
             <div className="flex-row flex items-center space-x-4">
               <FaUser />
               <span>Profile</span>

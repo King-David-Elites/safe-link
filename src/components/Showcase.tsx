@@ -7,6 +7,16 @@ import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import useListStore from "@/store/useListStore";
+//import { User } from "@/types/user"; // Add this import
+
+export interface User {
+  _id: string;
+  name: string;
+  about: string;
+  profilePicture?: string;
+  professionalPictures: string[];
+  // Add other relevant fields
+}
 
 export function Showcase() {
   const {
@@ -20,29 +30,30 @@ export function Showcase() {
     openDrawer,
     closeDrawer,
   } = useModalStore();
-  const [inventory, setInventory] = useState<Product[]>([]);
+  const [users, setUsers] = useState<User[]>([]); // Add type annotation
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const getInventory = async () => {
-  //     const inventory = await fetchInventory(router);
-  //     const users = await fetchUsers(router);
-  //     console.log("users loaded", users);
-  //     if (inventory) {
-  //       setInventory(inventory);
-  //     }
-  //   };
-  //   getInventory();
-  // }, []);
+  useEffect(() => {
+    const getUsers = async () => {
+      setIsLoading(true);
+      const usersArray = await fetchUsers(router);
+      console.log("users loaded", usersArray);
+      if (usersArray) {
+        setUsers(usersArray);
+      }
+      setIsLoading(false);
+    };
+    getUsers();
+  }, [router]); // Add router to the dependency array
 
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
-  //const isFavorite = (id) => favorites.some((item) => item.id === data._id);
-  const isFavorite = (id: string) => favorites.find((obj) => obj.id === id);
+  const isFavorite = (id: string) => favorites.some((item) => item.id === id);
 
-  //@ts-ignore
-  const handleFavoriteToggle = (data) => {
+  const handleFavoriteToggle = (data: Product) => {
+    // Add type annotation
     if (isFavorite(data._id)) {
       removeFromFavorites(data._id);
     } else {
@@ -79,56 +90,52 @@ export function Showcase() {
           </button>
         </div>
       </section>
-      {/* <section className="p-5">
+      <section className="p-5">
         <div>
           <h2 className="text-[#FDAF1E] font-semibold leading-6 text-[24px] my-5 w-full sm:text-center">
             Our Top Sellers
           </h2>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-1  gap-10">
-          {inventory?.map((item, index) => (
-            <div
-              key={index}
-              className="border-x border-b border-[#000000] rounded-lg  flex flex-col"
-            >
-              <div className="items-center mb-4 flex flex-col">
-                <div
-                  className="w-full h-[200px]  rounded-lg bg-cover bg-no-repeat relative"
-                  style={{ backgroundImage: `url(${item.images[0]})` }}
-                >
-                  <div className="flex flex-row-reverse mr-4 mt-4">
-                    <button onClick={() => handleFavoriteToggle(item)}>
-                      {isFavorite(item._id) ? (
-                        <FaHeart size={20} color="black" />
-                      ) : (
-                        <FaRegHeart size={20} />
-                      )}
-                    </button>
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            users.length > 0 &&
+            users?.map((item, index) => (
+              <div
+                key={index}
+                className="border-x border-b border-[#000000] rounded-lg  flex flex-col"
+              >
+                <div className="items-center mb-4 flex flex-col">
+                  <div
+                    className="w-full h-[200px] border rounded-lg bg-cover bg-no-repeat relative"
+                    style={{
+                      backgroundImage: `url(${item?.professionalPictures[0] || ""})`,
+                    }}
+                  >
+                    <div className="absolute -bottom-5 left-3">
+                      <img
+                        src={item?.profilePicture || "/image7.png"}
+                        alt="Profile"
+                        className="rounded-full w-12 h-12 bg-cover"
+                      />
+                    </div>
                   </div>
-                  <div className="absolute -bottom-5 left-3">
-                    <Image
-                      src={item.owner.profilePicture ?? "/image7.png"}
-                      alt="Profile"
-                      width={300}
-                      height={300}
-                      className="rounded-full w-12 h-12 bg-cover"
-                    />
+                  <div className="px-4 mt-10 w-full">
+                    <h3 className="text-[18px] text-left leading-6 text-black my-2">
+                      {item?.name}
+                    </h3>
+                    <p className="text-[#444544F2] text-left leading-5 text-[14px] tracking-wide">
+                      {item?.about}
+                    </p>
                   </div>
                 </div>
-                <div className="px-4 mt-10">
-                  <h3 className="text-[18px] leading-6 text-black my-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-[#444544F2] leading-5 text-[14px] tracking-wide">
-                    {item.description}
-                  </p>
-                </div>
+                <div className="flex-grow mb-4"></div>
               </div>
-              <div className="flex-grow mb-4"></div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
-      </section> */}
+      </section>
 
       <section>
         <div className="h-[50vh] w-full my-2">

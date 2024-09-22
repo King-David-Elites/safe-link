@@ -13,10 +13,7 @@ import Drawer from "./Drawer";
 import useModalStore from "@/store/useModalStore";
 import { FaRegUserCircle } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
-
-const ServerLoginForm = dynamic(() => import("./LoginForm"), {
-  ssr: false,
-});
+import useUserStore from "@/store/useUserStore";
 
 export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
   const pathName = usePathname();
@@ -33,9 +30,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
 
 export function Nav({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [stringifiedUser] = useLocalStorage<any>("user", null);
-  const user = stringifiedUser;
-
+  const { user } = useUserStore();
+  //const user = stringifiedUser;
   console.log("user", user);
   // Replca this with the actual user
   //const [user, setUser] = useState(true);
@@ -63,7 +59,7 @@ export function Nav({ children }: { children: ReactNode }) {
     <>
       {pathName === "/" && (
         <div
-          className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-10 hidden fixed top-0 left-0 z-50  w-full `}
+          className={`sm:flex items-center justify-between px-2 bg-black bg-opacity-30 hidden fixed z-50 top-0 left-0  w-full `}
         >
           <button className="p-4  " onClick={openDrawer}>
             <FaBars size={24} color="white" />
@@ -77,9 +73,17 @@ export function Nav({ children }: { children: ReactNode }) {
             </Link>
           </div>
 
-          {user?.email === undefined ? (
+          {user?.email ? (
             <div className="">
-              <Link href={"/profile"} className="text-[#f2f2f2]">
+              <Link
+                href={{
+                  pathname: "/profile",
+                  query: {
+                    id: user?._id,
+                  },
+                }}
+                className="text-[#f2f2f2]"
+              >
                 <FaRegUserCircle size={30} />
               </Link>
             </div>
@@ -117,8 +121,19 @@ export function Nav({ children }: { children: ReactNode }) {
         <div className="flex flex-row items-center">
           {children}
           {user ? (
-            <Link href={"/profile"} className="">
-              <FaRegUserCircle size={30} />
+            <Link
+              href={{
+                pathname: "/profile",
+                query: {
+                  id: user?._id,
+                },
+              }}
+              className=""
+            >
+              <FaRegUserCircle
+                size={30}
+                color={pathName === "/profile" ? "#f2be56" : "#fff"}
+              />
             </Link>
           ) : (
             <>

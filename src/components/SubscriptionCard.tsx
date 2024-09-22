@@ -18,7 +18,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({subscriptions}) => {
     <div>
         
             {subscriptionArray.map((sub, idx) => (
-                <div className='bg-white drop-shadow-lg drop-shadow-[#00000026] rounded-xl p-5 shadow-lg shadow-[#00000026] mb-5 h-fit' key={idx}>
+                <div className='bg-white drop-shadow-lg drop-shadow-[#000026] rounded-xl p-5 shadow-lg shadow-[#00000026] mb-5 h-fit' key={idx}>
                     <div className='flex items-center gap-3'>
                         <img src={'/ellipse.svg'} alt="" />
                         <h2 className='text-[#170F49] leading-[35px] font-bold capitalize'>{sub.type}</h2>

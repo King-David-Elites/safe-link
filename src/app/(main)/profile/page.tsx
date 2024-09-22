@@ -13,16 +13,18 @@ import React, { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import useLocalStorage from "use-local-storage";
+import Toast from "react-hot-toast";
+import useUserStore from "@/store/useUserStore";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
 }
 
 const Page = () => {
-  const [user] = useLocalStorage<any>("user", null);
+  const { user } = useUserStore();
   console.log("user", user);
 
-  const [type, setType] = useState<"images" | "inventory">("images");
+  const [type, setType] = useState<"images" | "inventory">("inventory");
   const router = useRouter();
   //const inventory = createObjectCopies(inventoryObject);
   const [questions, setQuestions] = useState<any>([]);
@@ -30,6 +32,7 @@ const Page = () => {
   const [inventory, setInventory] = useState<Product | any>({});
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
+  const [isCategoriesLoading, setIsCategoriesLoading] = useState(true);
 
   const categories = [
     {
@@ -55,17 +58,19 @@ const Page = () => {
 
   const loadInventory = async () => {
     setIsLoading(true);
-    const data = await fetchUserInventory(user._id, router);
+    const data = user && (await fetchUserInventory(user._id, router));
     if (data) {
       setInventory(data);
       console.log("loaded inventory", data);
-      setIsLoading(false);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
     fetchQuestionsAndAnswerdata();
+    setIsCategoriesLoading(true);
+    // Simulate loading time for categories (remove this in production)
+    setTimeout(() => setIsCategoriesLoading(false), 1000);
   }, []);
 
   useEffect(() => {
@@ -74,17 +79,20 @@ const Page = () => {
     }
   }, [user]);
 
+  const LoadingSpinner = () => (
+    <div className="flex justify-center items-center">
+      <div className="my-4 border-4 border-primary rounded-full border-dashed animate-spin w-8 h-8 sm:w-6 sm:h-6"></div>
+    </div>
+  );
 
-  if(!user){
-    return (
-      <div>Loading</div>
-    )
+  if (!user) {
+    return <LoadingSpinner />;
   }
 
   return (
     <div className="w-full">
       <Head>
-        <title>KingDavid Team</title>
+        <title>{user?.email}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -98,7 +106,7 @@ const Page = () => {
           <div
             className={`text-[18px] sm:text-[13px] py-2 sm:text-[#696969] leading-5 font-medium text-black/[0.5]`}
           >
-            My Pictures
+            This is me
           </div>
           {type === "images" && (
             <div
@@ -111,7 +119,7 @@ const Page = () => {
           onClick={() => setType("inventory")}
         >
           <div className="text-[18px] sm:text-[13px] py-2 sm:text-[#696969] font-medium text-black/[0.5]">
-            My Listings
+            Patronize me
           </div>
           {type === "inventory" && (
             <div className="h-[6px] sm:h-[4px] sm:w-28 sm:bg-[#000000] bg-[#00000080] w-48 rounded-md" />
@@ -119,9 +127,23 @@ const Page = () => {
         </button>
       </div>
       {type === "images" ? (
-        <PictureCategories categories={categories} />
-      ) : (
+        isCategoriesLoading ? (
+          <LoadingSpinner />
+        ) : categories.length > 0 ? (
+          <PictureCategories categories={categories} />
+        ) : (
+          <div>
+            <p>No images found</p>
+          </div>
+        )
+      ) : isLoading ? (
+        <LoadingSpinner />
+      ) : inventory.length > 0 ? (
         <Inventory inventory={inventory} />
+      ) : (
+        <div>
+          <p>No inventory found</p>
+        </div>
       )}
       {favorites.length > 0 && (
         <div className="bg-[#B28E49] rounded-md p-2 my-3">
