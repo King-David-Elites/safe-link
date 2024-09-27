@@ -156,9 +156,9 @@ export function Showcase() {
       </section>
 
       <section>
-        <div className="h-[50vh] w-full my-2">
+        <div className="min-h-[50vh] w-full my-10 ">
           <div
-            className=" h-full w-full image flex flex-col items-center justify-center bg_blend"
+            className=" h-full w-full image py-10 px-10 flex flex-col items-center justify-center bg_blend"
           // style={{
           //   backgroundImage: "url('/background2.jpeg')",
           //   backgroundSize: "cover",
@@ -166,7 +166,7 @@ export function Showcase() {
           //   backgroundPosition: "center",
           // }}
           >
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center ">
               <h2 className="text-white font-semibold sm:text-lg text-[28px] sm:text-[18px] text-center">
                 {" "}
                 Present Yourself and Your Business Better with{" "}
@@ -185,7 +185,7 @@ export function Showcase() {
 
             <button
               onClick={openSignUpModal}
-              className="bg-[#F2BE5C] py-2 px-4 rounded border border-[#F2BE5C] text-white my-5 font-medium"
+              className="bg-[#F2BE5C] py-2 px-4 text-sm rounded border border-[#F2BE5C] text-white my-5 font-medium"
             >
               SIGN UP FOR A PROFILE TODAY
             </button>

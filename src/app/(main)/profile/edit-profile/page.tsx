@@ -9,7 +9,7 @@ import useLocalStorage from "use-local-storage";
 interface FormState {
   name: string;
   about: string;
-  cover: string | null;
+  profilePicture: string | null;
   professionalPictures: string[];
   workPictures: string[];
   leisurePictures: string[];
@@ -32,7 +32,7 @@ const Page = () => {
   const [form, setForm] = useState<FormState>({
     name: user?.name ||  "",
     about: user?.about || "",
-    cover: user?.profilePicture || null,
+    profilePicture: user?.profilePicture || null,
     professionalPictures: user?.professionalPictures || [],
     workPictures: user?.workPictures || [],
     leisurePictures: user?.leisurePictures || [],
@@ -87,7 +87,7 @@ const Page = () => {
         name: form.name,
         _id: user._id,
         about: form.about,
-        profilePicture: form.cover,
+        profilePicture: form.profilePicture,
         professionalPictures: form.professionalPictures,
         workPictures: form.workPictures,
         leisurePictures: form.leisurePictures,
@@ -139,12 +139,26 @@ const Page = () => {
 
         {/* Cover Picture */}
         <div className="flex flex-col items-start gap-2 my-2">
-          <label className="text-[#252625] font-medium text-[14px]" htmlFor="cover">
+          <label className="text-[#252625] font-medium text-[14px]" htmlFor="profilePicture">
             Profile Picture
           </label>
           <FileBase64
-            onDone={({ base64 }) => handleChange("cover", base64)}
+          multiple={false}
+            onDone={( file) => handleFileChange("profilePicture", file.base64)}
           />
+          <div className="flex flex-wrap mt-2">
+              <div className="relative mr-2 mb-2">
+                <img src={form.profilePicture as string} className="w-16 h-16 object-cover rounded" />
+                <button
+                  type="button"
+                  // onClick={() => handleDelete("professionalPictures", index)}
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full pb-[2px] h-4 w-4 flex items-center justify-center"
+                >
+                  &times;
+                </button>
+              </div>
+
+          </div>
         </div>
 
         {/* Professional Pictures */}
