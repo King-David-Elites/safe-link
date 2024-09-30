@@ -1,4 +1,4 @@
-import { register } from "@/actions/authActions";
+
 import SignUpButton from "@/components/SignUpButton";
 import Image from "next/image";
 import Link from "next/link";

@@ -4,9 +4,9 @@ import axios from "axios";
 import { clearUserData, getAccessToken } from "./userDetails";
 //const { fetch } = useFetch();
 
-export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 export const createApiInstance = async (router: any) => {
-  const accessToken = await getAccessToken();
+  const accessToken =  getAccessToken();
   const api = axios.create({
     baseURL: baseUrl,
     //timeout: 20000,
