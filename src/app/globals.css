@@ -124,3 +124,11 @@ input[type="file"]{
 @keyframes l24 {
   100% {transform: rotate(1turn)}
 }
+
+.overlay{
+  @apply absolute bg-[rgba(0,0,0,0.4)] w-[100%] h-[80vh] z-[5] top-0 left-0 right-0
+}
+
+img{
+  @apply object-cover
+}

@@ -72,7 +72,7 @@ export default function Home() {
           </div>
         </DynamicBackground>
       </div>
-      <div className="relative top-[15vh]">
+      <div className="">
         <Showcase />
       </div>
     </div>

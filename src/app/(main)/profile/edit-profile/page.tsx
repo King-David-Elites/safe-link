@@ -3,32 +3,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import FileBase64 from "react-file-base64";
-import { HiX } from "react-icons/hi";
-import {
-  fetchQuestions,
-  fetchQuestionsAnswers,
-  submitAnswer,
-  updateProfile,
-} from "@/lib/api";
 import Loading from "@/app/loading";
-import { QuestionInput } from "@/components/QuestionInput";
-import {
-  base64ToFile,
-  convertFilesToBase64,
-  convertFileToBase64,
-} from "@/util/convertImage";
+import { fetchQuestions, fetchQuestionsAnswers, updateProfile } from "@/lib/api";
 import useLocalStorage from "use-local-storage";
 import ReactFileBase64 from "react-file-base64";
 
 interface FormState {
   name: string;
   about: string;
-  // question1: string;
-  // question2: string;
-  // question3: string;
-  // question4: string;
-  // question5: string;
-  // question6: string;
+  profilePicture: string | null;
   cover: string | null;
   professionalPictures: string[];
   workPictures: string[];
@@ -36,19 +19,11 @@ interface FormState {
   address: string;
   country: string;
   state: string;
-  //city: string;
   zip: string;
   email: string;
   phone1: string;
   phone2: string;
-  answers: {};
-}
-
-interface SelectedFilesState {
-  cover: string;
-  professional_pictures: string[];
-  work_pictures: string[];
-  leisure_pictures: string[];
+  answers: Record<string, string>;
 }
 
 const Page = () => {
@@ -56,9 +31,6 @@ const Page = () => {
   const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
-
-  const [answers, setAnswers] = useState([]);
-  const [questionForm, setQuestionsForm] = useState({});
   const [user] = useLocalStorage<any>("user", null);
 
   console.log("user", user);
@@ -121,7 +93,7 @@ const Page = () => {
   }, [answers]);
 
   const [form, setForm] = useState<FormState>({
-    name: user?.name || "",
+    name: user?.name ||  "",
     about: user?.about || "",
     // question1: "",
     // question2: "",
@@ -162,74 +134,12 @@ const Page = () => {
   });
 
   useEffect(() => {
-    const loadQuestions = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchQuestions(router);
-        if (data) {
-          setQuestions(data);
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadQuestions();
-  }, [router]);
-
-  useEffect(() => {
-    const loadAnswers = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchQuestionsAnswers(router);
-        if (data) {
-          setAnswers(data);
-          const newAnswers: Record<string, string> = {};
-          data.forEach((item) => {
-            newAnswers[item.questionId.id] = item.answer;
-          });
-          setForm((prevForm) => ({
-            ...prevForm,
-            answers: newAnswers,
-          }));
-        }
-      } catch (error) {
-        console.error("Error fetching answers:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadAnswers();
-  }, [router]);
-
-  useEffect(() => {
-    if (user) {
-      setForm((prevForm) => ({
-        ...prevForm,
-        name: user.name || prevForm.name,
-        about: user.about || prevForm.about,
-        cover: user.profilePicture || prevForm.cover,
-        professionalPictures:
-          user.professionalPictures || prevForm.professionalPictures,
-        workPictures: user.workPictures || prevForm.workPictures,
-        leisurePictures: user.leisurePictures || prevForm.leisurePictures,
-        address: user.address || prevForm.address,
-        country: user.country || prevForm.country,
-        state: user.state || prevForm.state,
-        email: user.email || prevForm.email,
-        phone1: user.phoneNumber || prevForm.phone1,
-      }));
-    }
-  }, [user]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    //@ts-ignore
-    const { name, value, files } = e.target;
+    setIsLoading(true);
+    fetchQuestions(router).then((data) => {
+      setIsLoading(false);
+      if (data) setQuestions(data);
+    });
+  }, []);
 
     //   if (files) {
     //     setForm((prevForm) => ({
@@ -470,6 +380,7 @@ const Page = () => {
             </div>
           </div>
 
+
           <div className="flex flex-col items-start gap-2 my-2">
             <label
               className="text-[#252625] font-medium text-[14px] leading-3"
@@ -689,14 +600,14 @@ const Page = () => {
             >
               {question.text}
             </label>
-            <input
+            <textarea
               className="border-[0.5px] border-[#A6A6A6] rounded w-full p-2 focus:outline-none"
-              type="text"
-              name={question.id}
-              value={form.answers[question.id] || ""}
-              onChange={handleAnswerChange}
+              name={`answers[${question._id}]`}
+              value={form.answers[question._id] || ""}
+              onChange={(e) => handleChange("answers", { ...form.answers, [question._id]: e.target.value })}
             />
           </div>
+
         ))} */}
 
           <button

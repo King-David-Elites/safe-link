@@ -15,16 +15,23 @@ import { MdDelete } from "react-icons/md";
 import useLocalStorage from "use-local-storage";
 import Toast from "react-hot-toast";
 import useUserStore from "@/store/useUserStore";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
 }
 
 const Page = () => {
-  const { user } = useUserStore();
-  console.log("user", user);
+  // const { user } = useUserStore();
+  // console.log("user", user);
 
-  const [type, setType] = useState<"images" | "inventory">("inventory");
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")))
+  }, [])
+
+  const [type, setType] = useState<"images" | "inventory">("images");
   const router = useRouter();
   //const inventory = createObjectCopies(inventoryObject);
   const [questions, setQuestions] = useState<any>([]);
@@ -79,11 +86,7 @@ const Page = () => {
     }
   }, [user]);
 
-  const LoadingSpinner = () => (
-    <div className="flex justify-center items-center">
-      <div className="my-4 border-4 border-primary rounded-full border-dashed animate-spin w-8 h-8 sm:w-6 sm:h-6"></div>
-    </div>
-  );
+ 
 
   if (!user) {
     return <LoadingSpinner />;
@@ -96,7 +99,7 @@ const Page = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ProfileHeader />
+      <ProfileHeader user={user} />
       {questions.length > 0 && <QA questions={questions} />}
       <div className="flex-row flex justify-around my-8 border-y-4 border-[#ECEDEE]">
         <button
@@ -141,7 +144,7 @@ const Page = () => {
       ) : inventory.length > 0 ? (
         <Inventory inventory={inventory} />
       ) : (
-        <div>
+        <div className="flex items-center justify-center py-20">
           <p>No inventory found</p>
         </div>
       )}

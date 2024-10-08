@@ -57,7 +57,13 @@ export function useLogin() {
         localStorage.setItem("accessToken", data.data.accessToken);
         localStorage.setItem("user", JSON.stringify(data.data.user));
       }
-      setUser(data.data.user);
+      let user = data.data.user
+      delete user.profilePicture
+      delete user.workPictures
+      delete user.leisurePictures 
+      delete user.professionalPictures
+      console.log(user)
+      setUser(user);
 
       router.replace("/");
       toast.success("Logged in successfully");
