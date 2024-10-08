@@ -7,6 +7,7 @@ import { HiX } from "react-icons/hi";
 import {
   fetchQuestions,
   fetchQuestionsAnswers,
+  fetchUser,
   submitAnswer,
   updateProfile,
 } from "@/lib/api";
@@ -61,6 +62,10 @@ const Page = () => {
 
   console.log("user", user);
   const id = user?._id;
+
+  // useEffect(() => {
+  //   fetchUser(router).then((data) => console.log("_user_", data));
+  // }, []);
 
   useEffect(() => {
     setIsLoading(true);

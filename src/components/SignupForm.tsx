@@ -53,6 +53,17 @@ export default function SignupForm() {
             required
           />
         </div>
+        <div className="">
+          <div>Username</div>
+          <input
+            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
+            id="name"
+            title="Name"
+            name="name"
+            placeholder="Enter your Name here"
+            type="text"
+          />
+        </div>
         <div>
           <label htmlFor="password">Password</label>
           <input

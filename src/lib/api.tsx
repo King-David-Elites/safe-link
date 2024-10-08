@@ -191,13 +191,47 @@ export const fetchUsers = async (router: any): Promise<any[] | null> => {
   try {
     const api = await createApiInstance(router);
     const response = await api.get(`/user/all`);
-    console.log("Inventory response:", response);
+    console.log("Users response:", response);
 
     const data = response.data.data;
     return data;
   } catch (error) {
     console.error("Error fetching user:", error);
     //Toast.error("Error fetching user");
+    return null;
+  }
+};
+
+export const fetchUser = async (router: any): Promise<any[] | null> => {
+  Toast.dismiss();
+  try {
+    const api = await createApiInstance(router);
+    const response = await api.get(`/user/`);
+    console.log("User response:", response);
+
+    const data = response.data.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    //Toast.error("Error fetching user");
+    return null;
+  }
+};
+
+export const getSubscriptionPlans = async (
+  router: any
+): Promise<any[] | null> => {
+  Toast.dismiss();
+  try {
+    const api = await createApiInstance(router);
+    const response = await api.get("/subscription/plan");
+    console.log("Subscription plans response:", response);
+
+    const data = response.data.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching subscription plans:", error);
+    Toast.error("Error fetching subscription plans");
     return null;
   }
 };

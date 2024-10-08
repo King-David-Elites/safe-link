@@ -88,9 +88,9 @@ const Drawer = () => {
           <NavLink
             href={{
               pathname: "/profile",
-              query: {
-                id: user?._id,
-              },
+              // query: {
+              //   id: user?._id,
+              // },
             }}
           >
             <div className="flex-row flex items-center space-x-4">

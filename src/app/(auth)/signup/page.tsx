@@ -1,9 +1,9 @@
 import { register } from "@/actions/authActions";
+import PasswordInput from "@/components/PasswordInput";
 import SignUpButton from "@/components/SignUpButton";
 import Image from "next/image";
 import Link from "next/link";
-//import { useRouter } from "next/navigation";
-import React from "react";
+//import { useRouter } from "next/navigation"
 import { MdCancel } from "react-icons/md";
 
 async function page() {
@@ -23,6 +23,7 @@ async function page() {
   }
   //const data = await getData();
   //console.log("data", data);
+
   return (
     <div className="flex flex-col items-center sm:px-[5%] h-screen max-w-[500px] mx-auto">
       <div className="flex-row w-full flex items-center">
@@ -47,28 +48,18 @@ async function page() {
           />
         </div>
         <div className="">
-          <div>Password</div>
+          <div>Username</div>
           <input
             className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
-            id="password"
-            title="Password"
-            name="password"
-            placeholder="••••••••"
-            type="password"
+            id="name"
+            title="Name"
+            name="name"
+            placeholder="Enter your Name here"
+            type="text"
           />
         </div>
-        <div className="">
-          <div>Confirm Password</div>
-          <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
-            id="confirmPassword"
-            title="Confirm Password"
-            name="confirmPassword"
-            placeholder="••••••••"
-            type="password"
-          />
-        </div>
-
+        <PasswordInput id="password" label="Password" />
+        <PasswordInput id="confirmPassword" label="Confirm Password" />
         <div className="flex flex-row space-x-2 items-start">
           <input type="checkbox"></input>
           <div className="text-xs">

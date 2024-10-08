@@ -11,16 +11,23 @@ import Toast from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import useUserStore from "@/store/useUserStore";
 import { base64ToFile } from "@/util/convertImage";
+import Lightbox from "yet-another-react-lightbox";
+import NextJsLightBox from "./NextJsLightBox";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 //import { ShareSocial } from "react-share-social";
 
 const ProfileHeader = () => {
   const router = useRouter();
   const { user } = useUserStore();
 
-  const params = useSearchParams();
-  const profileId = params.get("id");
+  //const params = useSearchParams();
+  //const profileId = params.get("id");
 
-  const isOwnProfile = user?._id === profileId;
+  //const isOwnProfile = user?._id === profileId;
 
   console.log("user", user);
 
@@ -30,8 +37,23 @@ const ProfileHeader = () => {
     setShareUrl(`${window.location.origin}/profile/${user?._id}`);
   }, [user?._id]);
 
+  const [open, setOpen] = useState(false);
+  const imageSlides = [{ src: user?.profilePicture ?? "/pp-placeholder.png" }];
+
   return (
     <header className="w-full overflow-x-hidden">
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={imageSlides}
+        render={{
+          slide: NextJsLightBox,
+          buttonPrev: imageSlides.length <= 1 ? () => null : undefined,
+          buttonNext: imageSlides.length <= 1 ? () => null : undefined,
+        }}
+        carousel={{ finite: imageSlides.length <= 1 }}
+        plugins={[Fullscreen]}
+      />
       <div className="relative ">
         <img
           src={
@@ -51,13 +73,16 @@ const ProfileHeader = () => {
       </div>
       <div className="w-full mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
         <div className="flex flex-row items-center gap-2 ">
-          <div className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full">
+          <button
+            onClick={() => setOpen(true)}
+            className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full"
+          >
             <img
               className="w-full h-full rounded-full"
               src={user?.profilePicture ?? "/pp-placeholder.png"}
               alt="profile"
             />
-          </div>
+          </button>
           <div className="">
             <h1 className="flex items-center gap-1 font-semibold sm:w-auto w-[40vw] text-[22px] sm1:text-[12px] break-words">
               <span className="max-w-full overflow-hidden">{user?.email}</span>
@@ -73,18 +98,17 @@ const ProfileHeader = () => {
         </div>
         <div className="flex items-center gap-2   ">
           <div className="flex items-center gap-3 justify-between sm1:flex-wrap sm1:justify-center">
-            {isOwnProfile && (
-              <Link
-                href="/profile/edit-profile"
-                className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap sm1:hidden"
-              >
-                <MdEdit size={20} />
-                edit profile
-              </Link>
-            )}
+            <Link
+              href="/profile/edit-profile"
+              className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap sm1:hidden"
+            >
+              <MdEdit size={20} />
+              edit profile
+            </Link>
+
             <RWebShare
               data={{
-                text: "",
+                text: "User Profile",
                 url: shareUrl,
                 title: "share profile",
               }}
@@ -94,15 +118,14 @@ const ProfileHeader = () => {
                 share profile
               </button>
             </RWebShare>
-            {isOwnProfile && (
-              <Link
-                href={"/pricing"}
-                className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden"
-              >
-                <HiUpload size={20} />
-                upgrade account
-              </Link>
-            )}
+
+            <Link
+              href={"/pricing"}
+              className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap sm1:hidden"
+            >
+              <HiUpload size={20} />
+              upgrade account
+            </Link>
           </div>
         </div>
       </div>
@@ -110,43 +133,41 @@ const ProfileHeader = () => {
       <p className="my-2 mx-[5%] sm1:mx-[5%]  text-[#444544] tracking-wide sm:text-[12px] text-[18px] leading-4">
         {user?.about}
       </p>
-      {isOwnProfile && (
-        <div className="mb-2 mt-4 w-full justify-center hidden sm1:flex">
-          <RWebShare
-            data={{
-              text: "",
-              url: shareUrl,
-              title: "share profile",
-            }}
-            onClick={() => console.log("shared successfully!")}
-          >
-            <button className="bg-[#F2BE5C]  w-[90%] rounded-md text-white capitalize flex items-center justify-center gap-3 leading-6 p-2 border border-[#F2BE5C] cursor-pointer text-nowrap">
-              share profile
-            </button>
-          </RWebShare>
-        </div>
-      )}
+
+      <div className="mb-2 mt-4 w-full justify-center hidden sm1:flex">
+        <RWebShare
+          data={{
+            text: "",
+            url: shareUrl,
+            title: "share profile",
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <button className="bg-[#F2BE5C]  w-[90%] rounded-md text-white capitalize flex items-center justify-center gap-3 leading-6 p-2 border border-[#F2BE5C] cursor-pointer text-nowrap">
+            share profile
+          </button>
+        </RWebShare>
+      </div>
+
       <div className="hidden sm1:flex items-center justify-between mx-[5%]">
-        {isOwnProfile && (
-          <>
-            <button
-              onClick={() => {
-                router.push("/profile/edit-profile");
-              }}
-              className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
-            >
-              <MdEdit size={16} />
-              edit profile
-            </button>
-            <Link
-              href={"/pricing"}
-              className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap"
-            >
-              <HiUpload size={20} />
-              upgrade account
-            </Link>
-          </>
-        )}
+        <>
+          <button
+            onClick={() => {
+              router.push("/profile/edit-profile");
+            }}
+            className="text-[#737373] capitalize flex items-center gap-3 leading-6 p-2 border border-[#A6A6A6] rounded cursor-pointer text-nowrap"
+          >
+            <MdEdit size={16} />
+            edit profile
+          </button>
+          <Link
+            href={"/pricing"}
+            className="bg-[#252625] text-[#F2F2F2] capitalize flex items-center gap-3 leading-6 p-2 border border-[#252625] rounded cursor-pointer text-nowrap"
+          >
+            <HiUpload size={20} />
+            upgrade account
+          </Link>
+        </>
       </div>
     </header>
   );

@@ -3,7 +3,7 @@ import Inventory from "@/components/Inventory";
 import PictureCategories from "@/components/PictureCategories";
 import ProfileHeader from "@/components/ProfileHeader";
 import QA from "@/components/QA";
-import { fetchQuestionsAnswers, fetchUserInventory } from "@/lib/api";
+import { baseUrl, fetchQuestionsAnswers, fetchUserInventory } from "@/lib/api";
 import useListStore from "@/store/useListStore";
 import { Product } from "@/types/product";
 import { formatToNaira } from "@/util/formatToNaira";
@@ -15,9 +15,26 @@ import { MdDelete } from "react-icons/md";
 import useLocalStorage from "use-local-storage";
 import Toast from "react-hot-toast";
 import useUserStore from "@/store/useUserStore";
+import { ImageResponse } from "next/og";
+import { Metadata } from "next";
+import Lightbox from "yet-another-react-lightbox";
+import NextJsLightBox from "@/components/NextJsLightBox";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
 function createObjectCopies<T>(obj: T): T[] {
   return new Array(6).fill({ ...obj });
+}
+
+let user;
+try {
+  user = fetch(`${baseUrl}/user/`).then((res) => res.json());
+} catch (error) {
+  console.error("Failed to fetch user:", error);
+  user = { email: "Unknown User" }; // Fallback in case of error
 }
 
 const Page = () => {
@@ -91,10 +108,10 @@ const Page = () => {
 
   return (
     <div className="w-full">
-      <Head>
+      {/* <Head>
         <title>{user?.email}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+        <link rel="icon" href="@/favicon.ico" />
+      </Head> */}
 
       <ProfileHeader />
       {questions.length > 0 && <QA questions={questions} />}

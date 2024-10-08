@@ -6,16 +6,16 @@ import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white text-[12px] px-8 pt-14 pb-10 sm:px-2">
-      <div className="container mx-auto sm:px-6 px-16 grid sm:grid-cols-1 grid-cols-4 gap-8">
+    <footer className="bg-black text-white text-[12px] px-4 pt-24 pb-10 sm:px-2">
+      <div className="container mx-auto grid sm:grid-cols-1 grid-cols-4 gap-8">
         <div>
           <h2 className="font-medium text-lg mb-4">SAFELINK</h2>
-          <p className="text--[12px] mb-6">
+          <p className="text-[12px] mb-6">
             SafeLink helps you organize your business details, photos, and
             prices in one simple link. No need to fill up your phone or your
-            clients’ phones with too many pictures—just send one link! It’s
-            easier for your customers to buy from you and share your
-            business with others.
+            clients' phones with too many pictures—just send one link! It's
+            easier for your customers to buy from you and share your business
+            with others.
           </p>
           <div className="flex space-x-4">
             <Link

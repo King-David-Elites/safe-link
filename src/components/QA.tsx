@@ -16,7 +16,7 @@ const QA = ({
             key={index}
             className="bg-black min-w-[30vw] w-[30vw] sm:min-w-[80vw]  sm:w-[80vw] text-white p-4 rounded-xl"
           >
-            <div className="text-[14px] leading-6 font-medium mb-2 ">
+            <div className="text-[14px] text-primary leading-6 font-medium mb-2 ">
               {qa.questionId.question}
             </div>
             <p className="text-[13px] font-normal leading-6">{qa.answer}</p>

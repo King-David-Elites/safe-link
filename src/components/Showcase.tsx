@@ -96,7 +96,7 @@ export function Showcase() {
             Our Top Sellers
           </h2>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-1  gap-10">
+        <div className="grid grid-cols-3 sm:grid-cols-2  gap-10">
           {isLoading ? (
             <div>Loading...</div>
           ) : (

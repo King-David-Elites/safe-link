@@ -3,6 +3,7 @@ import React from "react";
 
 function ProductImages({ images }: { images: string[] }) {
   const otherImages = images?.slice(1);
+  //const otherImages = ["asd", "asd", "asd"];
   if (images) {
     return (
       <div className="mt-10 gap-3 grid">
@@ -13,13 +14,13 @@ function ProductImages({ images }: { images: string[] }) {
               className="h-[400px] w-[90vw] "
             />
 
-            <div className="grid grid-cols-3 sm:grid-cols-2">
+            <div className="grid grid-cols-3 sm:grid-cols-2 gap-2">
               {otherImages.map((image, index) => (
                 <img
                   key={index}
                   src={image}
                   alt="product image"
-                  className="h-[150px] w-full"
+                  className="h-[150px] w-full border"
                 />
               ))}
             </div>

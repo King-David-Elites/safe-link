@@ -30,29 +30,29 @@ const DynamicBackground = ({
   return (
     <div className="h-[80vh] mb-8 relative overflow-hidden">
       {/* Current Image */}
+      <div className="absolute z-30 top-[25vh] sm:[15vh] left-0 right-0 flex flex-col items-center justify-center ">
+        {children}
+      </div>
       <Carousel
         responsive={responsive}
         className="w-[100%] object-cover"
         showDots={false}
         autoPlay={true}
         ssr={true}
-        autoPlaySpeed={7500}
-        customTransition="all .7"
+        autoPlaySpeed={4000}
+        transitionDuration={2000}
+        customTransition="transform 500ms ease-in-out"
         arrows={false}
         infinite={true}
       >
         {images?.map((image, index) => (
-          <>
-            <img
-              src={image}
-              key={index}
-              alt={`Slide ${index}`}
-              className="w-full h-[100vh] object-cover"
-            />
-            <div className="absolute  top-[25vh] sm:[15vh] left-0 right-0 flex flex-col items-center justify-center ">
-              {children}
-            </div>
-          </>
+          <img
+            src={image}
+            key={index}
+            alt={`Slide ${index}`}
+            className="w-full h-[100vh] object-cover"
+          />
+
           // <div
           //   key={index}
           //   className="absolute inset-0 flex flex-col items-center justify-center "

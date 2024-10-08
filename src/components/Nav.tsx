@@ -78,9 +78,9 @@ export function Nav({ children }: { children: ReactNode }) {
               <Link
                 href={{
                   pathname: "/profile",
-                  query: {
-                    id: user?._id,
-                  },
+                  // query: {
+                  //   id: user?._id,
+                  // },
                 }}
                 className="text-[#f2f2f2]"
               >
@@ -113,7 +113,7 @@ export function Nav({ children }: { children: ReactNode }) {
           <Image
             alt="logo"
             src={"/logo.svg"}
-            className="object-cover"
+            className="object-contain"
             width={100}
             height={50}
           />
@@ -124,9 +124,9 @@ export function Nav({ children }: { children: ReactNode }) {
             <Link
               href={{
                 pathname: "/profile",
-                query: {
-                  id: user?._id,
-                },
+                // query: {
+                //   id: user?._id,
+                // },
               }}
               className=""
             >

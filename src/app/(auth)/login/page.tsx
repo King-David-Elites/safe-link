@@ -1,6 +1,8 @@
-"use server";
+"use client";
 import { logIn } from "@/actions/authActions";
 import LogInButton from "@/components/LogInButton";
+import PasswordInput from "@/components/PasswordInput";
+import { GoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import Link from "next/link";
 //import { useRouter } from "next/navigation";
@@ -47,17 +49,8 @@ async function page() {
             type="email"
           />
         </div>
-        <div className="">
-          <div>Password</div>
-          <input
-            className="border border-[#737373] outline-none focus:border-2 focus:border-primary p-3 w-full rounded-[4px]"
-            id="password"
-            title="Password"
-            name="password"
-            placeholder="••••••••"
-            type="password"
-          />
-        </div>
+        <PasswordInput id="password" label="Password" />
+        {/* <PasswordInput id="confirmPassword" label="Confirm Password" /> */}
         {/* <div className="">
           <div>Confirm Password</div>
           <input
@@ -84,12 +77,25 @@ async function page() {
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      {/* <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
-      </button>
+      </button> */}
+
+      <div className="w-[100%]">
+        <GoogleLogin
+          //width={"100%"}
+          onSuccess={(credentialResponse) => {
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+          useOneTap
+        />
+      </div>
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
-        <div className="text-[14px] font-medium">Don't have an account?</div>J
+        <div className="text-[14px] font-medium">Don't have an account?</div>
         <Link
           href={"/signup"}
           className="text-blue-500 text-[14px] font-medium"

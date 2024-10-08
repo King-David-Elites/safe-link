@@ -1,12 +1,25 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import SubscriptionCard from "@/components/SubscriptionCard";
+import { getSubscriptionPlans } from "@/lib/api";
 
 const page = () => {
   const router = useRouter();
+  const [subscriptionPlans, setSubscriptionPlans] = useState<any[] | null>(
+    null
+  );
 
+  useEffect(() => {
+    const fetchSubscriptionPlans = async () => {
+      const plans = await getSubscriptionPlans(router);
+      setSubscriptionPlans(plans);
+      console.log({ plans });
+    };
+
+    fetchSubscriptionPlans();
+  }, [router]);
   const SubscriptionList = [
     {
       type: "basic",
