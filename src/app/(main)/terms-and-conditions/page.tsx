@@ -27,7 +27,7 @@ const Page = () => {
           <div className="flex-1 flex-col flex text-white mx-4 justify-center items-center mb-4">
             <h1 className="text-3xl font-semibold ">Terms & Conditions</h1>
             <h2 className="text-lg text-center ">
-              All you need to know about King David Elite
+              All you need to know about SafeLink
             </h2>
           </div>
         </div>
@@ -185,10 +185,10 @@ const Page = () => {
                 If you have any questions about these Terms and Conditions,
                 please contact us at{" "}
                 <Link
-                  href="mailto:SAFELINKng@gmail.com"
+                  href="mailto:usesafelink@gmail.com"
                   className="text-blue-500"
                 >
-                  <div>SAFELINKng@gmail.com</div>
+                  <div>usesafelink@gmail.com</div>
                 </Link>
               </p>
             </div>
@@ -206,7 +206,7 @@ const Page = () => {
         <footer className="mt-12 text-center">
           <div className="space-y-4">
             <p className="text-gray-600">
-              &copy; 2022 King David Elites. All rights reserved
+              &copy; 2022 SafeLink. All rights reserved
             </p>
             <div className="space-x-4">
               <Link href="#" className="text-gray-600">
