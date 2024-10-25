@@ -4,16 +4,22 @@ import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import SubscriptionCard from "@/components/SubscriptionCard";
 import { getSubscriptionPlans } from "@/lib/api";
+import LoadingModal from "@/components/LoadingModal";
+import Loading from "@/app/loading";
 
 const page = () => {
   const router = useRouter();
   const [subscriptionPlans, setSubscriptionPlans] = useState<any[] | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchSubscriptionPlans = async () => {
+      setIsLoading(true);
       const plans = await getSubscriptionPlans(router);
+      console.log({ plans });
+      setIsLoading(false);
       setSubscriptionPlans(plans);
       console.log({ plans });
     };
@@ -88,11 +94,17 @@ const page = () => {
       </div>
 
       <div className="sm:w-full sm:flex sm:flex-col grid grid-cols-2 gap-5 max-w-[860px] mx-auto">
-        {SubscriptionList.map((subscription, idx) => (
+        {subscriptionPlans?.map((subscription, idx) => (
           <SubscriptionCard key={idx} subscriptions={subscription} />
         ))}
         {/* <SubscriptionCard subscriptions={SubscriptionList} /> */}
       </div>
+      <LoadingModal isOpen={isLoading}>
+        <Loading />
+      </LoadingModal>
+      {/* <div className="w-full h-32 justify-center items-center">
+        <LoadingModal />
+      </div> */}
     </section>
   );
 };

@@ -64,6 +64,7 @@ export default function CreateListing() {
       images: await convertFilesToBase64(images),
       videos,
     };
+    console.log({ data });
 
     const response = await addInventory(data, router);
     console.log("rt", response);

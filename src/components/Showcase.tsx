@@ -54,12 +54,12 @@ export function Showcase() {
 
   const handleFavoriteToggle = (data: Product) => {
     // Add type annotation
-    if (isFavorite(data._id)) {
-      removeFromFavorites(data._id);
+    if (isFavorite(data._id.$oid)) {
+      removeFromFavorites(data._id.$oid);
     } else {
       // Add the item to favorites with relevant properties
       addToFavorites({
-        id: data._id,
+        id: data._id.$oid,
         title: data.title,
         description: data.description,
         price: data.price,

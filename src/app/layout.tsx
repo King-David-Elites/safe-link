@@ -57,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleOAuthProvider clientId="309112425909-homsbnmdt7mlevglhqsae6l9gpfggga0.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId="867436242411-j6ae93r63c977c914d6ljctgoglj1qrt.apps.googleusercontent.com">
         <body className={`${raleway.className}`}>
           <Nav>
             <NavLink href={"/create-listing"}>List With Us</NavLink>

@@ -92,7 +92,7 @@ export default function LoginForm() {
             onError={() => {
               console.log("Login Failed");
             }}
-            useOneTap
+            // useOneTap
           />
         </div>
 

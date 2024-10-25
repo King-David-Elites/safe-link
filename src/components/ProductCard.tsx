@@ -5,21 +5,21 @@ import Link from "next/link";
 import { Product } from "@/types/product";
 import useListStore from "@/store/useListStore";
 
-function UserCard({ data }: { data: Product }) {
+function ProductCard({ data }: { data: Product }) {
   console.log("sdf", data);
   const image = data.images[0];
   const { favorites, addToFavorites, removeFromFavorites, clearFavorites } =
     useListStore();
 
-  const isFavorite = favorites.some((item) => item.id === data._id);
+  const isFavorite = favorites.some((item) => item.id === data._id.$oid);
 
   const handleFavoriteToggle = () => {
     if (isFavorite) {
-      removeFromFavorites(data._id);
+      removeFromFavorites(data._id.$oid);
     } else {
       // Add the item to favorites with relevant properties
       addToFavorites({
-        id: data._id,
+        id: data._id.$oid,
         title: data.title,
         description: data.description,
         price: data.price,
@@ -34,7 +34,7 @@ function UserCard({ data }: { data: Product }) {
       href={{
         pathname: "/product",
         query: {
-          id: data._id,
+          id: data._id.$oid as string,
         },
       }}
     >
@@ -62,12 +62,12 @@ function UserCard({ data }: { data: Product }) {
             />
           </div>
         </div>
-        <div className="px-4 mt-10">
-          <h3 className="text-xl font-bold">
+        <div className="px-4 mt-10 w-full ">
+          <h3 className="text-xl font-bold ">
             {data.title}
             {/* {data.owner.firstName + " " + data.owner.lastName} */}
           </h3>
-          <p className="text-gray-500">{data.description}</p>
+          <p className="text-gray-500 line-clamp-3">{data.description}</p>
         </div>
       </div>
       <div className="flex-grow mb-4"></div>
@@ -75,4 +75,4 @@ function UserCard({ data }: { data: Product }) {
   );
 }
 
-export default UserCard;
+export default ProductCard;

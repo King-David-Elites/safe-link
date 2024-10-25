@@ -39,9 +39,9 @@ const DynamicBackground = ({
         showDots={false}
         autoPlay={true}
         ssr={true}
-        autoPlaySpeed={4000}
+        autoPlaySpeed={6000}
         transitionDuration={2000}
-        customTransition="transform 500ms ease-in-out"
+        customTransition="transform 300ms ease-in-out"
         arrows={false}
         infinite={true}
       >

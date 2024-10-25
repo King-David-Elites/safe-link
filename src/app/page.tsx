@@ -1,9 +1,11 @@
 "use client";
 import DynamicBackground from "@/components/DynamicBackground";
 import { Showcase } from "@/components/Showcase";
+import useSearchStore from "@/store/useSearchStore";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
 import { IoSearch } from "react-icons/io5";
 import { MdImageSearch } from "react-icons/md";
 
@@ -28,6 +30,11 @@ export default function Home() {
     "/homepage-image-16.jpg",
     "/homepage-image-17.jpg",
   ];
+
+  const { query, setQuery } = useSearchStore();
+  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <div className="flex flex-1 flex-col bg-white">
@@ -54,18 +61,20 @@ export default function Home() {
               <IoSearch />
               <div className="pl-2 w-full flex items-center justify-between">
                 <input
-                  onClick={() => {
-                    router.push("/products");
-                  }}
+                  // onClick={() => {
+                  //   router.push("/products");
+                  // }}
+                  onChange={onChangeText}
                   placeholder="Search by name or keyword"
+                  value={query}
                   className=" outline-none w-full bg-transparent sm:text-xs"
                 />
-                <img src={"/camera.svg"} alt="" className="w-6 h-6" />
+                {/* <img src={"/camera.svg"} alt="" className="w-6 h-6" /> */}
               </div>
             </div>
             <Link
               href={"/products"}
-              className="bg-primary sm:hidden flex-1 w-full text-white mx-2 px-4 py-2 rounded-lg leading-6 font-medium text-[18px] text-center "
+              className="bg-primary flex-1 w-full text-white mx-2 px-4 py-2 rounded-lg leading-6 font-medium text-[18px] text-center "
             >
               Search
             </Link>

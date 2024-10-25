@@ -26,6 +26,7 @@ function Page() {
   const router = useRouter();
   const params = useSearchParams();
   const id = params.get("id");
+  console.log({ id });
   const [open, setOpen] = useState(false);
   const [mediaType, setMediaType] = useState<"images" | "videos">("images");
   // const videos = [...Array(2)].map(() => ({
@@ -141,54 +142,52 @@ function Page() {
 
         <div className="mt-4 sm:mt-2 gap-3 grid">
           {inventory.images && inventory.videos && (
-            <>
-              <div className="space-y-4 flex flex-col items-center">
-                {mediaType === "images" ? (
-                  <ProductImages images={inventory?.images} />
-                ) : (
-                  <ProductVideos videos={inventory?.videos} />
-                )}
+            <div className="space-y-4 flex flex-col items-center">
+              {mediaType === "images" ? (
+                <ProductImages images={inventory?.images} />
+              ) : (
+                <ProductVideos videos={inventory?.videos} />
+              )}
 
-                {mediaType === "images" && (
-                  <button
-                    //href={"/view-media"}
-                    onClick={() => setOpen(true)}
-                    className="border-primary border hover:text-opacity-80 p-2 text-primary rounded-md w-[70%] sm:w-[90%]"
-                  >
-                    View Media
-                  </button>
-                )}
-
+              {mediaType === "images" && (
                 <button
-                  onClick={handleFavoriteToggle}
-                  className="bg-primary hover:bg-opacity-80 p-2  text-white rounded-md w-[70%] sm:w-[90%]"
+                  //href={"/view-media"}
+                  onClick={() => setOpen(true)}
+                  className="border-primary border hover:text-opacity-80 p-2 text-primary rounded-md w-[70%] sm:w-[90%]"
                 >
-                  {isFavorite
-                    ? "remove this item from your list"
-                    : "Add this item to your List"}
+                  View Media
                 </button>
+              )}
 
-                <div className="bg-primary/[0.6] py-4 w-[60%] rounded-lg sm:w-[90%] space-y-4 items-start px-2 flex flex-col">
-                  <div className="font-semibold">Your List</div>
-                  <div className="flex flex-row sm:flex-col justify-between  w-full ">
-                    <Link
-                      prefetch={false}
-                      href={""}
-                      className="bg-green-700 hover:bg-opacity-80 py-1 px-2 font-semibold sm:justify-center rounded-lg text-white flex flex-row items-center sm:space-x-2 space-x-1"
-                    >
-                      <FaWhatsapp size={24} color="#fff" />
-                      <div className="sm:text-sm">
-                        Share list to seller via Whatsapp
-                      </div>
-                    </Link>
-                    <button className="bg-red-700 hover:bg-opacity-80 p-1 font-semibold sm:justify-center rounded-lg text-white flex flex-row items-center sm:mt-2 sm:space-x-2 space-x-1">
-                      <MdDelete color="#fff" size={24} />
-                      <div>Clear list</div>
-                    </button>
-                  </div>
+              <button
+                onClick={handleFavoriteToggle}
+                className="bg-primary hover:bg-opacity-80 p-2  text-white rounded-md w-[70%] sm:w-[90%]"
+              >
+                {isFavorite
+                  ? "remove this item from your list"
+                  : "Add this item to your List"}
+              </button>
+
+              <div className="bg-primary/[0.6] py-4 w-[60%] rounded-lg sm:w-[90%] space-y-4 items-start px-2 flex flex-col">
+                <div className="font-semibold">Your List</div>
+                <div className="flex flex-row sm:flex-col justify-between  w-full ">
+                  <Link
+                    prefetch={false}
+                    href={""}
+                    className="bg-green-700 hover:bg-opacity-80 py-1 px-2 font-semibold sm:justify-center rounded-lg text-white flex flex-row items-center sm:space-x-2 space-x-1"
+                  >
+                    <FaWhatsapp size={24} color="#fff" />
+                    <div className="sm:text-sm">
+                      Share list to seller via Whatsapp
+                    </div>
+                  </Link>
+                  <button className="bg-red-700 hover:bg-opacity-80 p-1 font-semibold sm:justify-center rounded-lg text-white flex flex-row items-center sm:mt-2 sm:space-x-2 space-x-1">
+                    <MdDelete color="#fff" size={24} />
+                    <div>Clear list</div>
+                  </button>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

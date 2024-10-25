@@ -7,6 +7,7 @@ import { clearUserData, getAccessToken } from "./userDetails";
 export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 export const createApiInstance = async (router: any) => {
   const accessToken = await getAccessToken();
+  //console.log({ accessToken });
   const api = axios.create({
     baseURL: baseUrl,
     //timeout: 20000,
@@ -86,6 +87,35 @@ export const fetchUserInventory = async (
   }
 };
 
+export const fetchInventoryBySearch = async (
+  query: string
+): Promise<any[] | null> => {
+  Toast.dismiss();
+  try {
+    //const api = await createApiInstance(router);
+    // const formData = new FormData();
+    // formData.append("query", query);
+
+    const response = await axios.post(
+      "https://safelink-search-api.onrender.com/search",
+      { query },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log("Inventory search response:", response);
+
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching search inventory:", error);
+    //Toast.error("Error fetching inventory");
+    return null;
+  }
+};
+
 export const updateProfile = async (data: any, router: any) => {
   Toast.dismiss();
   const api = await createApiInstance(router);
@@ -117,7 +147,7 @@ export const addInventory = async (data: any, router: any) => {
     if (response.status === 200 || response.status === 201) {
       Toast.success("Inventory added successfully");
     } else {
-      //console.log()
+      console.log("error addidng inventory", response);
       Toast.error("Error adding inventory");
     }
   } catch (e) {
@@ -224,10 +254,31 @@ export const getSubscriptionPlans = async (
   Toast.dismiss();
   try {
     const api = await createApiInstance(router);
-    const response = await api.get("/subscription/plan");
+    const response = await api.get("/user/subscription/plan");
     console.log("Subscription plans response:", response);
 
-    const data = response.data.data;
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching subscription plans:", error);
+    Toast.error("Error fetching subscription plans");
+    return null;
+  }
+};
+
+export const initiateSubcription = async (
+  router: any,
+  id: string
+): Promise<any[] | null> => {
+  Toast.dismiss();
+  try {
+    const api = await createApiInstance(router);
+    const response = await api.post("/user/subscription/subcriptions", {
+      planId: id,
+    });
+    console.log("Subscription plans response:", response);
+
+    const data = response.data;
     return data;
   } catch (error) {
     console.error("Error fetching subscription plans:", error);
