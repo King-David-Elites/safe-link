@@ -54,7 +54,7 @@ const ProfileHeader = () => {
         carousel={{ finite: imageSlides.length <= 1 }}
         plugins={[Fullscreen]}
       />
-      <div className="relative ">
+      <div className="z-10">
         <img
           src={
             user?.professionalPictures && user?.professionalPictures.length > 0
@@ -62,20 +62,20 @@ const ProfileHeader = () => {
               : "/cp-placeholder.png"
           }
           alt=""
-          className="h-[150px] w-full"
+          className="h-[300px] w-full sm:h-[200px] object-cover"
         />
         <button
-          className="capitalize absolute top-2 left-2 flex items-center gap-2"
+          className="capitalize absolute top-[85px] left-[50px] sm:top-[10px] sm:left-[15px] flex z-20 items-center gap-2"
           onClick={() => router.back()}
         >
           <FaArrowLeftLong size={24} /> back
         </button>
       </div>
-      <div className="w-full mx-auto flex  items-center mt-3 justify-between sm1:px-2 ">
+      <div className="w-full px-[100px] flex items-center mt-[-40px] sm:mt-3 z-50 justify-between sm1:px-2 ">
         <div className="flex flex-row items-center gap-2 ">
           <button
             onClick={() => setOpen(true)}
-            className="w-20 h-20  sm1:h-12 sm1:w-12 rounded-full"
+            className="w-[150px] h-[150px]  sm1:h-12 sm1:w-12 rounded-full"
           >
             <img
               className="w-full h-full rounded-full"
@@ -130,7 +130,7 @@ const ProfileHeader = () => {
         </div>
       </div>
 
-      <p className="my-2 mx-[5%] sm1:mx-[5%]  text-[#444544] tracking-wide sm:text-[12px] text-[18px] leading-4">
+      <p className="my-2 mx-[8%] sm1:mx-[5%] mt-[28px] text-[#444544] tracking-wide sm:text-[12px] text-[18px] leading-4">
         {user?.about}
       </p>
 
