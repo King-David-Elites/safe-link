@@ -1,8 +1,8 @@
 "use client";
 import { logIn } from "@/actions/authActions";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 import LogInButton from "@/components/LogInButton";
 import PasswordInput from "@/components/PasswordInput";
-import { GoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import Link from "next/link";
 //import { useRouter } from "next/navigation";
@@ -82,18 +82,7 @@ async function page() {
         <div>sign up with google</div>
       </button> */}
 
-      <div className="w-[100%]">
-        <GoogleLogin
-          //width={"100%"}
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-          useOneTap
-        />
-      </div>
+      <GoogleAuthButton />
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
         <div className="text-[14px] font-medium">Don't have an account?</div>
         <Link

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { MdCancel } from "react-icons/md";
 import ModalButton from "./ModalButton";
 import SignUpButton from "./SignUpButton";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 // async function createInvoice(formData: FormData) {
 //   'use server'
@@ -107,10 +108,11 @@ export default function SignupForm() {
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px] py-1">
+      {/* <button className="flex flex-row w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px] py-1">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
-      </button>
+      </button> */}
+      <GoogleAuthButton />
       <div className="flex flex-row w-full justify-center items-center space-x-[2px] mt-2">
         <div className="text-[10px] font-medium">Already have an account?</div>
         <ModalButton actionKey="openLogIn">Sign in</ModalButton>

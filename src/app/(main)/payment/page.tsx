@@ -1,12 +1,18 @@
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import PaymentTransfer from "@/components/PaymentTransfer";
 import PaymentCard from "@/components/PaymentCard";
+import { initiateSubcription } from "@/lib/api";
+import toast from "react-hot-toast";
+import Loading from "@/app/loading";
 
 const page = () => {
   const router = useRouter();
+  const params = useSearchParams();
+  const id = params.get("id") || "";
+  const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState<"card" | "transfer">("card");
   const SubscriptionList = [
     {
@@ -22,9 +28,36 @@ const page = () => {
     },
   ];
 
+  const initiateTransaction = async () => {
+    setIsLoading(true);
+    const response = await initiateSubcription(router, id);
+    if (!response) {
+      // toast.error("Error initiating payment, please try again later");
+      setIsLoading(false);
+      return;
+    }
+    const redirectUrl = response?.auth_url;
+    setIsLoading(true);
+    router.replace(redirectUrl);
+  };
+
+  useEffect(() => {
+    if (id) {
+      initiateTransaction();
+    }
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <section className="px-5 py-10">
-      <div className="flex items-start justify-between mb-5">
+      {/* <div className="flex items-start justify-between mb-5">
         <button
           className="p-2 -mt-5"
           onClick={() => {
@@ -74,7 +107,7 @@ const page = () => {
         </button>
       </div>
 
-      <div>{type === "card" ? <PaymentCard /> : <PaymentTransfer />}</div>
+      <div>{type === "card" ? <PaymentCard /> : <PaymentTransfer />}</div> */}
     </section>
   );
 };

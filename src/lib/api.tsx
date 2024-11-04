@@ -1,10 +1,10 @@
 import { useFetch } from "@/hooks/useFetch";
-import Toast from "react-hot-toast";
+import Toast, { toast } from "react-hot-toast";
 import axios from "axios";
 import { clearUserData, getAccessToken } from "./userDetails";
 //const { fetch } = useFetch();
 
-export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+export const baseUrl = "http://localhost:3001/api/v1"; //process.env.NEXT_PUBLIC_API_BASE_URL || "";
 export const createApiInstance = async (router: any) => {
   const accessToken = await getAccessToken();
   //console.log({ accessToken });
@@ -31,6 +31,30 @@ export const createApiInstance = async (router: any) => {
   );
 
   return api;
+};
+
+export const handleGoogleLogin = async (
+  router: any,
+  googleResponse: any,
+  setUser: any
+) => {
+  try {
+    const response = await axios.post(
+      `${"http://localhost:3001"}/api/v1/auth/google`,
+      {
+        token: googleResponse.credential,
+      }
+    );
+    console.log("google sign in response", response);
+    toast.success("google sign in response");
+    localStorage.setItem("accessToken", response.data.accessToken);
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+    setUser(response.data.user);
+    router.replace("/");
+  } catch (error) {
+    console.log("google sign in failed", error);
+    toast.error("Google sign in failed");
+  }
 };
 
 export const fetchInventory = async (router: any): Promise<any[] | null> => {
@@ -248,13 +272,32 @@ export const fetchUser = async (router: any): Promise<any[] | null> => {
   }
 };
 
+export const fetchUserById = async (
+  router: any,
+  id: string
+): Promise<User | null> => {
+  Toast.dismiss();
+  try {
+    const api = await createApiInstance(router);
+    const response = await axios.get(`http://localhost:3001/api/v1/user/${id}`);
+    console.log("User response:", response);
+
+    const data = response.data.data as User;
+    return data;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    Toast.error("Error fetching user");
+    return null;
+  }
+};
+
 export const getSubscriptionPlans = async (
   router: any
 ): Promise<any[] | null> => {
   Toast.dismiss();
   try {
     const api = await createApiInstance(router);
-    const response = await api.get("/user/subscription/plan");
+    const response = await api.get("/subscription/plan");
     console.log("Subscription plans response:", response);
 
     const data = response.data;
@@ -269,20 +312,20 @@ export const getSubscriptionPlans = async (
 export const initiateSubcription = async (
   router: any,
   id: string
-): Promise<any[] | null> => {
+): Promise<any | null> => {
   Toast.dismiss();
   try {
     const api = await createApiInstance(router);
-    const response = await api.post("/user/subscription/subcriptions", {
+    const response = await api.post("/subscription/subscribe", {
       planId: id,
     });
-    console.log("Subscription plans response:", response);
+    console.log("payment initiation response:", response);
 
     const data = response.data;
     return data;
   } catch (error) {
-    console.error("Error fetching subscription plans:", error);
-    Toast.error("Error fetching subscription plans");
+    console.error("Error initiating payment:", error);
+    Toast.error("Error initiating payment");
     return null;
   }
 };

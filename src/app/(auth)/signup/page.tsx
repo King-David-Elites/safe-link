@@ -1,8 +1,10 @@
 import { register } from "@/actions/authActions";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 import PasswordInput from "@/components/PasswordInput";
 import SignUpButton from "@/components/SignUpButton";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 //import { useRouter } from "next/navigation"
 import { MdCancel } from "react-icons/md";
 
@@ -82,10 +84,11 @@ async function page() {
         <div className="text-[16px]">OR</div>
         <div className="border-b w-8 h-0 border-[#a6a6a6]"></div>
       </div>
-      <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
+      {/* <button className="flex flex-row py-3 my-2 w-[70%] sm:w-full justify-center space-x-4 items-center border border-black/[0.15] rounded-[4px]">
         <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
         <div>sign up with google</div>
-      </button>
+      </button> */}
+      <GoogleAuthButton />
       <div className="flex flex-row w-full justify-center space-x-[2px] mt-2">
         <div className="text-[14px] font-medium">Have an account?</div>
         <Link href={"/login"} className="text-blue-500 text-[14px] font-medium">

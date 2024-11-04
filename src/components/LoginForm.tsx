@@ -8,7 +8,7 @@ import ModalButton from "./ModalButton";
 import useModalStore from "@/store/useModalStore";
 import { logIn } from "@/actions/authActions";
 import LogInButton from "./LogInButton";
-import { GoogleLogin } from "@react-oauth/google";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 export default function LoginForm() {
   const {
@@ -83,19 +83,8 @@ export default function LoginForm() {
           <Image width={16} height={16} src={"/google-icon.png"} alt="google" />
           <div>sign up with google</div>
         </button> */}
-        <div className="w-[100%]">
-          <GoogleLogin
-            //width={"100%"}
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-            // useOneTap
-          />
-        </div>
 
+        <GoogleAuthButton />
         <div className="flex flex-row w-full items-center justify-center space-x-[2px] mt-2">
           <div className="text-[10px] font-medium">Don't have an account?</div>
 

@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     icon: "favicon.ico",
   },
 };
+const googleClientKey = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_KEY || "";
 
 export default function RootLayout({
   children,
@@ -57,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleOAuthProvider clientId="867436242411-j6ae93r63c977c914d6ljctgoglj1qrt.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={googleClientKey}>
         <body className={`${raleway.className}`}>
           <Nav>
             <NavLink href={"/create-listing"}>List With Us</NavLink>
