@@ -69,7 +69,7 @@ export default function Home() {
                   value={query}
                   className=" outline-none w-full bg-transparent sm:text-xs"
                 />
-                {/* <img src={"/camera.svg"} alt="" className="w-6 h-6" /> */}
+                <img src={"/camera.svg"} alt="" className="w-6 h-6" />
               </div>
             </div>
             <Link

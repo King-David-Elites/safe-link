@@ -147,7 +147,7 @@ const Page = () => {
           </p>
           {favorites.map((item, index) => (
             <div className="bg-white p-1 flex items-center justify-between gap-3 my-2 rounded-md">
-              <img className="w-10 h-10" src={item.image} alt="" />
+              <img className="w-10 h-10 object-cover" src={item.image} alt="" />
               <div className="flex-1">
                 <h3 className="text-[#F2BE5C] font-semibold text-[12px] leading-5">
                   {item?.title}
