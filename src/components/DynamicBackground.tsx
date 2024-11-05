@@ -27,6 +27,7 @@ const DynamicBackground = ({
       slidesToSlide: 1, // optional, default to 1.
     },
   };
+
   return (
     <div className="h-[80vh] mb-8 relative overflow-hidden">
       {/* Current Image */}
@@ -35,7 +36,7 @@ const DynamicBackground = ({
       </div>
       <Carousel
         responsive={responsive}
-        className="w-[100%] object-cover"
+        className="w-[100%] object-cover brightness-75 contrast-75"
         showDots={false}
         autoPlay={true}
         ssr={true}

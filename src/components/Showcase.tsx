@@ -158,7 +158,7 @@ export function Showcase() {
               </h2>
               <p
                 id="homepage-about"
-                className="text-[#f2f2f2] text-center sm:text-[14px] mt-2"
+                className="text-[#f2f2f2] sm:w-[90%] w-[80%] text-center sm:text-[14px] mt-2"
               >
                 SAFELINK helps you tell your prospects and clients about
                 yourself, your business and why they should buy from you
