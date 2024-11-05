@@ -4,7 +4,7 @@ import axios from "axios";
 import { clearUserData, getAccessToken } from "./userDetails";
 //const { fetch } = useFetch();
 
-export const baseUrl = "http://localhost:3001/api/v1"; //process.env.NEXT_PUBLIC_API_BASE_URL || "";
+export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 export const createApiInstance = async (router: any) => {
   const accessToken = await getAccessToken();
   //console.log({ accessToken });

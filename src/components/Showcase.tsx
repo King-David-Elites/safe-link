@@ -137,7 +137,7 @@ export function Showcase() {
         </div>
       </section>
 
-      <section>
+      <section className="mb-4">
         <div className="h-[50vh] w-full my-2">
           <div
             className=" h-full w-full image flex flex-col items-center justify-center bg_blend"
@@ -148,7 +148,7 @@ export function Showcase() {
             //   backgroundPosition: "center",
             // }}
           >
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center ">
               <h2 className="text-white font-semibold sm:text-lg text-[28px] sm:text-[18px] text-center">
                 {" "}
                 Present Yourself and Your Business Better with{" "}
